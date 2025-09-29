@@ -238,3 +238,32 @@ h2 {
   color: var(--text-secondary);
 }
 
+
+.search-container {
+ display: flex;
+ gap: 4rem;
+ margin-top: 2rem;
+}
+.filters {
+  flex: 0 0 250px; /* Largura fixa para os filtros */
+ }
+.results {
+flex: 1; /* Ocupa o resto do espaço */
+}
+ .filter-group {
+  margin-bottom: 1.5rem;
+ }
+.filter-group h4 {
+ margin-bottom: 0.5rem;
+ border-bottom: 1px solid var(--border);
+ padding-bottom: 0.5rem;
+ }
+.filter-group label {
+ display: block;
+ margin-bottom: 0.25rem;
+}
+.containerMagic {
+  padding-top: 2rem; /* aumenta a distância do conteúdo para a borda superior */
+  padding-left: 2rem; /* aumenta a distância do conteúdo para a borda esquerda */
+}
+  

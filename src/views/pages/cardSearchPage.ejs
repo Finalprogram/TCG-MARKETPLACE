@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <%- include('../partials/header') %>
+    <title>Explorar Cartas de Magic</title>
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+
+    <main class="containerMagic">
+        <h1>Explorar Cartas de Magic</h1>
+
+        <div class="search-container">
+            <aside class="filters">
+                <h3>Filtros</h3>
+                <form action="/cards/magic" method="GET">
+                    <div class="filter-group">
+                        <h4>Raridade</h4>
+                        <label><input type="radio" name="rarity" value="common"> Comum</label>
+                        <label><input type="radio" name="rarity" value="uncommon"> Incomum</label>
+                        <label><input type="radio" name="rarity" value="rare"> Rara</label>
+                        <label><input type="radio" name="rarity" value="mythic"> Mítica</label>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Cor</h4>
+                        <label><input type="radio" name="color" value="w"> Branco</label>
+                        <label><input type="radio" name="color" value="u"> Azul</label>
+                        <label><input type="radio" name="color" value="b"> Preto</label>
+                        <label><input type="radio" name="color" value="r"> Vermelho</label>
+                        <label><input type="radio" name="color" value="g"> Verde</label>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Aplicar Filtros</button>
+                </form>
+            </aside>
+
+            <section class="results">
+                <div class="cards-carousel">
+                    <% if (cards.length > 0) { %>
+                        <% cards.forEach(card => { %>
+                            <div class="card-item">
+                                <% if (card.image_uris && card.image_uris.normal) { %>
+                                    <img src="<%= card.image_uris.normal %>" alt="<%= card.name %>">
+                                <% } else if (card.card_faces && card.card_faces[0].image_uris) { %>
+                                    <img src="<%= card.card_faces[0].image_uris.normal %>" alt="<%= card.name %>">
+                                <% } else { %>
+                                    <img src="https://placehold.co/220x310?text=Sem+Imagem" alt="Sem imagem">
+                                <% } %>
+                                <h4><%= card.name %></h4>
+                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <p>Nenhuma carta encontrada com esses filtros.</p>
+                    <% } %>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>
