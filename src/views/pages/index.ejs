@@ -8,29 +8,47 @@
         <section class="hero">
             <h1>O seu Arsenal de Cartas em um Só Lugar</h1>
             <p>Encontre, compre e venda cards de Magic, Pokémon e Yu-Gi-Oh! com segurança.</p>
-            <div class="hero-search">
-                <input type="text" placeholder="Qual carta você procura?">
+            <form action="/buscar" method="GET" class="hero-search">
+                <input type="search" placeholder="Qual carta você procura?" required>
                 <button>Buscar</button>
-            </div>
+            </form>
         </section>
 
         <!-- 2. Seleção de Jogos -->
         <section class="game-selection">
             <h2>Navegue por Jogo</h2>
+
             <div class="game-cards">
-                <div class="game-card">
+                <a href="/cards/magic" class="game-card-link"><div class="game-card">
                     <img src="https://media.wizards.com/2017/images/daily/ImyiSsT0tEZJ.png" alt="[Imagem de cartas de Magic: The Gathering]">
                     <h3>Magic: The Gathering</h3>
                 </div>
-                <div class="game-card">
+                </a>
+                <a href="/cards/pokemon" class="game-card-link"><div class="game-card">
                     <img src="https://external-preview.redd.it/FNvoG3ZKjHol_x9B-kkAIuAjN-0RcAXAOwJF8yFR-Ro.jpg?width=640&crop=smart&auto=webp&s=305b0d0996fee07b8e4ee66838001d7d829ec496" alt="[Imagem de cartas de Pokémon TCG]">
                     <h3>Pokémon TCG</h3>
                 </div>
-                <div class="game-card">
+                </a>
+                <a href="/cards/yugioh" class="game-card-link"><div class="game-card">
                     <img src="https://m.media-amazon.com/images/I/61pjn9GaUIL._UF894,1000_QL80_.jpg" alt="[Imagem de cartas de Yu-Gi-Oh!]">
                     <h3>Yu-Gi-Oh!</h3>
                 </div>
+            </a>
+                <a href="/cards/onepiece" class="game-card-link"><div class="game-card">
+                    <img src="https://tcgpedia.com.br/images/one-card-back.webp" alt="[Imagem de cartas de One Piece]">
+                    <h3>One Piece</h3>
+                </div>
+            </a>
+
+                <div class="game-card">
+                    <img src="https://i.pinimg.com/originals/3c/1c/0f/3c1c0f4e4f0e4e8b6f4e4e8b6f4e4e8b.jpg" alt="[Imagem de cartas de Lorcana]">
+                    <h3>Lorcana</h3>
             </div>
+            <div class="game-card">
+                    <img src="https://i.pinimg.com/originals/3c/1c/0f/3c1c0f4e4f0e4e8b6f4e4e8b6f4e4e8b.jpg" alt="[Imagem de cartas de Digimon]">
+                    <h3>Digimon</h3>
+            </div>
+            
         </section>
 
         <!-- 3. "Recém-Adicionados" -->

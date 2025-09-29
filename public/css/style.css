@@ -145,6 +145,10 @@ h2 {
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
 }
+.game-card-link{
+  text-decoration: none;
+  color: inherit;
+}
 .game-card {
   background-color: var(--bg-surface);
   border-radius: 8px;
