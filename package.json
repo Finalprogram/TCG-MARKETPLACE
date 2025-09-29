@@ -1,0 +1,23 @@
+{
+  "name": "tcg-marketplace",
+  "version": "1.0.0",
+  "description": "TCG Marketplace que engloba todos os TCGs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Finalprogram/TCG-MARKETPLACE.git"
+  },
+  "author": "Muliru",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Finalprogram/TCG-MARKETPLACE/issues"
+  },
+  "homepage": "https://github.com/Finalprogram/TCG-MARKETPLACE#readme",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0"
+  }
+}

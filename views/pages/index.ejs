@@ -1,0 +1,79 @@
+<%- include('../partials/header') %>
+
+<div class="container">
+    <%- include('../partials/navbar') %>
+
+    <main>
+        <!-- 1. Seção "Herói" -->
+        <section class="hero">
+            <h1>O seu Arsenal de Cartas em um Só Lugar</h1>
+            <p>Encontre, compre e venda cards de Magic, Pokémon e Yu-Gi-Oh! com segurança.</p>
+            <div class="hero-search">
+                <input type="text" placeholder="Qual carta você procura?">
+                <button>Buscar</button>
+            </div>
+        </section>
+
+        <!-- 2. Seleção de Jogos -->
+        <section class="game-selection">
+            <h2>Navegue por Jogo</h2>
+            <div class="game-cards">
+                <div class="game-card">
+                    <img src="https://placehold.co/400x300/242833/98A0B3?text=Magic" alt="[Imagem de cartas de Magic: The Gathering]">
+                    <h3>Magic: The Gathering</h3>
+                </div>
+                <div class="game-card">
+                    <img src="https://placehold.co/400x300/242833/98A0B3?text=Pokémon" alt="[Imagem de cartas de Pokémon TCG]">
+                    <h3>Pokémon TCG</h3>
+                </div>
+                <div class="game-card">
+                    <img src="https://placehold.co/400x300/242833/98A0B3?text=Yu-Gi-Oh!" alt="[Imagem de cartas de Yu-Gi-Oh!]">
+                    <h3>Yu-Gi-Oh!</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. "Recém-Adicionados" -->
+        <section class="recently-added">
+            <h2>Recém-Adicionados</h2>
+            <div class="cards-carousel">
+                <% if (typeof recentlyAdded !== 'undefined' && recentlyAdded.length) { %>
+                    <% recentlyAdded.forEach(card => { %>
+                        <div class="card-item">
+                            <img src="<%= card.image %>" alt="[Imagem da carta <%= card.name %>]">
+                            <h4><%= card.name %></h4>
+                            <p>A partir de R$ <%= card.price %></p>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p>Nenhuma carta encontrada.</p>
+                <% } %>
+            </div>
+        </section>
+
+        <!-- 4. Seção de Confiança -->
+        <section class="how-it-works">
+            <h2>Negocie com Confiança</h2>
+            <div class="steps">
+                <div class="step">
+                    <span>💳</span>
+                    <h3>Pagamento Protegido</h3>
+                    <p>Seu dinheiro fica seguro conosco até você receber o produto.</p>
+                </div>
+                <div class="step">
+                    <span>🛡️</span>
+                    <h3>Vendedores Verificados</h3>
+                    <p>Compre de lojas com boa reputação e histórico na plataforma.</p>
+                </div>
+                <div class="step">
+                    <span>📦</span>
+                    <h3>Envio Garantido</h3>
+                    <p>Acompanhe seu pedido e tenha a garantia de recebimento.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+</div> <!-- A tag </div> do container é fechada aqui -->
+
+<%- include('../partials/footer') %>
+

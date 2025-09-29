@@ -1,0 +1,236 @@
+/* Paleta de Cores "Mana Noturno" e Configurações Globais */
+:root {
+  --bg-primary: #1A1D24;
+  --bg-surface: #242833;
+  --border: #3C4150;
+  --text-primary: #F0F2F5;
+  --text-secondary: #98A0B3;
+  --accent-primary: #8A4FFF;
+  --accent-hover: #A479FF;
+}
+
+/* Reset básico e aplicação da fonte */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- Estilos da Navbar --- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.logo {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+.nav-links a {
+  margin: 0 1rem;
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+.nav-links a:hover {
+  color: var(--accent-primary);
+}
+.btn-primary, .btn-secondary {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+.btn-primary {
+  background-color: var(--accent-primary);
+  color: var(--bg-primary);
+}
+.btn-secondary {
+  background-color: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  margin-right: 0.5rem;
+}
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+}
+.btn-secondary:hover {
+    border-color: var(--text-secondary);
+    color: var(--text-secondary);
+}
+
+/* --- Estilos da Página Inicial --- */
+main section {
+  padding: 4rem 0;
+}
+
+.hero {
+  text-align: center;
+  padding: 6rem 0;
+}
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+.hero p {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+}
+.hero-search {
+  display: flex;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.hero-search input {
+  flex-grow: 1;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 6px 0 0 6px;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  outline: none;
+}
+.hero-search input:focus {
+    border-color: var(--accent-primary);
+}
+.hero-search button {
+  padding: 1rem 2rem;
+  border: none;
+  background-color: var(--accent-primary);
+  color: var(--bg-primary);
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.hero-search button:hover {
+    background-color: var(--accent-hover);
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.game-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.game-card {
+  background-color: var(--bg-surface);
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  border: 1px solid var(--border);
+}
+.game-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent-primary);
+}
+.game-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.game-card h3 {
+  padding: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.cards-carousel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+}
+.card-item {
+  background-color: var(--bg-surface);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+.card-item:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent-primary);
+}
+.card-item img {
+  width: 100%;
+  border-radius: 6px;
+}
+.card-item h4 {
+  margin-top: 1rem;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-item p {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.how-it-works .steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+.step span {
+  font-size: 3rem;
+  display: inline-block;
+  background-color: var(--bg-surface);
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  border-radius: 50%;
+}
+.step h3 {
+  font-size: 1.5rem;
+  margin: 1.5rem 0 0.5rem 0;
+}
+.step p {
+  color: var(--text-secondary);
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.footer {
+  text-align: center;
+  padding: 2rem 0;
+  margin-top: 4rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
