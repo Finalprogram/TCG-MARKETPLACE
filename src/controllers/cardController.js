@@ -26,7 +26,7 @@ const searchCards = async (req, res) => {
 const showMagicCardsPage = async (req, res) => {
   try {
     // Monta a query base para buscar cartas de Magic
-    let scryfallQuery = 'game:magic';
+    let scryfallQuery = 'f:standard order:released';
 
     // --- LÓGICA PARA ADICIONAR FILTROS ---
     // Filtro de Raridade (ex: /cards/magic?rarity=rare)
@@ -42,18 +42,24 @@ const showMagicCardsPage = async (req, res) => {
       scryfallQuery += ` t:${req.query.type}`;
     }
     
-    console.log("Query enviada para Scryfall:", scryfallQuery); // Ótimo para debugar!
+    const currentPage = parseInt(req.query.p) || 1;
+    console.log(`Buscando : "${scryfallQuery}" | Página:, ${currentPage}`);
+    console.log("Query enviada para Scryfall:", scryfallQuery);//para Debug
 
     const cardsFound = await scryfallService.searchCards(scryfallQuery);
-
+    const scryfallResult = await scryfallService.searchCards(scryfallQuery, currentPage);
+    // console.log('RESULTADO COMPLETO DA SCRYFALL:', scryfallResult); // Ver tudo que a Scryfall retornou
     res.render('pages/cardSearchPage', { // Renderiza a NOVA PÁGINA
-      cards: cardsFound,
+      cards: scryfallResult.data, // As cartas estão em data
+      hasMore: scryfallResult.has_more,
+      totalCards: scryfallResult.total_cards,
+      currentPage: currentPage,
       filters: req.query // Passa os filtros atuais para a view
     });
 
   } catch (error) {
     console.error("Erro na página de busca de cards:", error);
-    res.render('pages/cardSearchPage', { cards: [], filters: {} });
+    res.render('pages/cardSearchPage', { cards: [], filters: {}, hasMore: false, totalCards: 0, currentPage: 1 }); // Renderiza a página vazia em caso de erro
   }
 };
 

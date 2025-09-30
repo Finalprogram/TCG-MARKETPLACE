@@ -262,6 +262,7 @@ flex: 1; /* Ocupa o resto do espaço */
  display: block;
  margin-bottom: 0.25rem;
 }
+
 .containerMagic {
   padding-top: 2rem; /* aumenta a distância do conteúdo para a borda superior */
   padding-left: 2rem; /* aumenta a distância do conteúdo para a borda esquerda */

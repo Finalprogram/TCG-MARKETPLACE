@@ -5,9 +5,10 @@
     <title>Explorar Cartas de Magic</title>
 </head>
 <body>
+    <div class="container">
     <%- include('../partials/navbar') %>
-
-    <main class="containerMagic">
+    </div>
+    <main class="container">
         <h1>Explorar Cartas de Magic</h1>
 
         <div class="search-container">
@@ -21,7 +22,6 @@
                         <label><input type="radio" name="rarity" value="rare"> Rara</label>
                         <label><input type="radio" name="rarity" value="mythic"> Mítica</label>
                     </div>
-
                     <div class="filter-group">
                         <h4>Cor</h4>
                         <label><input type="radio" name="color" value="w"> Branco</label>
@@ -30,7 +30,6 @@
                         <label><input type="radio" name="color" value="r"> Vermelho</label>
                         <label><input type="radio" name="color" value="g"> Verde</label>
                     </div>
-
                     <button type="submit" class="btn-primary">Aplicar Filtros</button>
                 </form>
             </aside>
@@ -53,10 +52,26 @@
                     <% } else { %>
                         <p>Nenhuma carta encontrada com esses filtros.</p>
                     <% } %>
+                </div> <% 
+                  const params = new URLSearchParams(filters);
+                  params.delete('p');
+                  const filterQueryString = params.toString();
+                %>
+                <div class="pagination" style="display: flex; justify-content: space-between; margin-top: 2rem;">
+                    <% if (currentPage > 1) { %>
+                        <a href="/cards/magic?p=<%= currentPage - 1 %>&<%= filterQueryString %>" class="btn-secondary">
+                            &larr; Página Anterior
+                        </a>
+                    <% } else { %>
+                        <div></div> <% } %>
+                    
+                    <% if (hasMore) { %>
+                        <a href="/cards/magic?p=<%= currentPage + 1 %>&<%= filterQueryString %>" class="btn-primary">
+                            Próxima Página &rarr;
+                        </a>
+                    <% } %>
                 </div>
-            </section>
-        </div>
-    </main>
+            </section> </div> </main>
 
     <%- include('../partials/footer') %>
 </body>
