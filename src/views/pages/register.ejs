@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <%- include('../partials/header') %>
+    <title>Crie sua Conta - CardHub</title>
+</head>
+<div class="container">
+    <%- include('../partials/navbar') %>
+</div>
+<body class="auth-body">
+    <main class="container">
+        <div class="glass-panel">
+            <h1>Crie sua Conta</h1>
+            <p class="subtitle">Comece a negociar suas cartas hoje mesmo!</p>
+
+            <div class="social-login">
+                <a href="/auth/google" class="btn-social">G Google</a>
+                </div>
+
+            <div class="divider">Ou</div>
+
+            <form action="/register" method="POST">
+                <div class="form-group">
+                    <label for="username">Nome de Usuário</label>
+                    <input type="text" name="username" id="username" class="form-control" placeholder="Digite seu nome de usuário" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Digite seu email" required>
+                </div>
+                <button type="submit" class="btn-primary btn-submit-full">Cadastrar</>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

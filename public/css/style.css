@@ -61,6 +61,7 @@ body {
   font-weight: 700;
   font-size: 0.9rem;
   transition: all 0.3s ease;
+  text-decoration: none;
 }
 .btn-primary {
   background-color: var(--accent-primary);
@@ -268,3 +269,350 @@ flex: 1; /* Ocupa o resto do espaço */
   padding-left: 2rem; /* aumenta a distância do conteúdo para a borda esquerda */
 }
   
+/* 1. Prepare TODOS os cards para poderem ser empilhados */
+.card-item {
+  position: relative; /* Essencial para o z-index funcionar */
+  z-index: 1;         /* Define uma camada base para todos */
+  transition: z-index 0s 0.2s; /* Truque para o z-index não mudar de volta rápido demais */
+}
+
+/* 2. Ao passar o mouse, ELEVE o card inteiro para a frente */
+.card-item:hover {
+  z-index: 100; /* Ao passar o mouse, este card vai para a frente de todos os outros */
+  transition-delay: 0s; /* Garante que o z-index suba imediatamente */
+}
+
+/* 3. Aplique o ZOOM apenas no container da imagem DENTRO do card elevado */
+.card-item .card-image-container {
+  transition: transform 0.2s ease-in-out;
+}
+
+/* A solução: o hover agora está diretamente no card-image-container */
+.card-item .card-image-container:hover {
+  transform: scale(1.8) translateY(-22%);
+}
+/* Container principal dos controles de adicionar à lista */
+.add-to-list-controls {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem; /* Espaço entre o seletor de quantidade e o botão +Lista */
+}
+
+/* Container do seletor de quantidade (+, -, e o número) */
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+/* O campo de input do número */
+.quantity-input {
+  width: 40px;
+  text-align: center;
+  border: none;
+  background-color: var(--bg-surface-2); /* Fundo um pouco mais claro */
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: bold;
+  /* Remove as setinhas padrão do input de número */
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Estilo para os botões de + e - */
+.quantity-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  transition: color 0.2s;
+}
+
+.quantity-btn:hover {
+  color: var(--accent-primary);
+}
+
+/* Estilo para o botão principal "+ Lista" */
+.add-to-list-btn {
+  flex-grow: 1; /* Faz o botão ocupar o espaço restante */
+  background-color: var(--accent-primary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.add-to-list-btn:hover {
+  background-color: var(--accent-secondary);
+}
+/* Estilo do botão flutuante principal */
+#floating-list-button {
+  position: fixed; /* ESSENCIAL para o efeito flutuante */
+  top: 100px;      /* Distância do topo */
+  right: 30px;     /* Distância da direita */
+  z-index: 1000;   /* Garante que ele fique sobre todos os outros elementos */
+
+  background-color: var(--accent-primary);
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%; /* Deixa o botão redondo */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para dar profundidade */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  text-decoration: none;
+  font-size: 1.5rem; /* Tamanho do ícone/emoji */
+  transition: transform 0.2s ease-in-out;
+}
+
+#floating-list-button:hover {
+  transform: scale(1.1); /* Efeito de zoom ao passar o mouse */
+}
+
+/* Estilo do contador de itens (a "bolinha" vermelha) */
+.list-item-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+
+  background-color: #e63946; /* Cor vermelha para destaque */
+  color: white;
+  
+  min-width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* Classe auxiliar para esconder o contador quando for 0 */
+.list-item-count.hidden {
+  display: none;
+}
+/* Container da barra de filtros de formato */
+.format-filters {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap; /* Permite que os botões quebrem a linha em telas pequenas */
+}
+
+/* Estilo de cada botão de formato */
+.format-filters a {
+  padding: 0.5rem 1rem;
+  background-color: var(--bg-surface-2);
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: 20px; /* Bordas arredondadas */
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Efeito ao passar o mouse */
+.format-filters a:hover {
+  background-color: var(--accent-secondary);
+  color: white;
+}
+
+/* Estilo do botão ATIVO */
+.format-filters a.active {
+  background-color: var(--accent-primary);
+  color: white;
+  font-weight: bold;
+}
+/* Container principal da página de registro */
+.register-container {
+  max-width: 500px; /* Define uma largura máxima para o formulário */
+  margin: 2rem auto; /* Centraliza o formulário na página com margem no topo/baixo */
+  padding: 2rem;
+  background-color: var(--bg-surface); /* Usa a cor de superfície do seu tema */
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.register-container h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Estilo para cada grupo de label + input */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Estilo geral para os campos de texto, email, senha */
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--bg-surface-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(129, 92, 246, 0.2); /* Sombra suave roxa no foco */
+}
+
+/* Estilização dos botões de rádio (Tipo de Conta) */
+.radio-group {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+/* Esconde o botão de rádio padrão */
+.radio-group input[type="radio"] {
+  display: none;
+}
+
+/* Cria um botão de rádio customizado */
+.radio-group label::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  transition: all 0.2s;
+}
+
+/* Estilo do botão de rádio quando selecionado */
+.radio-group input[type="radio"]:checked + label::before {
+  border-color: var(--accent-primary);
+  background-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px var(--bg-surface) inset;
+}
+
+/* Faz o botão de submit ocupar a largura toda */
+.btn-submit-full {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+/* Fundo abstrato para as páginas de login/registro */
+/* 1. Fundo da página unificado com o resto do site, mas com brilhos sutis */
+.auth-body {
+  background-color: var(--bg-primary); /* USA O MESMO FUNDO DO SITE */
+  background-image: 
+    radial-gradient(at 5% 5%, hsla(260, 80%, 55%, 0.15) 0px, transparent 50%),
+    radial-gradient(at 95% 95%, hsla(260, 85%, 65%, 0.15) 0px, transparent 50%);
+  background-attachment: fixed;
+  height: 100vh;
+}
+
+/* 2. Painel de vidro refinado: mais claro e sutil */
+.glass-panel {
+  max-width: 450px;
+  margin: 5vh auto;
+  padding: 2rem 2.5rem;
+
+  /* EFEITO DE VIDRO MAIS CLARO */
+  background: rgba(255, 255, 255, 0.05); /* Fundo quase transparente, levemente branco */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15); /* Borda um pouco mais visível */
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Os títulos e textos dentro do painel continuam os mesmos */
+.glass-panel h1 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+}
+
+.glass-panel .subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+/* 3. Inputs também refinados para combinar com o painel claro */
+.glass-panel .form-control {
+  background: rgba(255, 255, 255, 0.05); /* Fundo claro e transparente */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-primary);
+  padding: 0.9rem;
+}
+
+.glass-panel .form-control::placeholder {
+  color: var(--text-secondary);
+}
+
+.glass-panel .form-control:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(129, 92, 246, 0.2);
+}
+
+/* Os outros estilos (social-login, divider, etc.) podem permanecer os mesmos */
+.social-login {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn-social {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-primary);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-social:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.divider {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}

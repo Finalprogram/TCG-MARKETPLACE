@@ -5,10 +5,15 @@
     <title>Explorar Cartas de Magic</title>
 </head>
 <body>
-    <div class="container">
-    <%- include('../partials/navbar') %>
-    </div>
+   
+
     <main class="container">
+         <%- include('../partials/navbar') %>
+        <a href="/lista" id="floating-list-button">
+            <span class="list-icon">📝</span>
+            <span class="list-item-count hidden">0</span>
+        </a>
+        
         <h1>Explorar Cartas de Magic</h1>
 
         <div class="search-container">
@@ -30,48 +35,87 @@
                         <label><input type="radio" name="color" value="r"> Vermelho</label>
                         <label><input type="radio" name="color" value="g"> Verde</label>
                     </div>
+                    <div class="filter-group">
+                        <h4>Tipo</h4>
+                        <label><input type="radio" name="type" value="creature"> Criatura</label>
+                        <label><input type="radio" name="type" value="instant"> Instantâneo</label>
+                        <label><input type="radio" name="type" value="sorcery"> Feitiço</label>
+                        <label><input type="radio" name="type" value="enchantment"> Encantamento</label>
+                        <label><input type="radio" name="type" value="artifact"> Artefato</label>
+                        <label><input type="radio" name="type" value="land"> Terreno</label>
+                    </div>
                     <button type="submit" class="btn-primary">Aplicar Filtros</button>
                 </form>
             </aside>
-
+            
             <section class="results">
+                <nav class="format-filters">
+                    <%
+                      const formats = ['standard', 'pioneer', 'modern', 'commander', 'legacy', 'pauper'];
+                      const currentFormat = filters.format || 'standard';
+                    %>
+                    <% formats.forEach(format => { %>
+                        <a href="?format=<%= format %>" class="<%= currentFormat === format ? 'active' : '' %>">
+                            <%= format.charAt(0).toUpperCase() + format.slice(1) %>
+                        </a>
+                    <% }) %>
+                </nav>
+
                 <div class="cards-carousel">
-                    <% if (cards.length > 0) { %>
+                    <% if (cards && cards.length > 0) { %>
                         <% cards.forEach(card => { %>
                             <div class="card-item">
-                                <% if (card.image_uris && card.image_uris.normal) { %>
-                                    <img src="<%= card.image_uris.normal %>" alt="<%= card.name %>">
-                                <% } else if (card.card_faces && card.card_faces[0].image_uris) { %>
-                                    <img src="<%= card.card_faces[0].image_uris.normal %>" alt="<%= card.name %>">
-                                <% } else { %>
-                                    <img src="https://placehold.co/220x310?text=Sem+Imagem" alt="Sem imagem">
-                                <% } %>
+                                <div class="card-image-container">
+                                    <img src="<%= card.image_url %>" alt="<%= card.name %>">
+                                </div>
                                 <h4><%= card.name %></h4>
+                                <p>
+                                    Preço Médio: R$ <%= card.averagePrice ? card.averagePrice.toFixed(2) : 'N/A' %>
+                                    <% if (card.price_trend === 'up') { %>
+                                        <span style="color: green;">▲</span>
+                                    <% } else if (card.price_trend === 'down') { %>
+                                        <span style="color: red;">▼</span>
+                                    <% } %>
+                                </p>
+                                <div class="add-to-list-controls">
+                                    <div class="quantity-selector">
+                                        <button class="quantity-btn minus" type="button">-</button>
+                                        <input type="number" class="quantity-input" value="1" min="1">
+                                        <button class="quantity-btn plus" type="button">+</button>
+                                    </div>
+                                    <button class="add-to-list-btn" data-cardid="<%= card._id %>">
+                                        + Lista
+                                    </button>
+                                </div>
                             </div>
                         <% }) %>
                     <% } else { %>
                         <p>Nenhuma carta encontrada com esses filtros.</p>
                     <% } %>
-                </div> <% 
-                  const params = new URLSearchParams(filters);
-                  params.delete('p');
-                  const filterQueryString = params.toString();
-                %>
-                <div class="pagination" style="display: flex; justify-content: space-between; margin-top: 2rem;">
-                    <% if (currentPage > 1) { %>
-                        <a href="/cards/magic?p=<%= currentPage - 1 %>&<%= filterQueryString %>" class="btn-secondary">
-                            &larr; Página Anterior
-                        </a>
-                    <% } else { %>
-                        <div></div> <% } %>
-                    
-                    <% if (hasMore) { %>
-                        <a href="/cards/magic?p=<%= currentPage + 1 %>&<%= filterQueryString %>" class="btn-primary">
-                            Próxima Página &rarr;
-                        </a>
-                    <% } %>
-                </div>
-            </section> </div> </main>
+                </div> <% if (totalCards > 0) { %>
+                    <% 
+                      const params = new URLSearchParams(filters);
+                      params.delete('p');
+                      const filterQueryString = params.toString();
+                    %>
+                    <div class="pagination" style="display: flex; justify-content: space-between; margin-top: 2rem;">
+                        <% if (currentPage > 1) { %>
+                            <a href="/cards/magic?p=<%= currentPage - 1 %>&<%= filterQueryString %>" class="btn-secondary">
+                                &larr; Página Anterior
+                            </a>
+                        <% } else { %>
+                            <div></div>
+                        <% } %>
+                        <% if (hasMore) { %>
+                            <a href="/cards/magic?p=<%= currentPage + 1 %>&<%= filterQueryString %>" class="btn-primary">
+                                Próxima Página &rarr;
+                            </a>
+                        <% } %>
+                    </div>
+                <% } %>
+            </section>
+        </div>
+    </main>
 
     <%- include('../partials/footer') %>
 </body>

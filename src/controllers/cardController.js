@@ -23,46 +23,64 @@ const searchCards = async (req, res) => {
   }
 };
 
+const Card = require('../models/Card'); // Importa o modelo local
+
 const showMagicCardsPage = async (req, res) => {
   try {
-    // Monta a query base para buscar cartas de Magic
-    let scryfallQuery = 'f:standard order:released';
-
-    // --- LÓGICA PARA ADICIONAR FILTROS ---
-    // Filtro de Raridade (ex: /cards/magic?rarity=rare)
-    if (req.query.rarity) {
-      scryfallQuery += ` r:${req.query.rarity}`;
-    }
-    // Filtro de Cor (ex: /cards/magic?color=blue)
-    if (req.query.color) {
-      scryfallQuery += ` c:${req.query.color}`;
-    }
-    // Filtro de Tipo (ex: /cards/magic?type=creature)
-    if (req.query.type) {
-      scryfallQuery += ` t:${req.query.type}`;
-    }
-    
     const currentPage = parseInt(req.query.p) || 1;
-    console.log(`Buscando : "${scryfallQuery}" | Página:, ${currentPage}`);
-    console.log("Query enviada para Scryfall:", scryfallQuery);//para Debug
+    const limit = 50; // Quantas cartas por página
 
-    const cardsFound = await scryfallService.searchCards(scryfallQuery);
-    const scryfallResult = await scryfallService.searchCards(scryfallQuery, currentPage);
-    // console.log('RESULTADO COMPLETO DA SCRYFALL:', scryfallResult); // Ver tudo que a Scryfall retornou
-    res.render('pages/cardSearchPage', { // Renderiza a NOVA PÁGINA
-      cards: scryfallResult.data, // As cartas estão em data
-      hasMore: scryfallResult.has_more,
-      totalCards: scryfallResult.total_cards,
+    // 1. Monta a base dos filtros para a nossa busca local
+    const matchQuery = {};
+    if (req.query.rarity) matchQuery.rarity = req.query.rarity;
+    if (req.query.color) matchQuery.colors = req.query.color;
+    // (Adicione mais filtros aqui no futuro)
+
+    // 2. USA O AGGREGATION PIPELINE
+    const cards = await Card.aggregate([
+      // Estágio 1: Encontra as cartas que correspondem aos filtros
+      { $match: matchQuery },
+
+      // Estágio 2: "Junta" (JOIN) com a coleção de anúncios (listings)
+      {
+        $lookup: {
+          from: 'listings', // O nome da coleção de anúncios (geralmente o nome do modelo em minúsculo e no plural)
+          localField: '_id', // O campo na coleção 'Card'
+          foreignField: 'card', // O campo na coleção 'Listing' que referencia o Card
+          as: 'listings' // O nome do novo array que será criado com os anúncios encontrados
+        }
+      },
+
+      // Estágio 3: Calcula o preço médio e adiciona como um novo campo
+      {
+        $addFields: {
+          // Se houver anúncios, calcula a média. Se não, o preço médio é null.
+          averagePrice: { $avg: '$listings.price' }
+        }
+      },
+
+      // Estágio 4: Ordena, Pula e Limita para fazer a paginação
+      { $sort: { name: 1 } }, // Ordena por nome
+      { $skip: (currentPage - 1) * limit },
+      { $limit: limit }
+    ]);
+    
+    // Precisamos contar o total de documentos para a paginação
+    const totalCards = await Card.countDocuments(matchQuery);
+
+    res.render('pages/cardSearchPage', {
+      cards: cards,
       currentPage: currentPage,
-      filters: req.query // Passa os filtros atuais para a view
+      hasMore: (currentPage * limit) < totalCards,
+      totalCards: totalCards,
+      filters: req.query
     });
 
   } catch (error) {
     console.error("Erro na página de busca de cards:", error);
-    res.render('pages/cardSearchPage', { cards: [], filters: {}, hasMore: false, totalCards: 0, currentPage: 1 }); // Renderiza a página vazia em caso de erro
+    res.render('pages/cardSearchPage', { cards: [], filters: {}, currentPage: 1 });
   }
 };
-
 
 module.exports = {
   searchCards,
