@@ -1,75 +1,88 @@
-// 1. Importa o serviço que fala com a API da Scryfall
+const mongoose = require('mongoose');
+const Card = require('../models/Card');
+const Listing = require('../models/Listing');
 const scryfallService = require('../services/scryfallService');
 
+// Esta função continua como estava, servindo a busca geral do site (se houver uma)
 const searchCards = async (req, res) => {
   try {
-    // 2. Pega o termo de busca da URL (vem de name="q" no formulário)
     const query = req.query.q;
     let cardsFound = [];
     if (query) {
-      // 3. Usa o serviço para buscar as cartas na API da Scryfall
       cardsFound = await scryfallService.searchCards(query);
     }
-  
-    // 4. Renderiza a PÁGINA DE RESULTADOS, passando as cartas encontradas
     res.render('pages/searchResults', {
       cards: cardsFound,
-      query: query // Passa o termo da busca para a página também
+      query: query
     });
-
   } catch (error) {
     console.error("Erro no controlador de busca:", error);
     res.status(500).send("Ocorreu um erro ao processar sua busca.");
   }
 };
 
-const Card = require('../models/Card'); // Importa o modelo local
-
+// --- FUNÇÃO PRINCIPAL COM LOGS DE DEBUG ---
 const showMagicCardsPage = async (req, res) => {
   try {
     const currentPage = parseInt(req.query.p) || 1;
-    const limit = 50; // Quantas cartas por página
+    const limit = 50;
 
-    // 1. Monta a base dos filtros para a nossa busca local
-    const matchQuery = {};
-    if (req.query.rarity) matchQuery.rarity = req.query.rarity;
-    if (req.query.color) matchQuery.colors = req.query.color;
-    // (Adicione mais filtros aqui no futuro)
+    const cardMatchQuery = {};
+    if (req.query.rarity) cardMatchQuery.rarity = req.query.rarity;
+    if (req.query.color) cardMatchQuery.colors = req.query.color;
+    if (req.query.type) cardMatchQuery.type_line = new RegExp(req.query.type, 'i');
 
-    // 2. USA O AGGREGATION PIPELINE
+    if (req.query.format) {
+  cardMatchQuery[`legalities.${req.query.format}`] = 'legal';
+}
+    // ---- DEBUG 1: VER OS FILTROS ----
+    console.log("1. Filtros aplicados na busca:", cardMatchQuery);
+    
+    // Etapa 1: Encontrar os IDs de cartas únicos que estão nos anúncios
+    const distinctCardIds = await Listing.distinct('card');
+    
+    // ---- DEBUG 2: VER OS IDs ENCONTRADOS ----
+    console.log("2. IDs de cartas que possuem anúncios:", distinctCardIds);
+
+    // Etapa 2: Contar o total de cartas únicas com anúncios para a paginação
+    const totalCards = await Card.countDocuments({ 
+      _id: { $in: distinctCardIds },
+      ...cardMatchQuery
+    });
+    
+    // ---- DEBUG 3: VER A CONTAGEM ----
+    console.log("3. Contagem de cartas que passam nos filtros:", totalCards);
+
+    // Etapa 3: Buscar as informações dessas cartas
     const cards = await Card.aggregate([
-      // Estágio 1: Encontra as cartas que correspondem aos filtros
-      { $match: matchQuery },
-
-      // Estágio 2: "Junta" (JOIN) com a coleção de anúncios (listings)
-      {
-        $lookup: {
-          from: 'listings', // O nome da coleção de anúncios (geralmente o nome do modelo em minúsculo e no plural)
-          localField: '_id', // O campo na coleção 'Card'
-          foreignField: 'card', // O campo na coleção 'Listing' que referencia o Card
-          as: 'listings' // O nome do novo array que será criado com os anúncios encontrados
-        }
-      },
-
-      // Estágio 3: Calcula o preço médio e adiciona como um novo campo
-      {
-        $addFields: {
-          // Se houver anúncios, calcula a média. Se não, o preço médio é null.
-          averagePrice: { $avg: '$listings.price' }
-        }
-      },
-
-      // Estágio 4: Ordena, Pula e Limita para fazer a paginação
-      { $sort: { name: 1 } }, // Ordena por nome
+      { $match: { 
+          _id: { $in: distinctCardIds },
+          ...cardMatchQuery
+      }},
+      { $lookup: {
+          from: 'listings',
+          localField: '_id',
+          foreignField: 'card',
+          as: 'listings'
+      }},
+      { $addFields: {
+          lowestPrice: { $min: '$listings.price' }
+      }},
+      { $sort: { name: 1 } },
       { $skip: (currentPage - 1) * limit },
       { $limit: limit }
     ]);
     
-    // Precisamos contar o total de documentos para a paginação
-    const totalCards = await Card.countDocuments(matchQuery);
+    // ---- DEBUG 4: VER O RESULTADO FINAL ----
+    console.log("4. Resultado final da agregação (primeiros 5):", cards.slice(0, 5));
+
+    const formattedCards = cards.map(card => ({
+        ...card,
+        averagePrice: card.lowestPrice
+    }));
 
     res.render('pages/cardSearchPage', {
-      cards: cards,
+      cards: formattedCards,
       currentPage: currentPage,
       hasMore: (currentPage * limit) < totalCards,
       totalCards: totalCards,
@@ -78,20 +91,54 @@ const showMagicCardsPage = async (req, res) => {
 
   } catch (error) {
     console.error("Erro na página de busca de cards:", error);
-    res.render('pages/cardSearchPage', { cards: [], filters: {}, currentPage: 1 });
+    res.render('pages/cardSearchPage', { cards: [], filters: {}, currentPage: 1, hasMore: false, totalCards: 0 });
   }
 };
+
+// Função para a página de detalhes da carta
+const showCardDetailPage = async (req, res) => {
+  try {
+    const cardId = req.params.id;
+
+    const card = await Card.findById(cardId);
+    if (!card) {
+      return res.status(404).send('Carta não encontrada');
+    }
+
+    const listings = await Listing.find({ card: cardId })
+                                  .sort({ price: 1 })
+                                  .populate('seller', 'username');
+
+    const priceStats = await Listing.aggregate([
+      { $match: { card: new mongoose.Types.ObjectId(cardId) } },
+      {
+        $group: {
+          _id: { condition: '$condition', is_foil: '$is_foil' },
+          averagePrice: { $avg: '$price' },
+          minPrice: { $min: '$price' },
+        }
+      }
+    ]);
+
+    res.render('pages/card-detail', { card, listings, priceStats });
+
+  } catch (error) {
+    console.error("Erro ao buscar detalhes da carta:", error);
+    res.status(500).send('Erro no servidor');
+  }
+};
+
+// Função para a busca da página de Venda
 const searchCardsForSale = async (req, res) => {
   try {
     const searchQuery = req.query.q;
     let searchResults = [];
 
-    if (searchQuery && searchQuery.length > 2) { // Só busca com mais de 2 caracteres
+    if (searchQuery && searchQuery.length > 2) {
       searchResults = await Card.find({
         name: { $regex: new RegExp(searchQuery, 'i') }
       }).select('name set_name image_url').limit(10);
     }
-    // A grande mudança: em vez de res.render, enviamos JSON
     res.json(searchResults);
 
   } catch (error) {
@@ -99,8 +146,10 @@ const searchCardsForSale = async (req, res) => {
   }
 };
 
+
 module.exports = {
   searchCards,
-  showMagicCardsPage, // <-- Não se esqueça de exportar a nova função
+  showMagicCardsPage,
+  showCardDetailPage,
   searchCardsForSale,
 };

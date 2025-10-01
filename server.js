@@ -11,6 +11,7 @@ const cardRoutes = require('./src/routes/cardRoutes');
 const listRoutes = require('./src/routes/listRoutes');
 const authRoutes = require('./src/routes/authRoutes');
 const sellerRoutes = require('./src/routes/sellerRoutes');
+const listingRoutes = require('./src/routes/listingRoutes');
 // const cartRoutes = require('./src/routes/cartRoutes'); // Você pode reativar quando precisar
 
 // 2. Inicialização do App
@@ -52,6 +53,7 @@ app.use('/', cardRoutes);
 // app.use('/api', cartRoutes);
 app.use('/api', listRoutes);
 app.use('/', sellerRoutes);
+app.use('/api', listingRoutes);
 
 
 // 6. Inicia o Servidor
