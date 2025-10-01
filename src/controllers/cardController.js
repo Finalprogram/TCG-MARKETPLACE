@@ -81,8 +81,26 @@ const showMagicCardsPage = async (req, res) => {
     res.render('pages/cardSearchPage', { cards: [], filters: {}, currentPage: 1 });
   }
 };
+const searchCardsForSale = async (req, res) => {
+  try {
+    const searchQuery = req.query.q;
+    let searchResults = [];
+
+    if (searchQuery && searchQuery.length > 2) { // Só busca com mais de 2 caracteres
+      searchResults = await Card.find({
+        name: { $regex: new RegExp(searchQuery, 'i') }
+      }).select('name set_name image_url').limit(10);
+    }
+    // A grande mudança: em vez de res.render, enviamos JSON
+    res.json(searchResults);
+
+  } catch (error) {
+    res.status(500).json({ message: 'Erro no servidor' });
+  }
+};
 
 module.exports = {
   searchCards,
-  showMagicCardsPage // <-- Não se esqueça de exportar a nova função
+  showMagicCardsPage, // <-- Não se esqueça de exportar a nova função
+  searchCardsForSale,
 };

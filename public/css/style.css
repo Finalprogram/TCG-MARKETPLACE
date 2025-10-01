@@ -36,7 +36,7 @@ body {
   align-items: center;
   padding: 1.5rem 0;
   border-bottom: 1px solid var(--border);
-  background-color: var(--bg-surface);
+  
 }
 .logo {
   font-size: 1.8rem;
@@ -536,9 +536,6 @@ flex: 1; /* Ocupa o resto do espaço */
 /* 1. Fundo da página unificado com o resto do site, mas com brilhos sutis */
 .auth-body {
   background-color: var(--bg-primary); /* USA O MESMO FUNDO DO SITE */
-  background-image: 
-    radial-gradient(at 5% 5%, hsla(260, 80%, 55%, 0.15) 0px, transparent 50%),
-    radial-gradient(at 95% 95%, hsla(260, 85%, 65%, 0.15) 0px, transparent 50%);
   background-attachment: fixed;
   height: 100vh;
 }
@@ -616,4 +613,280 @@ flex: 1; /* Ocupa o resto do espaço */
   text-align: center;
   color: var(--text-secondary);
   margin-bottom: 1.5rem;
+}
+/* Container principal do dropdown */
+.user-dropdown {
+  position: relative; /* Essencial para o menu se posicionar corretamente */
+}
+
+/* O "gatilho" do dropdown (imagem + nome + seta) */
+.dropdown-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.dropdown-toggle:hover {
+  background-color: var(--bg-surface-2);
+}
+
+/* A imagem redonda do avatar */
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover; /* Evita que a imagem distorça */
+  border: 2px solid var(--border);
+}
+
+/* A setinha */
+.dropdown-arrow {
+  font-size: 0.6rem;
+  color: var(--text-secondary);
+  transition: transform 0.2s;
+}
+
+/* Rotaciona a setinha quando o menu está ativo */
+.user-dropdown.active .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* O menu dropdown em si */
+.dropdown-menu {
+  display: none; /* Escondido por padrão */
+  position: absolute;
+  top: 120%; /* Posição abaixo do gatilho */
+  right: 0;
+  min-width: 180px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  overflow: hidden; /* Garante que os itens fiquem dentro das bordas arredondadas */
+}
+
+/* Mostra o menu quando o container pai tem a classe 'active' */
+.user-dropdown.active .dropdown-menu {
+  display: block;
+}
+
+/* Itens do menu */
+.dropdown-item {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: var(--accent-primary);
+  color: white;
+}
+
+/* Linha divisória dentro do menu */
+.dropdown-divider {
+  height: 1px;
+  background-color: var(--border);
+  margin: 0.5rem 0;
+}
+
+.logout-btn:hover {
+  background-color: #e63946; /* Vermelho para a ação de sair */
+}
+/* Container principal da página de Venda */
+.sell-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Espaço entre as seções */
+}
+
+/* Estilo para cada seção (Busca e Anúncios) */
+.sell-section {
+  background-color: var(--bg-surface);
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.sell-section h1, .sell-section h2 {
+  margin-top: 0;
+}
+
+/* Formulário de busca com input e botão na mesma linha */
+.sell-search-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.sell-search-form .form-control {
+  flex-grow: 1; /* Faz o input ocupar o máximo de espaço */
+}
+
+/* Resultados da busca */
+#sell-search-results {
+  margin-top: 1rem;
+  max-height: 400px;
+  overflow-y: auto; /* Adiciona scroll se houver muitos resultados */
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-result-item:hover {
+  background-color: var(--bg-surface-2);
+}
+
+.search-result-item img {
+  width: 50px;
+  height: 70px; /* Proporção aproximada de uma carta */
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.search-result-item h4 { margin: 0; }
+.search-result-item p { margin: 0; font-size: 0.8rem; color: var(--text-secondary); }
+.search-result-item button { margin-left: auto; } /* Joga o botão para a direita */
+
+
+/* Mensagem de lista de anúncios vazia */
+.empty-staging-message {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 2rem;
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+}
+
+/* Estilo para cada linha de anúncio a ser criado */
+.listing-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.listing-row:last-child {
+  border-bottom: none;
+}
+
+/* Imagem da carta na linha */
+.listing-row img {
+  width: 60px;
+  height: 84px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Informações da carta (nome e set) */
+.card-info {
+  flex-grow: 1; /* Ocupa o espaço para empurrar os inputs para a direita */
+  display: flex;
+  flex-direction: column;
+}
+.card-info strong {
+  color: var(--text-primary);
+}
+.card-info small {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+/* Container dos inputs e selects */
+.listing-inputs {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Ajusta o tamanho dos inputs e selects na linha */
+.listing-inputs .form-control {
+  padding: 0.5rem;
+  
+  /* --- GARANTA QUE ESTAS LINHAS EXISTEM --- */
+  background-color: var(--bg-surface-2); /* Uma cor de fundo sólida do seu tema */
+  color: var(--text-primary);             /* Cor do texto principal */
+  border: 1px solid var(--border);
+  /* ----------------------------------------- */
+}
+.listing-inputs .listing-price {
+  width: 100px;
+}
+.listing-inputs .listing-quantity {
+  width: 60px;
+}
+.listing-inputs .listing-condition {
+  width: 140px;
+}
+.listing-inputs .listing-language {
+  width: 110px;
+}
+
+/* Checkbox de Foil customizado */
+.foil-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+.foil-checkbox:hover {
+  background-color: var(--bg-surface-2);
+}
+.foil-checkbox input {
+  width: 16px;
+  height: 16px;
+}
+
+/* Botão de remover (o 'X') */
+.remove-listing-btn {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-weight: bold;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.remove-listing-btn:hover {
+  background-color: #e63946; /* Vermelho */
+  color: white;
+}
+/* Correção para o texto das opções do Dropdown na linha de anúncio */
+.listing-inputs select.form-control option {
+  /* Alguns navegadores (como Firefox) respeitam esta cor de fundo */
+  background: var(--bg-surface-2); 
+  
+  /* Todos os navegadores respeitam esta cor de texto, garantindo a legibilidade */
+  color: #1A1D24; /* Um cinza bem escuro, quase preto */
+}
+.listing-inputs .form-control {
+  padding: 0.5rem;
+  background-color: var(--bg-surface-2); /* Cor de fundo sólida */
+  color: var(--text-primary);             /* Cor do texto principal (branco) */
+  border: 1px solid var(--border);
 }

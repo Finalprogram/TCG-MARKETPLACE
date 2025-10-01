@@ -10,6 +10,7 @@ const pagesRoutes = require('./src/routes/pagesRoutes');
 const cardRoutes = require('./src/routes/cardRoutes');
 const listRoutes = require('./src/routes/listRoutes');
 const authRoutes = require('./src/routes/authRoutes');
+const sellerRoutes = require('./src/routes/sellerRoutes');
 // const cartRoutes = require('./src/routes/cartRoutes'); // Você pode reativar quando precisar
 
 // 2. Inicialização do App
@@ -30,7 +31,7 @@ app.set('views', path.join(__dirname, 'src', 'views'));
 
 // Serve arquivos estáticos (CSS, JS, imagens) da pasta 'public'
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(express.urlencoded({ extended: false }));
 // Configuração da Sessão
 app.use(session({
   secret: 'um_segredo_muito_forte_aqui',
@@ -39,6 +40,10 @@ app.use(session({
   cookie: { secure: false } // Em produção, use 'true' com HTTPS
 }));
 
+app.use((req, res, next) => {
+  res.locals.user = req.session.user || null;
+  next();
+});
 
 // 5. Configuração das Rotas (VÊM POR ÚLTIMO)
 app.use('/', authRoutes);
@@ -46,6 +51,7 @@ app.use('/', pagesRoutes);
 app.use('/', cardRoutes);
 // app.use('/api', cartRoutes);
 app.use('/api', listRoutes);
+app.use('/', sellerRoutes);
 
 
 // 6. Inicia o Servidor

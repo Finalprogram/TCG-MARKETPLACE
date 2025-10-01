@@ -67,3 +67,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // ... seu código de 'add to list' e 'quantity-btn' ...
+
+    // --- LÓGICA DO MENU DROPDOWN DE USUÁRIO ---
+    const userDropdown = document.querySelector('.user-dropdown');
+
+    if (userDropdown) {
+        const toggle = userDropdown.querySelector('.dropdown-toggle');
+
+        // Abre/fecha o menu ao clicar no gatilho
+        toggle.addEventListener('click', () => {
+            userDropdown.classList.toggle('active');
+        });
+
+        // Fecha o menu se o usuário clicar fora dele
+        window.addEventListener('click', (event) => {
+            if (!userDropdown.contains(event.target)) {
+                userDropdown.classList.remove('active');
+            }
+        });
+    }
+});

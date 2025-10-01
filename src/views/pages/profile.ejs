@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    
+    <%- include('../partials/header') %>
+    <title>Perfil de <%= profileUser.username %> - CardHub</title>
+</head>
+<body>
+    <div class="container">
+    <%- include('../partials/navbar') %>
+    </div>
+    <main class="container">
+        <div class="profile-header">
+            <h1>Perfil de <%= profileUser.username %></h1>
+            
+            <% if (user && user.id === profileUser.id.toString()) { %>
+                <a href="/perfil/editar" class="btn-secondary">Editar Perfil</a>
+            <% } %>
+        </div>
+
+        <div class="profile-details">
+            <p><strong>Tipo de Conta:</strong> 
+                <%= profileUser.accountType === 'shop' ? 'Loja' : 'Pessoa Física' %>
+            </p>
+            
+            <% if (profileUser.accountType === 'shop' && profileUser.businessName) { %>
+                <p><strong>Nome da Loja:</strong> <%= profileUser.businessName %></p>
+            <% } %>
+
+            <p><strong>Membro desde:</strong> 
+                <%= profileUser.createdAt.toLocaleDateString('pt-BR') %>
+            </p>
+        </div>
+
+        <div class="user-listings">
+            <h2>Anúncios de <%= profileUser.username %></h2>
+            <p>(Em breve...)</p>
+        </div>
+        
+    </main>
+    <div class="container">
+    <%- include('../partials/footer') %>
+    </div>
+</body>
+</html>
