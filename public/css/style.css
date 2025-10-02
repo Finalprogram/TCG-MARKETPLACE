@@ -1,7 +1,11 @@
-/* Paleta de Cores "Mana Noturno" e Configurações Globais */
+/* ==========================================================================
+   1. CONFIGURAÇÕES GLOBAIS E RESET
+   ========================================================================== */
+
 :root {
   --bg-primary: #1A1D24;
   --bg-surface: #242833;
+  --bg-surface-2: #3C4150;
   --border: #3C4150;
   --text-primary: #F0F2F5;
   --text-secondary: #98A0B3;
@@ -9,7 +13,6 @@
   --accent-hover: #A479FF;
 }
 
-/* Reset básico e aplicação da fonte */
 * {
   margin: 0;
   padding: 0;
@@ -29,214 +32,58 @@ body {
   margin: 0 auto;
 }
 
-/* --- Estilos da Navbar --- */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 0;
+h1 { font-size: 2.5rem; font-weight: 900; }
+h2 { font-size: 2rem; font-weight: 900; }
+h3 { font-size: 1.5rem; font-weight: 700; }
+h4 { font-size: 1.1rem; font-weight: 700; }
+
+
+/* ==========================================================================
+   2. LAYOUT PRINCIPAL E NAVBAR
+   ========================================================================== */
+
+
+.navbar-wrapper {
+  width: 100%;   /* A COR DE FUNDO SÓLIDA */
   border-bottom: 1px solid var(--border);
-  
+  padding: 1rem 0;
 }
-.logo {
-  font-size: 1.8rem;
-  font-weight: 900;
+
+.navbar {
+  display: flex; /* O MAIS IMPORTANTE: alinha os itens horizontalmente */
+  justify-content: space-between; /* Espaça os itens (logo, links, botões) */
+  align-items: center;
+  width: 100%;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
   color: var(--text-primary);
   text-decoration: none;
 }
-.nav-links a {
-  margin: 0 1rem;
-  text-decoration: none;
-  color: var(--text-secondary);
-  font-weight: 500;
-  transition: color 0.3s ease;
+
+.navbar-links {
+  display: flex;
+  gap: 1.5rem;
+  /* (Pode ser necessário um margin: 0 auto; para centralizar se houver espaço) */
 }
-.nav-links a:hover {
+
+.navbar-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.navbar-links a:hover {
   color: var(--accent-primary);
 }
-.btn-primary, .btn-secondary {
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  text-decoration: none;
-}
-.btn-primary {
-  background-color: var(--accent-primary);
-  color: var(--bg-primary);
-}
-.btn-secondary {
-  background-color: transparent;
-  border: 1px solid var(--border);
-  color: var(--text-primary);
-  margin-right: 0.5rem;
-}
-.btn-primary:hover {
-  background-color: var(--accent-hover);
-}
-.btn-secondary:hover {
-    border-color: var(--text-secondary);
-    color: var(--text-secondary);
-}
 
-/* --- Estilos da Página Inicial --- */
-main section {
-  padding: 4rem 0;
-}
-
-.hero {
-  text-align: center;
-  padding: 6rem 0;
-}
-.hero h1 {
-  font-size: 3.5rem;
-  font-weight: 900;
-  margin-bottom: 1rem;
-}
-.hero p {
-  font-size: 1.25rem;
-  color: var(--text-secondary);
-  max-width: 600px;
-  margin: 0 auto 2rem auto;
-}
-.hero-search {
+.navbar-actions {
   display: flex;
-  max-width: 600px;
-  margin: 0 auto;
-}
-.hero-search input {
-  flex-grow: 1;
-  padding: 1rem;
-  border: 1px solid var(--border);
-  border-radius: 6px 0 0 6px;
-  background-color: var(--bg-surface);
-  color: var(--text-primary);
-  font-size: 1.1rem;
-  outline: none;
-}
-.hero-search input:focus {
-    border-color: var(--accent-primary);
-}
-.hero-search button {
-  padding: 1rem 2rem;
-  border: none;
-  background-color: var(--accent-primary);
-  color: var(--bg-primary);
-  font-size: 1.1rem;
-  font-weight: 700;
-  border-radius: 0 6px 6px 0;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-.hero-search button:hover {
-    background-color: var(--accent-hover);
-}
-
-h2 {
-  font-size: 2.5rem;
-  font-weight: 900;
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.game-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-}
-.game-card-link{
-  text-decoration: none;
-  color: inherit;
-}
-.game-card {
-  background-color: var(--bg-surface);
-  border-radius: 8px;
-  overflow: hidden;
-  text-align: center;
-  transition: transform 0.3s ease;
-  cursor: pointer;
-  border: 1px solid var(--border);
-}
-.game-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--accent-primary);
-}
-.game-card img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.game-card h3 {
-  padding: 1.5rem;
-  font-size: 1.5rem;
-}
-
-.cards-carousel {
-  display: grid;
-  /* AJUSTE 1: Diminuímos o tamanho mínimo de cada coluna de 220px para 200px */
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
-  
-  /* AJUSTE 2: Diminuímos o espaçamento entre as cartas de 1.5rem para 1rem (16px) */
   gap: 1rem;
-}
-.card-item img {
-  width: 100%; /* A imagem ocupa 100% da largura do seu container */
-  height: auto; /* A altura se ajusta para manter a proporção */
-  display: block;
-  border-radius: 8px; /* Bordas arredondadas na imagem */
-}
-
-/* Garante que o link que envolve o card não cause problemas de layout */
-.card-link {
-  text-decoration: none;
-  color: inherit;
-}
-.card-item:hover {
-  transform: translateY(-5px);
-  border-color: var(--accent-primary);
-}
-.card-item img {
-  width: 100%;
-  border-radius: 6px;
-}
-.card-item h4 {
-  margin-top: 1rem;
-  font-size: 1rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.card-item p {
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-.how-it-works .steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  text-align: center;
-}
-.step span {
-  font-size: 3rem;
-  display: inline-block;
-  background-color: var(--bg-surface);
-  width: 80px;
-  height: 80px;
-  line-height: 80px;
-  border-radius: 50%;
-}
-.step h3 {
-  font-size: 1.5rem;
-  margin: 1.5rem 0 0.5rem 0;
-}
-.step p {
-  color: var(--text-secondary);
-  max-width: 300px;
-  margin: 0 auto;
+  align-items: center;
 }
 
 .footer {
@@ -248,238 +95,50 @@ h2 {
 }
 
 
-.search-container {
- display: flex;
- gap: 4rem;
- margin-top: 2rem;
-}
-.filters {
-  flex: 0 0 250px; /* Largura fixa para os filtros */
- }
-.results {
-flex: 1; /* Ocupa o resto do espaço */
-}
- .filter-group {
-  margin-bottom: 1.5rem;
- }
-.filter-group h4 {
- margin-bottom: 0.5rem;
- border-bottom: 1px solid var(--border);
- padding-bottom: 0.5rem;
- }
-.filter-group label {
- display: block;
- margin-bottom: 0.25rem;
-}
+/* ==========================================================================
+   3. COMPONENTES GERAIS (Botões, Formulários)
+   ========================================================================== */
 
-.containerMagic {
-  padding-top: 2rem; /* aumenta a distância do conteúdo para a borda superior */
-  padding-left: 2rem; /* aumenta a distância do conteúdo para a borda esquerda */
-}
-  
-/* 1. Prepare TODOS os cards para poderem ser empilhados */
-.card-item {
-  /* Tamanho (a correção que fizemos) */
-  width: 100%;
-  max-width: 220px;
-  margin: 0 auto;
-
-  /* Estilos Visuais (o padrão de antes, que estava faltando) */
-  background-color: var(--bg-surface);
-  border-radius: 8px;
-  padding: 1rem;
-  border: 1px solid transparent; /* Borda invisível para manter o espaço */
-  
-  /* Outras propriedades */
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  transition: all 0.3s ease;
-}
-
-/* 2. Ao passar o mouse, ELEVE o card inteiro para a frente */
-.card-item:hover {
-  transform: translateY(-5px);
-  border-color: var(--accent-primary);
-}
-
-/* 3. Aplique o ZOOM apenas no container da imagem DENTRO do card elevado */
-.card-item .card-image-container {
-  transition: transform 0.2s ease-in-out;
-}
-
-/* A solução: o hover agora está diretamente no card-image-container */
-.card-item .card-image-container:hover {
-  transform: scale(1.8) translateY(-22%);
-}
-/* Container principal dos controles de adicionar à lista */
-.add-to-list-controls {
-  margin-top: 0.5rem;
-  display: flex;
-  gap: 0.5rem; /* Espaço entre o seletor de quantidade e o botão +Lista */
-}
-
-/* Container do seletor de quantidade (+, -, e o número) */
-.quantity-selector {
-  display: flex;
-  align-items: center;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-}
-
-/* O campo de input do número */
-.quantity-input {
-  width: 40px;
-  text-align: center;
+.btn-primary, .btn-secondary {
+  padding: 0.6rem 1.2rem;
   border: none;
-  background-color: var(--bg-surface-2); /* Fundo um pouco mais claro */
-  color: var(--text-primary);
-  font-size: 1rem;
-  font-weight: bold;
-  /* Remove as setinhas padrão do input de número */
-  -moz-appearance: textfield;
-  appearance: textfield;
-}
-.quantity-input::-webkit-outer-spin-button,
-.quantity-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Estilo para os botões de + e - */
-.quantity-btn {
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  font-size: 1.2rem;
-  font-weight: bold;
+  border-radius: 6px;
   cursor: pointer;
-  padding: 0 0.5rem;
-  transition: color 0.2s;
-}
-
-.quantity-btn:hover {
-  color: var(--accent-primary);
-}
-
-/* Estilo para o botão principal "+ Lista" */
-.add-to-list-btn {
-  flex-grow: 1; /* Faz o botão ocupar o espaço restante */
-  background-color: var(--accent-primary);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-weight: bold;
-  cursor: pointer;
-  padding: 0.5rem;
-  transition: background-color 0.2s;
-}
-
-.add-to-list-btn:hover {
-  background-color: var(--accent-secondary);
-}
-/* Estilo do botão flutuante principal */
-#floating-list-button {
-  position: fixed; /* ESSENCIAL para o efeito flutuante */
-  top: 100px;      /* Distância do topo */
-  right: 30px;     /* Distância da direita */
-  z-index: 1000;   /* Garante que ele fique sobre todos os outros elementos */
-
-  background-color: var(--accent-primary);
-  color: white;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%; /* Deixa o botão redondo */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para dar profundidade */
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-  text-decoration: none;
-  font-size: 1.5rem; /* Tamanho do ícone/emoji */
-  transition: transform 0.2s ease-in-out;
-}
-
-#floating-list-button:hover {
-  transform: scale(1.1); /* Efeito de zoom ao passar o mouse */
-}
-
-/* Estilo do contador de itens (a "bolinha" vermelha) */
-.list-item-count {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-
-  background-color: #e63946; /* Cor vermelha para destaque */
-  color: white;
-  
-  min-width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-  font-size: 0.8rem;
-  font-weight: bold;
-}
-
-/* Classe auxiliar para esconder o contador quando for 0 */
-.list-item-count.hidden {
-  display: none;
-}
-/* Container da barra de filtros de formato */
-.format-filters {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border);
-  flex-wrap: wrap; /* Permite que os botões quebrem a linha em telas pequenas */
-}
-
-/* Estilo de cada botão de formato */
-.format-filters a {
-  padding: 0.5rem 1rem;
-  background-color: var(--bg-surface-2);
-  color: var(--text-secondary);
-  text-decoration: none;
-  border-radius: 20px; /* Bordas arredondadas */
+  font-weight: 700;
   font-size: 0.9rem;
-  font-weight: 500;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
 }
 
-/* Efeito ao passar o mouse */
-.format-filters a:hover {
-  background-color: var(--accent-secondary);
-  color: white;
-}
-
-/* Estilo do botão ATIVO */
-.format-filters a.active {
+.btn-primary {
   background-color: var(--accent-primary);
   color: white;
-  font-weight: bold;
 }
-/* Container principal da página de registro */
-.register-container {
-  max-width: 500px; /* Define uma largura máxima para o formulário */
-  margin: 2rem auto; /* Centraliza o formulário na página com margem no topo/baixo */
-  padding: 2rem;
-  background-color: var(--bg-surface); /* Usa a cor de superfície do seu tema */
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+}
+
+.btn-secondary {
+  background-color: transparent;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  color: var(--text-primary);
 }
 
-.register-container h1 {
-  text-align: center;
-  margin-bottom: 1.5rem;
+.btn-secondary:hover {
+  border-color: var(--text-secondary);
+  color: var(--text-secondary);
 }
 
-/* Estilo para cada grupo de label + input */
+.btn-submit-full {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
 .form-group {
   margin-bottom: 1.25rem;
 }
@@ -491,7 +150,6 @@ flex: 1; /* Ocupa o resto do espaço */
   font-weight: 500;
 }
 
-/* Estilo geral para os campos de texto, email, senha */
 .form-control {
   width: 100%;
   padding: 0.75rem;
@@ -505,408 +163,430 @@ flex: 1; /* Ocupa o resto do espaço */
 .form-control:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 2px rgba(129, 92, 246, 0.2); /* Sombra suave roxa no foco */
-}
-
-/* Estilização dos botões de rádio (Tipo de Conta) */
-.radio-group {
-  display: flex;
-  gap: 1.5rem;
-  margin-top: 0.5rem;
-}
-
-.radio-group label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--text-primary);
-  cursor: pointer;
-}
-
-/* Esconde o botão de rádio padrão */
-.radio-group input[type="radio"] {
-  display: none;
-}
-
-/* Cria um botão de rádio customizado */
-.radio-group label::before {
-  content: '';
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 2px solid var(--border);
-  transition: all 0.2s;
-}
-
-/* Estilo do botão de rádio quando selecionado */
-.radio-group input[type="radio"]:checked + label::before {
-  border-color: var(--accent-primary);
-  background-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px var(--bg-surface) inset;
-}
-
-/* Faz o botão de submit ocupar a largura toda */
-.btn-submit-full {
-  width: 100%;
-  padding: 0.8rem;
-  font-size: 1.1rem;
-  margin-top: 1rem;
-}
-/* Fundo abstrato para as páginas de login/registro */
-/* 1. Fundo da página unificado com o resto do site, mas com brilhos sutis */
-.auth-body {
-  background-color: var(--bg-primary); /* USA O MESMO FUNDO DO SITE */
-  background-attachment: fixed;
-  height: 100vh;
-}
-
-/* 2. Painel de vidro refinado: mais claro e sutil */
-.glass-panel {
-  max-width: 450px;
-  margin: 5vh auto;
-  padding: 2rem 2.5rem;
-
-  /* EFEITO DE VIDRO MAIS CLARO */
-  background: rgba(255, 255, 255, 0.05); /* Fundo quase transparente, levemente branco */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15); /* Borda um pouco mais visível */
-  border-radius: 16px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-}
-
-/* Os títulos e textos dentro do painel continuam os mesmos */
-.glass-panel h1 {
-  text-align: center;
-  margin-bottom: 0.5rem;
-  font-size: 2rem;
-}
-
-.glass-panel .subtitle {
-  text-align: center;
-  color: var(--text-secondary);
-  margin-bottom: 2rem;
-}
-
-/* 3. Inputs também refinados para combinar com o painel claro */
-.glass-panel .form-control {
-  background: rgba(255, 255, 255, 0.05); /* Fundo claro e transparente */
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: var(--text-primary);
-  padding: 0.9rem;
-}
-
-.glass-panel .form-control::placeholder {
-  color: var(--text-secondary);
-}
-
-.glass-panel .form-control:focus {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--accent-primary);
   box-shadow: 0 0 0 2px rgba(129, 92, 246, 0.2);
 }
 
-/* Os outros estilos (social-login, divider, etc.) podem permanecer os mesmos */
-.social-login {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
 
-.btn-social {
-  flex: 1;
-  padding: 0.75rem;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text-primary);
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
+/* ==========================================================================
+   4. ESTILOS DE PÁGINAS ESPECÍFICAS
+   ========================================================================== */
 
-.btn-social:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.divider {
+/* --- 4.1. Página Inicial --- */
+.hero {
   text-align: center;
-  color: var(--text-secondary);
-  margin-bottom: 1.5rem;
+  padding: 6rem 0;
 }
-/* Container principal do dropdown */
-.user-dropdown {
-  position: relative; /* Essencial para o menu se posicionar corretamente */
+.hero h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+.hero p { font-size: 1.25rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem auto; }
+
+.hero-search {
+  display: flex; /* Alinha o input e o botão na mesma linha */
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-/* O "gatilho" do dropdown (imagem + nome + seta) */
-.dropdown-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  cursor: pointer;
-  padding: 0.25rem 0.5rem;
-  border-radius: 8px;
-  transition: background-color 0.2s;
-}
-
-.dropdown-toggle:hover {
-  background-color: var(--bg-surface-2);
-}
-
-/* A imagem redonda do avatar */
-.avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover; /* Evita que a imagem distorça */
-  border: 2px solid var(--border);
-}
-
-/* A setinha */
-.dropdown-arrow {
-  font-size: 0.6rem;
-  color: var(--text-secondary);
-  transition: transform 0.2s;
-}
-
-/* Rotaciona a setinha quando o menu está ativo */
-.user-dropdown.active .dropdown-arrow {
-  transform: rotate(180deg);
-}
-
-/* O menu dropdown em si */
-.dropdown-menu {
-  display: none; /* Escondido por padrão */
-  position: absolute;
-  top: 120%; /* Posição abaixo do gatilho */
-  right: 0;
-  min-width: 180px;
-  background-color: var(--bg-surface);
+.hero-search input {
+  flex-grow: 1; /* Faz o campo de busca ocupar o máximo de espaço */
+  padding: 1rem;
   border: 1px solid var(--border);
-  border-radius: 8px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  z-index: 1001;
-  overflow: hidden; /* Garante que os itens fiquem dentro das bordas arredondadas */
+  border-radius: 6px 0 0 6px; /* Arredonda só os cantos da esquerda */
+  background-color: var(--bg-surface); /* Fundo escuro */
+  color: var(--text-primary); /* Texto claro */
+  font-size: 1.1rem;
+  outline: none;
+  transition: border-color 0.2s;
 }
 
-/* Mostra o menu quando o container pai tem a classe 'active' */
-.user-dropdown.active .dropdown-menu {
-  display: block;
+/* VERSÃO NOVA E MAIOR */
+.hero-search input {
+  flex-grow: 1;
+  padding: 1.2rem; /* Aumentado de 1rem para 1.2rem */
+  border: 1px solid var(--border);
+  border-radius: 6px 0 0 6px;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: 1.2rem; /* Aumentado de 1.1rem para 1.2rem */
+  outline: none;
+  transition: border-color 0.2s;
 }
 
-/* Itens do menu */
-.dropdown-item {
-  display: block;
-  padding: 0.75rem 1rem;
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: all 0.2s;
-}
-
-.dropdown-item:hover {
+.hero-search button {
+  padding: 1.2rem 2.5rem; /* Aumentado para corresponder */
+  border: none;
   background-color: var(--accent-primary);
   color: white;
-}
-
-/* Linha divisória dentro do menu */
-.dropdown-divider {
-  height: 1px;
-  background-color: var(--border);
-  margin: 0.5rem 0;
-}
-
-.logout-btn:hover {
-  background-color: #e63946; /* Vermelho para a ação de sair */
-}
-/* Container principal da página de Venda */
-.sell-container {
-  max-width: 800px;
-  margin: 2rem auto;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem; /* Espaço entre as seções */
-}
-
-/* Estilo para cada seção (Busca e Anúncios) */
-.sell-section {
-  background-color: var(--bg-surface);
-  padding: 2rem;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-}
-
-.sell-section h1, .sell-section h2 {
-  margin-top: 0;
-}
-
-/* Formulário de busca com input e botão na mesma linha */
-.sell-search-form {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.sell-search-form .form-control {
-  flex-grow: 1; /* Faz o input ocupar o máximo de espaço */
-}
-
-/* Resultados da busca */
-#sell-search-results {
-  margin-top: 1rem;
-  max-height: 400px;
-  overflow-y: auto; /* Adiciona scroll se houver muitos resultados */
-}
-
-.search-result-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.75rem;
-  border-radius: 4px;
+  font-size: 1.2rem; /* Aumentado para corresponder */
+  font-weight: 700;
+  border-radius: 0 6px 6px 0;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.3s ease;
 }
 
-.search-result-item:hover {
-  background-color: var(--bg-surface-2);
+.hero-search button:hover {
+  background-color: var(--accent-hover);
 }
 
-.search-result-item img {
-  width: 50px;
-  height: 70px; /* Proporção aproximada de uma carta */
-  object-fit: cover;
-  border-radius: 3px;
+.game-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+.game-card-link { text-decoration: none; color: inherit; }
+.game-card { background-color: var(--bg-surface); border-radius: 8px; overflow: hidden; text-align: center; transition: transform 0.3s ease; border: 1px solid var(--border); }
+.game-card:hover { transform: translateY(-5px); border-color: var(--accent-primary); }
+.game-card img { width: 100%; height: auto; display: block; }
+.game-card h3 { padding: 1.5rem; font-size: 1.5rem; }
+
+/* --- 4.2. Página de Busca de Cartas (/cards/magic) --- */
+.search-container { display: flex; gap: 2rem; margin-top: 2rem; }
+.filters { flex: 0 0 250px; }
+.results { flex: 1; }
+.filter-group { margin-bottom: 1.5rem; }
+.filter-group h4 { margin-bottom: 0.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+.filter-group label { display: block; margin-bottom: 0.25rem; cursor: pointer; }
+
+/* --- Barra de Filtros de Formato --- */
+.format-filters { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.format-filters a { padding: 0.5rem 1rem; background-color: var(--bg-surface-2); color: var(--text-secondary); text-decoration: none; border-radius: 20px; font-size: 0.9rem; font-weight: 500; transition: all 0.2s ease-in-out; }
+.format-filters a:hover { background-color: var(--accent-hover); color: white; }
+.format-filters a.active { background-color: var(--accent-primary); color: white; font-weight: bold; }
+
+/* --- Grade de Cartas --- */
+.cards-carousel {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+  gap: 1.5rem; /* Aumentei um pouco o gap para respirar melhor */
 }
 
+.card-link { text-decoration: none; color: inherit; }
+
+.card-item {
+  width: 100%;
+  background-color: var(--bg-surface);
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.card-item:hover {
+  z-index: 100;
+  transform: translateY(-5px);
+  border-color: var(--accent-primary);
+}
+
+.card-item .card-image-container {
+  transition: transform 0.2s ease-in-out;
+}
+
+.card-item .card-image-container:hover {
+  transform: scale(1.6) translateY(-20%);
+}
+
+.card-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
+.card-item h4 { margin-top: 1rem; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-item p { color: var(--text-secondary); font-weight: 500; font-size: 0.9rem; }
+
+/* --- Controles de Adicionar à Lista --- */
+.add-to-list-controls { margin-top: 0.5rem; display: flex; gap: 0.5rem; }
+.quantity-selector { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 4px; }
+.quantity-input { width: 40px; text-align: center; border: none; background-color: var(--bg-surface-2); color: var(--text-primary); font-size: 1rem; font-weight: bold; -moz-appearance: textfield; appearance: textfield; }
+.quantity-input::-webkit-outer-spin-button, .quantity-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.quantity-btn { background: none; border: none; color: var(--text-secondary); font-size: 1.2rem; font-weight: bold; cursor: pointer; padding: 0 0.5rem; transition: color 0.2s; }
+.quantity-btn:hover { color: var(--accent-primary); }
+.add-to-list-btn { flex-grow: 1; background-color: var(--accent-primary); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; padding: 0.5rem; transition: background-color 0.2s; }
+.add-to-list-btn:hover { background-color: var(--accent-hover); }
+
+/* --- 4.3. Página de Login/Registro (Glassmorphism) --- */
+.auth-body {
+  background-color: var(--bg-primary);
+  background-image: radial-gradient(at 5% 5%, hsla(260, 80%, 55%, 0.15) 0px, transparent 50%), radial-gradient(at 95% 95%, hsla(260, 85%, 65%, 0.15) 0px, transparent 50%);
+  background-attachment: fixed;
+  height: 100vh;
+}
+.glass-panel { max-width: 450px; margin: 5vh auto; padding: 2rem 2.5rem; background: rgba(30, 30, 45, 0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); }
+.glass-panel h1 { text-align: center; margin-bottom: 0.5rem; font-size: 2rem; }
+.glass-panel .subtitle { text-align: center; color: var(--text-secondary); margin-bottom: 2rem; }
+.glass-panel .form-control { background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.1); }
+.glass-panel .form-control::placeholder { color: var(--text-secondary); }
+.glass-panel .form-control:focus { border-color: var(--accent-primary); }
+.social-login { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+.btn-social { flex: 1; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--text-primary); font-weight: 500; cursor: pointer; transition: background-color 0.2s; }
+.btn-social:hover { background-color: rgba(255, 255, 255, 0.1); }
+.divider { text-align: center; color: var(--text-secondary); margin-bottom: 1.5rem; }
+.radio-group { display: flex; gap: 1.5rem; margin-top: 0.5rem; }
+.radio-group label { display: flex; align-items: center; gap: 0.5rem; color: var(--text-primary); }
+.radio-group input[type="radio"] { display: none; }
+.radio-group label::before { content: ''; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--border); transition: all 0.2s; }
+.radio-group input[type="radio"]:checked + label::before { border-color: var(--accent-primary); background-color: var(--accent-primary); box-shadow: 0 0 0 3px var(--bg-surface) inset; }
+
+/* --- 4.4. Página de Venda (/vender) --- */
+.sell-container { max-width: 900px; margin: 2rem auto; display: flex; flex-direction: column; gap: 2rem; }
+.sell-section { background-color: var(--bg-surface); padding: 2rem; border-radius: 8px; border: 1px solid var(--border); }
+.sell-section h1, .sell-section h2 { margin-top: 0; }
+.sell-search-form { display: flex; gap: 0.5rem; }
+.sell-search-form .form-control { flex-grow: 1; }
+#sell-search-results { margin-top: 1.5rem; max-height: 400px; overflow-y: auto; }
+.search-result-item { display: flex; align-items: center; gap: 1rem; padding: 0.75rem; border-radius: 4px; cursor: pointer; transition: background-color 0.2s; }
+.search-result-item:hover { background-color: var(--bg-surface-2); }
+.search-result-item img { width: 50px; height: 70px; object-fit: cover; border-radius: 3px; }
 .search-result-item h4 { margin: 0; }
 .search-result-item p { margin: 0; font-size: 0.8rem; color: var(--text-secondary); }
-.search-result-item button { margin-left: auto; } /* Joga o botão para a direita */
+.search-result-item button { margin-left: auto; }
+.empty-staging-message { text-align: center; color: var(--text-secondary); padding: 2rem; border: 2px dashed var(--border); border-radius: 8px; }
+.listing-row { display: flex; align-items: center; gap: 1rem; padding: 1rem; border-bottom: 1px solid var(--border); }
+.listing-row:last-child { border-bottom: none; }
+.listing-row img { width: 60px; height: 84px; object-fit: cover; border-radius: 4px; }
+.card-info { flex-grow: 1; display: flex; flex-direction: column; }
+.card-info strong { color: var(--text-primary); }
+.card-info small { color: var(--text-secondary); font-size: 0.8rem; }
+.listing-inputs { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+.listing-inputs .form-control { padding: 0.5rem; }
+.listing-inputs .listing-price { width: 100px; }
+.listing-inputs .listing-quantity { width: 60px; }
+.listing-inputs .listing-condition, .listing-inputs .listing-language { min-width: 120px; }
+.listing-inputs select.form-control option { background: var(--bg-surface-2); color: #1A1D24; }
+.foil-checkbox { display: flex; align-items: center; gap: 0.5rem; color: var(--text-primary); cursor: pointer; padding: 0.5rem; border-radius: 4px; }
+.remove-listing-btn { background-color: transparent; color: var(--text-secondary); border: none; border-radius: 50%; width: 32px; height: 32px; font-weight: bold; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.remove-listing-btn:hover { background-color: #e63946; color: white; }
 
+/* ==========================================================================
+   5. COMPONENTES COMPLEXOS (Dropdowns, Flutuantes)
+   ========================================================================== */
+   
+/* --- Menu Dropdown de Usuário --- */
+.user-dropdown { position: relative; }
+.dropdown-toggle { display: flex; align-items: center; gap: 0.75rem; cursor: pointer; padding: 0.25rem 0.5rem; border-radius: 8px; transition: background-color 0.2s; }
+.dropdown-toggle:hover { background-color: var(--bg-surface-2); }
+.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); }
+.dropdown-arrow { font-size: 0.6rem; color: var(--text-secondary); transition: transform 0.2s; }
+.user-dropdown.active .dropdown-arrow { transform: rotate(180deg); }
+.dropdown-menu { display: none; position: absolute; top: 120%; right: 0; min-width: 180px; background-color: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); z-index: 1001; overflow: hidden; }
+.user-dropdown.active .dropdown-menu { display: block; }
+.dropdown-item { display: block; padding: 0.75rem 1rem; color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; transition: all 0.2s; }
+.dropdown-item:hover { background-color: var(--accent-primary); color: white; }
+.dropdown-divider { height: 1px; background-color: var(--border); margin: 0.5rem 0; }
+.logout-btn:hover { background-color: #e63946; }
 
-/* Mensagem de lista de anúncios vazia */
-.empty-staging-message {
-  text-align: center;
-  color: var(--text-secondary);
-  padding: 2rem;
-  border: 2px dashed var(--border);
-  border-radius: 8px;
+/* --- Botão Flutuante da Lista --- */
+#floating-list-button { position: fixed; top: 100px; right: 30px; z-index: 1000; background-color: var(--accent-primary); color: white; width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); display: flex; justify-content: center; align-items: center; text-decoration: none; font-size: 1.5rem; transition: transform 0.2s ease-in-out; }
+#floating-list-button:hover { transform: scale(1.1); }
+.list-item-count { position: absolute; top: -5px; right: -5px; background-color: #e63946; color: white; min-width: 24px; height: 24px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 0.8rem; font-weight: bold; }
+.list-item-count.hidden { display: none; }
+
+/* --- Dropdown Customizado (Página de Venda) --- */
+.custom-select-wrapper { position: relative; width: 140px; }
+.custom-select-display { display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+.custom-select-arrow { font-size: 0.6rem; color: var(--text-secondary); transition: transform 0.2s; }
+.custom-select-options { display: none; position: absolute; top: 100%; left: 0; right: 0; background-color: var(--bg-surface-2); border: 1px solid var(--border); border-radius: 4px; z-index: 100; max-height: 200px; overflow-y: auto; }
+.custom-select-wrapper.active .custom-select-options { display: block; }
+.custom-select-wrapper.active .custom-select-arrow { transform: rotate(180deg); }
+.custom-select-option { padding: 0.75rem; color: var(--text-secondary); cursor: pointer; transition: all 0.2s; }
+.custom-select-option:hover { background-color: var(--accent-primary); color: white; }
+/* Estilos para a seção "Negocie com Confiança" */
+.trust-features {
+  padding: 4rem 0;
+  margin-top: 4rem;
 }
 
-/* Estilo para cada linha de anúncio a ser criado */
+.trust-features h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px; /* Garante que não fique muito largo em telas grandes */
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start; /* Alinha o ícone e o texto no topo */
+  gap: 1.5rem;
+}
+
+.feature-icon {
+  background-color: var(--accent-primary);
+  color: white;
+  min-width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.feature-text h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+}
+
+.feature-text p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+/* Estilos para a Página da Lista */
+.want-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.want-list-item {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.card-summary {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+.summary-img { width: 60px; border-radius: 4px; }
+.summary-info { flex-grow: 1; }
+.summary-info h3 { margin: 0; }
+.summary-info p { font-size: 0.9rem; color: var(--text-secondary); margin: 0; }
+.summary-price { text-align: right; }
+.summary-price span { font-size: 0.8rem; color: var(--text-secondary); }
+.summary-price strong { display: block; font-size: 1.2rem; color: var(--accent-primary); }
+.toggle-sellers-btn {
+  background: none; border: none; color: var(--text-secondary); cursor: pointer;
+  display: flex; align-items: center; gap: 0.5rem; font-weight: bold;
+}
+.toggle-sellers-btn span { transition: transform 0.2s; }
+.toggle-sellers-btn.active span { transform: rotate(180deg); }
+
+/* Gaveta de Vendedores */
+.sellers-drawer {
+  display: none; /* Escondida por padrão */
+  background-color: var(--bg-primary);
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+}
 .listing-row {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem;
+  justify-content: space-between;
+  padding: 0.75rem;
   border-bottom: 1px solid var(--border);
 }
-.listing-row:last-child {
-  border-bottom: none;
+.listing-row:last-child { border-bottom: none; }
+/* --- Estilos para a Página da Lista (/lista) --- */
+
+.want-list-item {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  overflow: hidden; /* Garante que o conteúdo interno respeite as bordas arredondadas */
 }
 
-/* Imagem da carta na linha */
-.listing-row img {
+.card-summary {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  cursor: pointer; /* Indica que é clicável para abrir a gaveta */
+  transition: background-color 0.2s;
+}
+
+.card-summary:hover {
+  background-color: var(--bg-surface-2);
+}
+
+.summary-img {
   width: 60px;
   height: 84px;
   object-fit: cover;
   border-radius: 4px;
 }
 
-/* Informações da carta (nome e set) */
-.card-info {
-  flex-grow: 1; /* Ocupa o espaço para empurrar os inputs para a direita */
-  display: flex;
-  flex-direction: column;
+.summary-info {
+  flex-grow: 1; /* Ocupa o espaço disponível */
 }
-.card-info strong {
+
+.summary-info h3 {
+  margin: 0 0 0.25rem 0;
   color: var(--text-primary);
 }
-.card-info small {
+
+.summary-info p, .summary-info span {
+  font-size: 0.9rem;
   color: var(--text-secondary);
+  margin: 0;
+}
+
+.summary-price {
+  text-align: right;
+  min-width: 100px;
+}
+
+.summary-price span {
   font-size: 0.8rem;
+  color: var(--text-secondary);
 }
 
-/* Container dos inputs e selects */
-.listing-inputs {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+.summary-price strong {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--accent-primary);
 }
 
-/* Ajusta o tamanho dos inputs e selects na linha */
-.listing-inputs .form-control {
-  padding: 0.5rem;
-  
-  /* --- GARANTA QUE ESTAS LINHAS EXISTEM --- */
-  background-color: var(--bg-surface-2); /* Uma cor de fundo sólida do seu tema */
-  color: var(--text-primary);             /* Cor do texto principal */
-  border: 1px solid var(--border);
-  /* ----------------------------------------- */
-}
-.listing-inputs .listing-price {
-  width: 100px;
-}
-.listing-inputs .listing-quantity {
-  width: 60px;
-}
-.listing-inputs .listing-condition {
-  width: 140px;
-}
-.listing-inputs .listing-language {
-  width: 110px;
-}
-
-/* Checkbox de Foil customizado */
-.foil-checkbox {
+.toggle-sellers-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--text-primary);
-  cursor: pointer;
   padding: 0.5rem;
-  border-radius: 4px;
-  transition: background-color 0.2s;
-}
-.foil-checkbox:hover {
-  background-color: var(--bg-surface-2);
-}
-.foil-checkbox input {
-  width: 16px;
-  height: 16px;
 }
 
-/* Botão de remover (o 'X') */
-.remove-listing-btn {
-  background-color: transparent;
-  color: var(--text-secondary);
-  border: none;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  font-weight: bold;
-  font-size: 1.5rem;
-  cursor: pointer;
-  display: flex;
+.toggle-sellers-btn span {
+  transition: transform 0.2s;
+  font-size: 0.7rem;
+}
+
+/* Gira a seta quando a gaveta está ativa */
+.toggle-sellers-btn.active span {
+  transform: rotate(180deg);
+}
+
+/* Gaveta de Vendedores */
+.sellers-drawer {
+  display: none; /* Gaveta escondida por padrão */
+  background-color: var(--bg-primary);
+  padding: 0 1rem 1rem 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.sellers-drawer .listing-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 2fr; /* Define 4 colunas */
   align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border);
 }
-.remove-listing-btn:hover {
-  background-color: #e63946; /* Vermelho */
-  color: white;
-}
-/* Correção para o texto das opções do Dropdown na linha de anúncio */
-.listing-inputs select.form-control option {
-  /* Alguns navegadores (como Firefox) respeitam esta cor de fundo */
-  background: var(--bg-surface-2); 
-  
-  /* Todos os navegadores respeitam esta cor de texto, garantindo a legibilidade */
-  color: #1A1D24; /* Um cinza bem escuro, quase preto */
-}
-.listing-inputs .form-control {
-  padding: 0.5rem;
-  background-color: var(--bg-surface-2); /* Cor de fundo sólida */
-  color: var(--text-primary);             /* Cor do texto principal (branco) */
-  border: 1px solid var(--border);
+
+.sellers-drawer .listing-row:last-child {
+  border-bottom: none;
 }

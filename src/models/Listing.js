@@ -10,6 +10,7 @@ const ListingSchema = new mongoose.Schema({
   condition: { type: String, enum: ['NM', 'LP', 'MP', 'HP'], default: 'NM' }, // Near Mint, Lightly Played...
   is_foil: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
+   extras: [{ type: String }], 
 });
 
 module.exports = mongoose.model('Listing', ListingSchema);

@@ -41,6 +41,7 @@ async function bulkSync() {
         legalities: cardData.legalities,
         type_line: cardData.type_line,
         price_usd: cardData.prices?.usd, // Usando optional chaining aqui também por segurança
+        editions: cardData.set_name,
       };
 
       // Em vez de executar a operação, nós a preparamos e adicionamos ao nosso lote

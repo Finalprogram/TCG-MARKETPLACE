@@ -1,32 +1,38 @@
-<header class="navbar">
-    <a href="/" class="logo">CardHub</a>
-    <nav class="nav-links">
-        <a href="#">Magic</a>
+<header class="navbar-wrapper">
+
+  <div class="container">
+
+    <nav class="navbar">
+      <a href="/" class="navbar-brand">CardHub</a>
+      
+      <div class="navbar-links">
+        <a href="/cards/magic">Magic</a>
         <a href="#">Pokémon</a>
         <a href="#">Yu-Gi-Oh!</a>
+      </div>
+
+      <div class="navbar-actions">
+          <% if (user) { %>
+              <a href="/vender" class="btn-secondary">Vender Agora</a>
+              <div class="user-dropdown">
+                  <div class="dropdown-toggle">
+                      <img src="/images/default-avatar.png" alt="Avatar do usuário" class="avatar">
+                      <span class="navbar-user-greeting"><%= user.username %></span>
+                      <span class="dropdown-arrow">▼</span>
+                  </div>
+                  <div class="dropdown-menu">
+                      <a href="/perfil/<%= user.username %>" class="dropdown-item">Meu Perfil</a>
+                      <a href="/meus-anuncios" class="dropdown-item">Meus Anúncios</a>
+                      <div class="dropdown-divider"></div>
+                      <a href="/logout" class="dropdown-item logout-btn">Sair</a>
+                  </div>
+              </div>
+          <% } else { %>
+              <a href="/login" class="btn-secondary">Entrar</a>
+              <a href="/register" class="btn-primary">Cadastrar</a>
+          <% } %>
+      </div>
     </nav>
-   <div class="navbar-actions">
-    <% if (user) { %>
-        
-
-        <div class="user-dropdown">
-            <div class="dropdown-toggle">
-                <a href="/vender" class="btn-primary">Vender Agora</a>
-                <img src="/images/default-avatar.png" alt="Avatar do usuário" class="avatar">
-                <span class="navbar-user-greeting"><%= user.username %></span>
-                <span class="dropdown-arrow">▼</span>
-            </div>
-            <div class="dropdown-menu">
-                <a href="/perfil/<%= user.username %>" class="dropdown-item">Meu Perfil</a>
-                <a href="/minhas-vendas" class="dropdown-item">Minhas Pedidos</a>
-                <div class="dropdown-divider"></div>
-                <a href="/logout" class="dropdown-item logout-btn">Sair</a>
-            </div>
-        </div>
-        <% } else { %>
-        <a href="/login" class="btn-secondary">Entrar</a>
-        <a href="/register" class="btn-primary">Cadastrar</a>
-    <% } %>
-</div>
+    
+  </div>
 </header>
-

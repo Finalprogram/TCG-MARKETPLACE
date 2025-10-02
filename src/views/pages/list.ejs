@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <%- include('../partials/header') %>
+    <title>Minha Lista - CardHub</title>
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+
+    <main class="container">
+        <h1>Minha Lista de Compras</h1>
+
+        <% if (wantList.length > 0) { %>
+            <div class="want-list-container">
+                <% wantList.forEach(item => { %>
+                    <div class="want-list-item">
+                        <div class="card-summary">
+                        </div>
+
+<div class="item-filters">
+    <select name="edition" ...>
+    <option value="">Qualquer Edição</option>
+    <% if (item.card.editions && Array.isArray(item.card.editions)) { %>
+        <% item.card.editions.forEach(edition => { %>
+            <option value="<%= edition %>"><%= edition %></option>
+        <% }) %>
+    <% } %>
+</select>
+    <select name="condition" class="item-filter-select" data-cardid="<%= item.card._id %>">
+        <option value="">Qualquer Qualidade</option>
+        </select>
+    </div>
+
+<div class="sellers-drawer">
+    </div>
+                            <img src="<%= item.card.image_url %>" alt="<%= item.card.name %>" class="summary-img">
+                            <div class="summary-info">
+                                <h3><%= item.card.name %></h3>
+                                <p><%= item.card.set_name || 'N/A' %></p>
+                                <span>Quantidade desejada: <strong><%= item.quantityWanted %></strong></span>
+                            </div>
+                            <div class="summary-price">
+                                <span>A partir de</span>
+                                <strong>R$ <%= item.lowestPrice ? item.lowestPrice.toFixed(2) : 'N/A' %></strong>
+                            </div>
+                            <button class="toggle-sellers-btn" data-target="sellers-<%= item.card._id %>">
+                                Ver Vendedores <span>▼</span>
+                            </button>
+                        </div>
+
+                        <div class="sellers-drawer" id="sellers-<%= item.card._id %>">
+                            <% if (item.listings.length > 0) { %>
+                                <% item.listings.forEach(listing => { %>
+                                    <div class="listing-row">
+                                        <div class="seller-info">
+                                            <strong><%= listing.seller.username %></strong>
+                                            <span>(★ 4.8)</span>
+                                        </div>
+                                        <div class="condition-info">
+                                            <span><%= listing.condition %></span>
+                                            <span><%= listing.is_foil ? 'Foil' : 'Normal' %></span>
+                                        </div>
+                                        <div class="price-info">
+                                            <strong>R$ <%= listing.price.toFixed(2) %></strong>
+                                        </div>
+                                        <div class="add-to-cart-controls">
+                                            <input type="number" class="quantity-input" value="1" min="1" max="<%= listing.quantity %>">
+                                            <button class="btn-primary add-final-cart-btn" data-listingid="<%= listing._id %>">+ Carrinho</button>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            <% } else { %>
+                                <p class="no-listings">Nenhum anúncio encontrado para esta carta.</p>
+                            <% } %>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <div class="empty-list-message">
+                <h2>Sua lista está vazia.</h2>
+                <p>Navegue pelas cartas e clique em "+ Lista" para adicioná-las aqui.</p>
+                <a href="/cards/magic" class="btn-primary">Explorar Cartas</a>
+            </div>
+        <% } %>
+    </main>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>

@@ -90,3 +90,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+const wantListContainer = document.querySelector('.want-list-container');
+
+if (wantListContainer) {
+  wantListContainer.addEventListener('click', (event) => {
+    // Procura pelo botão ou pelo resumo do card, pois ambos podem abrir a gaveta
+    const clickableArea = event.target.closest('.card-summary');
+    
+    if (clickableArea) {
+      const toggleButton = clickableArea.querySelector('.toggle-sellers-btn');
+      const targetId = toggleButton.dataset.target;
+      const drawer = document.getElementById(targetId);
+      
+      if (drawer) {
+        // Alterna a classe 'active' no botão (para a seta girar)
+        toggleButton.classList.toggle('active');
+        
+        // Alterna a exibição da gaveta
+        if (drawer.style.display === 'block') {
+          drawer.style.display = 'none';
+        } else {
+          drawer.style.display = 'block';
+        }
+      }
+    }
+  });
+}
