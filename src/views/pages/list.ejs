@@ -8,31 +8,54 @@
     <%- include('../partials/navbar') %>
 
     <main class="container">
-        <h1>Minha Lista de Compras</h1>
+        
+<h1>Minha Lista de Compras</h1>
+<button id="add-more-cards-btn" class="btn-secondary">Adicionar mais cartas</button>
+        <% if (wantList && wantList.length > 0) { %>
+           <div class="optimizer-panel">
+    
+    <div class="form-group">
+        <label for="max-shops-select">Qtd. Máxima de Lojas</label>
+        <select id="max-shops-select" class="form-control">
+            <option value="99">Sem limitar</option>
+            <option value="1">Até 1 loja</option>
+            <option value="2">Até 2 lojas</option>
+            <option value="3">Até 3 lojas</option>
+            </select>
+    </div>
 
-        <% if (wantList.length > 0) { %>
-            <div class="want-list-container">
-                <% wantList.forEach(item => { %>
-                    <div class="want-list-item">
-                        <div class="card-summary">
-                        </div>
+    <div class="form-group">
+        <label for="state-select">Estado (UF)</label>
+        <select id="state-select" class="form-control">
+            <option value="">Todos</option>
+            <option value="SP">São Paulo</option>
+            <option value="RJ">Rio de Janeiro</option>
+            <option value="MG">Minas Gerais</option>
+            </select>
+    </div>
 
-<div class="item-filters">
-    <select name="edition" ...>
-    <option value="">Qualquer Edição</option>
-    <% if (item.card.editions && Array.isArray(item.card.editions)) { %>
-        <% item.card.editions.forEach(edition => { %>
-            <option value="<%= edition %>"><%= edition %></option>
-        <% }) %>
-    <% } %>
-</select>
-    <select name="condition" class="item-filter-select" data-cardid="<%= item.card._id %>">
-        <option value="">Qualquer Qualidade</option>
+    <div class="form-group">
+        <label for="city-input">Cidade</label>
+        <input type="text" id="city-input" class="form-control" placeholder="Digite uma cidade">
+    </div>
+
+    <div class="form-group">
+        <label for="min-rating-select">Avaliação Mínima</label>
+        <select id="min-rating-select" class="form-control">
+            <option value="0">Qualquer Avaliação</option>
+            <option value="4">4+ estrelas</option>
+            <option value="4.5">4.5+ estrelas</option>
         </select>
     </div>
 
-<div class="sellers-drawer">
-    </div>
+    <button id="optimize-list-btn" class="btn-primary">⚡ Otimizar</button>
+
+</div>
+            <div class="want-list-container">
+                <% wantList.forEach(item => { %>
+                    <div class="want-list-item">
+                        
+                        <div class="card-summary">
                             <img src="<%= item.card.image_url %>" alt="<%= item.card.name %>" class="summary-img">
                             <div class="summary-info">
                                 <h3><%= item.card.name %></h3>
@@ -46,44 +69,94 @@
                             <button class="toggle-sellers-btn" data-target="sellers-<%= item.card._id %>">
                                 Ver Vendedores <span>▼</span>
                             </button>
+                            <div class="card-summary">
+    <button class="toggle-sellers-btn" ...>Ver Vendedores <span>▼</span></button>
+    
+    <button class="remove-from-list-btn" data-cardid="<%= item.card._id %>" title="Remover da lista">&times;</button>
+</div>
                         </div>
-
+                        
                         <div class="sellers-drawer" id="sellers-<%= item.card._id %>">
-                            <% if (item.listings.length > 0) { %>
-                                <% item.listings.forEach(listing => { %>
-                                    <div class="listing-row">
-                                        <div class="seller-info">
-                                            <strong><%= listing.seller.username %></strong>
-                                            <span>(★ 4.8)</span>
+                            <div class="seller-filters">
+                                <select class="item-filter-select form-control" data-filter="condition" data-cardid="<%= item.card._id %>">
+                                    <option value="">Qualidade</option>
+                                    <option value="NM">Near Mint</option>
+                                    <option value="LP">Lightly Played</option>
+                                    <option value="MP">Moderately Played</option>
+                                    <option value="HP">Heavily Played</option>
+                                </select>
+                                <select class="item-filter-select form-control" data-filter="language" data-cardid="<%= item.card._id %>">
+                                    <option value="">Idioma</option>
+                                    <option value="pt">Português</option>
+                                    <option value="en">Inglês</option>
+                                </select>
+                                <select class="item-filter-select form-control" data-filter="is_foil" data-cardid="<%= item.card._id %>">
+                                    <option value="">Todos</option>
+                                    <option value="false">Normal</option>
+                                    <option value="true">Foil</option>
+                                </select>
+                            </div>
+
+                            <div class="listings-container">
+                                <% if (item.listings.length > 0) { %>
+                                    <% item.listings.forEach(listing => { %>
+                                        <div class="listing-row">
+                                            <div class="seller-info">
+                                                <strong><%= listing.seller.username %></strong>
+                                                <% if (listing.seller.accountType === 'shop') { %>
+                                                    <span class="shop-badge">LOJA</span>
+                                                <% } %>
+                                            </div>
+                                            <div class="condition-info">
+                                                <span><%= listing.condition %></span> |
+                                                <span><%= listing.is_foil ? 'Foil' : 'Normal' %></span>
+                                            </div>
+                                            <div class="price-info">
+                                                <strong>R$ <%= listing.price.toFixed(2) %></strong>
+                                            </div>
+                                            <div class="add-to-cart-controls">
+                                                <input type="number" class="quantity-input form-control" value="1" min="1" max="<%= listing.quantity %>">
+                                                <button class="btn-primary add-final-cart-btn" data-listingid="<%= listing._id %>">+ Carrinho</button>
+                                            </div>
                                         </div>
-                                        <div class="condition-info">
-                                            <span><%= listing.condition %></span>
-                                            <span><%= listing.is_foil ? 'Foil' : 'Normal' %></span>
-                                        </div>
-                                        <div class="price-info">
-                                            <strong>R$ <%= listing.price.toFixed(2) %></strong>
-                                        </div>
-                                        <div class="add-to-cart-controls">
-                                            <input type="number" class="quantity-input" value="1" min="1" max="<%= listing.quantity %>">
-                                            <button class="btn-primary add-final-cart-btn" data-listingid="<%= listing._id %>">+ Carrinho</button>
-                                        </div>
-                                    </div>
-                                <% }) %>
-                            <% } else { %>
-                                <p class="no-listings">Nenhum anúncio encontrado para esta carta.</p>
-                            <% } %>
+                                    <% }) %>
+                                <% } else { %>
+                                    <p class="no-listings">Nenhum anúncio encontrado para esta carta.</p>
+                                <% } %>
+                            </div>
                         </div>
                     </div>
                 <% }) %>
             </div>
         <% } else { %>
-            <div class="empty-list-message">
+            <div class="empty-list-message" style="text-align: center; padding: 4rem 0;">
                 <h2>Sua lista está vazia.</h2>
-                <p>Navegue pelas cartas e clique em "+ Lista" para adicioná-las aqui.</p>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Navegue pelas cartas e clique em "+ Lista" para adicioná-las aqui.</p>
                 <a href="/cards/magic" class="btn-primary">Explorar Cartas</a>
             </div>
         <% } %>
-    </main>
+    
+</main> <div id="add-card-modal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="modal-close-btn">&times;</button>
+        <h2>Adicionar Carta à Lista</h2>
+        <div class="form-group">
+            <input type="search" id="modal-search-input" class="form-control" placeholder="Digite o nome da carta...">
+        </div>
+        <div id="modal-search-results"></div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>
+    <div id="optimizer-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn">&times;</button>
+            <h2>Opções Otimizadas</h2>
+            <div id="optimizer-results">
+                <p>Clique em "Otimizar" para encontrar as melhores combinações de compra.</p>
+            </div>
+        </div>
+    </div>
 
     <%- include('../partials/footer') %>
 </body>

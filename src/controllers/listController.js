@@ -42,7 +42,7 @@ const showListPage = async (req, res) => {
     const cards = await Card.find({ '_id': { $in: cardIds } }).lean();
     const listings = await Listing.find({ 'card': { $in: cardIds } })
                                   .sort({ price: 1 })
-                                  .populate('seller', 'username');
+                                  .populate('seller', 'username accountType');
 
     const wantList = cards.map(card => {
       const listItem = userList.find(item => item.cardId.toString() === card._id.toString());
@@ -62,8 +62,51 @@ const showListPage = async (req, res) => {
     res.status(500).send('Erro no servidor');
   }
 };
+const filterSellers = async (req, res) => {
+  try {
+    const { cardId, filters } = req.body; // ex: filters = { condition: 'NM', language: 'pt' }
 
+    // Monta a query de busca no banco
+    const matchQuery = { card: cardId };
+
+    if (filters.condition) matchQuery.condition = filters.condition;
+    if (filters.language) matchQuery.language = filters.language;
+    if (filters.is_foil !== undefined) matchQuery.is_foil = filters.is_foil;
+    // (Adicionar lógica para 'extras' e 'edição' aqui no futuro)
+
+    // Busca os anúncios filtrados
+    const listings = await Listing.find(matchQuery)
+                                  .sort({ price: 1 })
+                                  .populate('seller', 'username');
+
+    // Retorna a lista de vendedores em JSON
+    res.json(listings);
+
+  } catch (error) {
+    console.error('Erro ao filtrar vendedores:', error);
+    res.status(500).json({ message: 'Erro no servidor' });
+  }
+};
+
+const removeFromList = (req, res) => {
+  try {
+    const { cardId } = req.body;
+    if (!req.session.list) {
+      req.session.list = [];
+    }
+    // Filtra a lista, mantendo apenas os itens que NÃO têm o cardId a ser removido
+    req.session.list = req.session.list.filter(item => item.cardId !== cardId);
+    
+    const totalItems = req.session.list.reduce((sum, item) => sum + item.quantity, 0);
+
+    res.status(200).json({ success: true, message: 'Item removido!', list: req.session.list, totalItems });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Erro no servidor' });
+  }
+};
 module.exports = {
   addToList,
   showListPage,
+  filterSellers,
+  removeFromList,
 };

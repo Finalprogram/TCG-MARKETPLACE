@@ -42,16 +42,15 @@ h4 { font-size: 1.1rem; font-weight: 700; }
    2. LAYOUT PRINCIPAL E NAVBAR
    ========================================================================== */
 
-
 .navbar-wrapper {
-  width: 100%;   /* A COR DE FUNDO SÓLIDA */
+  width: 100%;
   border-bottom: 1px solid var(--border);
   padding: 1rem 0;
 }
 
 .navbar {
-  display: flex; /* O MAIS IMPORTANTE: alinha os itens horizontalmente */
-  justify-content: space-between; /* Espaça os itens (logo, links, botões) */
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
 }
@@ -66,7 +65,6 @@ h4 { font-size: 1.1rem; font-weight: 700; }
 .navbar-links {
   display: flex;
   gap: 1.5rem;
-  /* (Pode ser necessário um margin: 0 auto; para centralizar se houver espaço) */
 }
 
 .navbar-links a {
@@ -172,68 +170,31 @@ h4 { font-size: 1.1rem; font-weight: 700; }
    ========================================================================== */
 
 /* --- 4.1. Página Inicial --- */
-.hero {
-  text-align: center;
-  padding: 6rem 0;
-}
+.hero { text-align: center; padding: 6rem 0; }
 .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; }
 .hero p { font-size: 1.25rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem auto; }
-
-.hero-search {
-  display: flex; /* Alinha o input e o botão na mesma linha */
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.hero-search input {
-  flex-grow: 1; /* Faz o campo de busca ocupar o máximo de espaço */
-  padding: 1rem;
-  border: 1px solid var(--border);
-  border-radius: 6px 0 0 6px; /* Arredonda só os cantos da esquerda */
-  background-color: var(--bg-surface); /* Fundo escuro */
-  color: var(--text-primary); /* Texto claro */
-  font-size: 1.1rem;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-/* VERSÃO NOVA E MAIOR */
-.hero-search input {
-  flex-grow: 1;
-  padding: 1.2rem; /* Aumentado de 1rem para 1.2rem */
-  border: 1px solid var(--border);
-  border-radius: 6px 0 0 6px;
-  background-color: var(--bg-surface);
-  color: var(--text-primary);
-  font-size: 1.2rem; /* Aumentado de 1.1rem para 1.2rem */
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.hero-search button {
-  padding: 1.2rem 2.5rem; /* Aumentado para corresponder */
-  border: none;
-  background-color: var(--accent-primary);
-  color: white;
-  font-size: 1.2rem; /* Aumentado para corresponder */
-  font-weight: 700;
-  border-radius: 0 6px 6px 0;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.hero-search button:hover {
-  background-color: var(--accent-hover);
-}
+.hero-search { display: flex; max-width: 700px; margin: 0 auto; }
+.hero-search input { flex-grow: 1; padding: 1.2rem; border-radius: 6px 0 0 6px; font-size: 1.2rem; }
+.hero-search button { padding: 1.2rem 2.5rem; border-radius: 0 6px 6px 0; font-size: 1.2rem; border: none; background-color: var(--accent-primary); color: white; cursor: pointer; }
+.hero-search button:hover { background-color: var(--accent-hover); }
 
 .game-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
-.game-card-link { text-decoration: none; color: inherit; }
+.game-card-link { text-decoration: none; color: inherit; outline: none; }
 .game-card { background-color: var(--bg-surface); border-radius: 8px; overflow: hidden; text-align: center; transition: transform 0.3s ease; border: 1px solid var(--border); }
 .game-card:hover { transform: translateY(-5px); border-color: var(--accent-primary); }
 .game-card img { width: 100%; height: auto; display: block; }
 .game-card h3 { padding: 1.5rem; font-size: 1.5rem; }
 
-/* --- 4.2. Página de Busca de Cartas (/cards/magic) --- */
+.trust-features { padding: 4rem 0; margin-top: 4rem; }
+.trust-features h2 { text-align: center; margin-bottom: 3rem; }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+.feature-item { display: flex; align-items: flex-start; gap: 1.5rem; }
+.feature-icon { background-color: var(--accent-primary); color: white; min-width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.feature-icon svg { width: 24px; height: 24px; }
+.feature-text h3 { margin: 0 0 0.5rem 0; font-size: 1.25rem; }
+.feature-text p { color: var(--text-secondary); line-height: 1.6; }
+
+/* --- 4.2. Página de Busca e Lista (/cards/magic, /lista) --- */
 .search-container { display: flex; gap: 2rem; margin-top: 2rem; }
 .filters { flex: 0 0 250px; }
 .results { flex: 1; }
@@ -241,57 +202,23 @@ h4 { font-size: 1.1rem; font-weight: 700; }
 .filter-group h4 { margin-bottom: 0.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
 .filter-group label { display: block; margin-bottom: 0.25rem; cursor: pointer; }
 
-/* --- Barra de Filtros de Formato --- */
 .format-filters { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
 .format-filters a { padding: 0.5rem 1rem; background-color: var(--bg-surface-2); color: var(--text-secondary); text-decoration: none; border-radius: 20px; font-size: 0.9rem; font-weight: 500; transition: all 0.2s ease-in-out; }
 .format-filters a:hover { background-color: var(--accent-hover); color: white; }
 .format-filters a.active { background-color: var(--accent-primary); color: white; font-weight: bold; }
 
 /* --- Grade de Cartas --- */
-.cards-carousel {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
-  gap: 1.5rem; /* Aumentei um pouco o gap para respirar melhor */
-}
-
+.cards-carousel { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; }
 .card-link { text-decoration: none; color: inherit; }
-
-.card-item {
-  width: 100%;
-  background-color: var(--bg-surface);
-  border-radius: 8px;
-  padding: 1rem;
-  border: 1px solid var(--border);
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  transition: all 0.2s ease-in-out;
-}
-
-.card-item:hover {
-  z-index: 100;
-  transform: translateY(-5px);
-  border-color: var(--accent-primary);
-}
-
-.card-item .card-image-container {
-  transition: transform 0.2s ease-in-out;
-}
-
-.card-item .card-image-container:hover {
-  transform: scale(1.6) translateY(-20%);
-}
-
-.card-item img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 6px;
-}
+.card-item { width: 100%; max-width: 220px; margin: 0 auto; background-color: var(--bg-surface); border-radius: 8px; padding: 1rem; border: 1px solid var(--border); position: relative; z-index: 1; text-align: center; transition: all 0.2s ease-in-out; }
+.card-item:hover { z-index: 100; transform: translateY(-5px); border-color: var(--accent-primary); }
+.card-item .card-image-container { transition: transform 0.2s ease-in-out; }
+.card-item .card-image-container:hover { transform: scale(1.6) translateY(-20%); }
+.card-item img { width: 100%; height: auto; display: block; border-radius: 6px; }
 .card-item h4 { margin-top: 1rem; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .card-item p { color: var(--text-secondary); font-weight: 500; font-size: 0.9rem; }
 
-/* --- Controles de Adicionar à Lista --- */
+/* --- Controles de Adicionar à Lista no Card --- */
 .add-to-list-controls { margin-top: 0.5rem; display: flex; gap: 0.5rem; }
 .quantity-selector { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 4px; }
 .quantity-input { width: 40px; text-align: center; border: none; background-color: var(--bg-surface-2); color: var(--text-primary); font-size: 1rem; font-weight: bold; -moz-appearance: textfield; appearance: textfield; }
@@ -301,13 +228,34 @@ h4 { font-size: 1.1rem; font-weight: 700; }
 .add-to-list-btn { flex-grow: 1; background-color: var(--accent-primary); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; padding: 0.5rem; transition: background-color 0.2s; }
 .add-to-list-btn:hover { background-color: var(--accent-hover); }
 
-/* --- 4.3. Página de Login/Registro (Glassmorphism) --- */
-.auth-body {
-  background-color: var(--bg-primary);
-  background-image: radial-gradient(at 5% 5%, hsla(260, 80%, 55%, 0.15) 0px, transparent 50%), radial-gradient(at 95% 95%, hsla(260, 85%, 65%, 0.15) 0px, transparent 50%);
-  background-attachment: fixed;
-  height: 100vh;
-}
+/* --- Página da Lista (/lista) --- */
+.want-list-item { background-color: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
+.card-summary {
+  display: flex;          /* ESSENCIAL: Coloca os itens filhos lado a lado */
+  align-items: center;    /* Alinha os itens verticalmente ao centro */
+  gap: 1.5rem;            /* Espaço entre os itens (imagem, info, preço) */
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}.summary-info { flex-grow: 1;}
+.card-summary:hover { background-color: var(--bg-surface-2); }
+.summary-img { width: 60px; height: 84px; object-fit: cover; border-radius: 4px; }
+.summary-info { flex-grow: 1; }
+.summary-info h3 { margin: 0 0 0.25rem 0; color: var(--text-primary); }
+.summary-info p, .summary-info span { font-size: 0.9rem; color: var(--text-secondary); margin: 0; }
+.summary-price { text-align: right; min-width: 100px; }
+.summary-price span { font-size: 0.8rem; color: var(--text-secondary); }
+.summary-price strong { display: block; font-size: 1.2rem; font-weight: bold; color: var(--accent-primary); }
+.toggle-sellers-btn { background: none; border: none; color: var(--text-secondary); font-size: 0.9rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; }
+.toggle-sellers-btn span { transition: transform 0.2s; font-size: 0.7rem; }
+.toggle-sellers-btn.active span { transform: rotate(180deg); }
+.sellers-drawer { display: none; background-color: var(--bg-primary); padding: 1rem; border-top: 1px solid var(--border); }
+.sellers-drawer .listing-row { display: grid; grid-template-columns: 2fr 1.5fr 1fr 2fr; align-items: center; gap: 1rem; padding: 0.75rem; border-bottom: 1px solid var(--border); }
+.sellers-drawer .listing-row:last-child { border-bottom: none; }
+.sellers-drawer .no-listings { text-align: center; color: var(--text-secondary); padding: 1rem; }
+
+/* --- 4.3. Página de Login/Registro --- */
+.auth-body { background-color: var(--bg-primary); background-image: radial-gradient(at 5% 5%, hsla(260, 80%, 55%, 0.15) 0px, transparent 50%), radial-gradient(at 95% 95%, hsla(260, 85%, 65%, 0.15) 0px, transparent 50%); background-attachment: fixed; min-height: 100vh; }
 .glass-panel { max-width: 450px; margin: 5vh auto; padding: 2rem 2.5rem; background: rgba(30, 30, 45, 0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); }
 .glass-panel h1 { text-align: center; margin-bottom: 0.5rem; font-size: 2rem; }
 .glass-panel .subtitle { text-align: center; color: var(--text-secondary); margin-bottom: 2rem; }
@@ -319,7 +267,7 @@ h4 { font-size: 1.1rem; font-weight: 700; }
 .btn-social:hover { background-color: rgba(255, 255, 255, 0.1); }
 .divider { text-align: center; color: var(--text-secondary); margin-bottom: 1.5rem; }
 .radio-group { display: flex; gap: 1.5rem; margin-top: 0.5rem; }
-.radio-group label { display: flex; align-items: center; gap: 0.5rem; color: var(--text-primary); }
+.radio-group label { display: flex; align-items: center; gap: 0.5rem; color: var(--text-primary); cursor: pointer; }
 .radio-group input[type="radio"] { display: none; }
 .radio-group label::before { content: ''; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--border); transition: all 0.2s; }
 .radio-group input[type="radio"]:checked + label::before { border-color: var(--accent-primary); background-color: var(--accent-primary); box-shadow: 0 0 0 3px var(--bg-surface) inset; }
@@ -345,7 +293,7 @@ h4 { font-size: 1.1rem; font-weight: 700; }
 .card-info strong { color: var(--text-primary); }
 .card-info small { color: var(--text-secondary); font-size: 0.8rem; }
 .listing-inputs { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
-.listing-inputs .form-control { padding: 0.5rem; }
+.listing-inputs .form-control { padding: 0.5rem; background-color: var(--bg-surface-2); color: var(--text-primary); border: 1px solid var(--border); }
 .listing-inputs .listing-price { width: 100px; }
 .listing-inputs .listing-quantity { width: 60px; }
 .listing-inputs .listing-condition, .listing-inputs .listing-language { min-width: 120px; }
@@ -387,206 +335,109 @@ h4 { font-size: 1.1rem; font-weight: 700; }
 .custom-select-wrapper.active .custom-select-arrow { transform: rotate(180deg); }
 .custom-select-option { padding: 0.75rem; color: var(--text-secondary); cursor: pointer; transition: all 0.2s; }
 .custom-select-option:hover { background-color: var(--accent-primary); color: white; }
-/* Estilos para a seção "Negocie com Confiança" */
-.trust-features {
-  padding: 4rem 0;
-  margin-top: 4rem;
-}
 
-.trust-features h2 {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  max-width: 1200px; /* Garante que não fique muito largo em telas grandes */
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.feature-item {
-  display: flex;
-  align-items: flex-start; /* Alinha o ícone e o texto no topo */
-  gap: 1.5rem;
-}
-
-.feature-icon {
+.shop-badge {
   background-color: var(--accent-primary);
   color: white;
-  min-width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.feature-icon svg {
-  width: 24px;
-  height: 24px;
-}
-
-.feature-text h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.25rem;
-}
-
-.feature-text p {
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-/* Estilos para a Página da Lista */
-.want-list-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.want-list-item {
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-}
-.card-summary {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1rem;
-  cursor: pointer;
-}
-.summary-img { width: 60px; border-radius: 4px; }
-.summary-info { flex-grow: 1; }
-.summary-info h3 { margin: 0; }
-.summary-info p { font-size: 0.9rem; color: var(--text-secondary); margin: 0; }
-.summary-price { text-align: right; }
-.summary-price span { font-size: 0.8rem; color: var(--text-secondary); }
-.summary-price strong { display: block; font-size: 1.2rem; color: var(--accent-primary); }
-.toggle-sellers-btn {
-  background: none; border: none; color: var(--text-secondary); cursor: pointer;
-  display: flex; align-items: center; gap: 0.5rem; font-weight: bold;
-}
-.toggle-sellers-btn span { transition: transform 0.2s; }
-.toggle-sellers-btn.active span { transform: rotate(180deg); }
-
-/* Gaveta de Vendedores */
-.sellers-drawer {
-  display: none; /* Escondida por padrão */
-  background-color: var(--bg-primary);
-  padding: 1rem;
-  border-top: 1px solid var(--border);
-}
-.listing-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem;
-  border-bottom: 1px solid var(--border);
-}
-.listing-row:last-child { border-bottom: none; }
-/* --- Estilos para a Página da Lista (/lista) --- */
-
-.want-list-item {
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  overflow: hidden; /* Garante que o conteúdo interno respeite as bordas arredondadas */
-}
-
-.card-summary {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1rem;
-  cursor: pointer; /* Indica que é clicável para abrir a gaveta */
-  transition: background-color 0.2s;
-}
-
-.card-summary:hover {
-  background-color: var(--bg-surface-2);
-}
-
-.summary-img {
-  width: 60px;
-  height: 84px;
-  object-fit: cover;
-  border-radius: 4px;
-}
-
-.summary-info {
-  flex-grow: 1; /* Ocupa o espaço disponível */
-}
-
-.summary-info h3 {
-  margin: 0 0 0.25rem 0;
-  color: var(--text-primary);
-}
-
-.summary-info p, .summary-info span {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  margin: 0;
-}
-
-.summary-price {
-  text-align: right;
-  min-width: 100px;
-}
-
-.summary-price span {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-}
-
-.summary-price strong {
-  display: block;
-  font-size: 1.2rem;
+  font-size: 0.6rem;
   font-weight: bold;
-  color: var(--accent-primary);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+/* Estilos para o Modal do Otimizador */
+.modal-overlay {
+  display: none; /* Escondido por padrão */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
 }
 
-.toggle-sellers-btn {
+.modal-overlay.active {
+  display: flex; /* Mostra o modal quando tem a classe 'active' */
+}
+
+.modal-content {
+  background-color: var(--bg-surface);
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
   background: none;
   border: none;
   color: var(--text-secondary);
-  font-size: 0.9rem;
-  font-weight: bold;
+  font-size: 1.5rem;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem;
 }
-
-.toggle-sellers-btn span {
-  transition: transform 0.2s;
-  font-size: 0.7rem;
-}
-
-/* Gira a seta quando a gaveta está ativa */
-.toggle-sellers-btn.active span {
-  transform: rotate(180deg);
-}
-
-/* Gaveta de Vendedores */
-.sellers-drawer {
-  display: none; /* Gaveta escondida por padrão */
-  background-color: var(--bg-primary);
-  padding: 0 1rem 1rem 1rem;
-  border-top: 1px solid var(--border);
-}
-
-.sellers-drawer .listing-row {
+/* O novo painel de filtros do otimizador */
+.optimizer-panel {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 2fr; /* Define 4 colunas */
-  align-items: center;
+  /* Cria colunas responsivas para os filtros */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1rem;
-  padding: 0.75rem;
-  border-bottom: 1px solid var(--border);
+  align-items: flex-end; /* Alinha os itens pela base */
+  
+  background-color: var(--bg-surface);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border: 1px solid var(--border);
 }
 
-.sellers-drawer .listing-row:last-child {
-  border-bottom: none;
+/* Garante que os labels dentro do painel fiquem corretos */
+.optimizer-panel .form-group {
+  margin-bottom: 0;
 }
+
+/* Ajusta a altura do botão para alinhar com os outros campos */
+.optimizer-panel .btn-primary {
+  height: 45px; /* Altura aproximada de um .form-control */
+  width: 100%;
+}
+
+.optimizer-main-actions {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+.advanced-toggle-btn {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-left: auto; /* Joga o botão para a direita */
+}
+.advanced-toggle-btn span { transition: transform 0.2s; display: inline-block; }
+.advanced-toggle-btn.active span { transform: rotate(180deg); }
+
+.advanced-filters-panel {
+  display: none; /* Escondido por padrão */
+  grid-template-columns: repeat(3, 1fr); /* 3 colunas */
+  gap: 1rem;
+  border-top: 1px solid var(--border);
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+}
+
+.advanced-filters-panel.active {
+  display: grid; /* Mostra o painel */
+}
+.remove-from-list-btn {
+  background: none; border: none; font-size: 2rem; color: var(--text-secondary);
+  cursor: pointer; transition: color 0.2s; padding: 0 1rem;
+}
+.remove-from-list-btn:hover { color: #e63946; }

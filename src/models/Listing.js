@@ -11,6 +11,7 @@ const ListingSchema = new mongoose.Schema({
   is_foil: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
    extras: [{ type: String }], 
+   language:{ type: String, default:'EN', required:true },
 });
 
 module.exports = mongoose.model('Listing', ListingSchema);
