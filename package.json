@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
     "sync:cards": "node scripts/syncCards.js",
-    "sync:bulk": "node scripts/bulkSync.js"
+    "sync:bulk": "node scripts/bulkSync.js",
+    "test:onepiece": "node scripts/testOnePieceAPI.js",
+    "sync:onepiece": "node scripts/bulkSyncOnePiece.js"
   },
   "repository": {
     "type": "git",

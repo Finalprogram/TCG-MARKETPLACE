@@ -9,7 +9,7 @@ router.get('/api/cards/search', cardController.searchCardsForSale);
 router.get('/cards/magic', cardController.showMagicCardsPage);
 //router.get('/cards/pokemon', cardController.showPokemonCardsPage);
 //router.get('/cards/yugioh', cardController.showYuGiOhCardsPage);
-//router.get('/cards/onepiece', cardController.showOnePieceCardsPage);
+router.get('/cards/onepiece', cardController.showOnePieceCardsPage);
 //router.get('/cards/lorcana', cardController.showLorcanaCardsPage);
 //router.get('/cards/digimon', cardController.showDigimonCardsPage);
 
