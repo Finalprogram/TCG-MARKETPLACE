@@ -26,67 +26,47 @@ const showMagicCardsPage = async (req, res) => {
   try {
     const currentPage = parseInt(req.query.p) || 1;
     const limit = 50;
-
-    const cardMatchQuery = {};
+    
+    // --- CORREÇÃO PRINCIPAL AQUI ---
+    // A query base DEVE filtrar por 'game: "magic"'
+    const cardMatchQuery = { game: 'magic' };
+    
+    // Adiciona os outros filtros
     if (req.query.rarity) cardMatchQuery.rarity = req.query.rarity;
     if (req.query.color) cardMatchQuery.colors = req.query.color;
     if (req.query.type) cardMatchQuery.type_line = new RegExp(req.query.type, 'i');
-
-    if (req.query.format) {
-  cardMatchQuery[`legalities.${req.query.format}`] = 'legal';
-}
-    // ---- DEBUG 1: VER OS FILTROS ----
-    console.log("1. Filtros aplicados na busca:", cardMatchQuery);
     
-    // Etapa 1: Encontrar os IDs de cartas únicos que estão nos anúncios
+    const format = req.query.format || 'commander'; // Usando commander como padrão
+    cardMatchQuery[`legalities.${format}`] = 'legal';
+    
+    // O resto da lógica de busca no banco é idêntica
     const distinctCardIds = await Listing.distinct('card');
     
-    // ---- DEBUG 2: VER OS IDs ENCONTRADOS ----
-    console.log("2. IDs de cartas que possuem anúncios:", distinctCardIds);
-
-    // Etapa 2: Contar o total de cartas únicas com anúncios para a paginação
     const totalCards = await Card.countDocuments({ 
       _id: { $in: distinctCardIds },
-      ...cardMatchQuery
+      ...cardMatchQuery 
     });
-    
-    // ---- DEBUG 3: VER A CONTAGEM ----
-    console.log("3. Contagem de cartas que passam nos filtros:", totalCards);
 
-    // Etapa 3: Buscar as informações dessas cartas
     const cards = await Card.aggregate([
-      { $match: { 
-          _id: { $in: distinctCardIds },
-          ...cardMatchQuery
-      }},
-      { $lookup: {
-          from: 'listings',
-          localField: '_id',
-          foreignField: 'card',
-          as: 'listings'
-      }},
-      { $addFields: {
-          lowestPrice: { $min: '$listings.price' }
-      }},
-      { $sort: { name: 1 } },
+      { $match: { _id: { $in: distinctCardIds }, ...cardMatchQuery }},
+      { $lookup: { from: 'listings', localField: '_id', foreignField: 'card', as: 'listings' }},
+      { $addFields: { lowestPrice: { $min: '$listings.price' }}},
+      { $sort: { name: 1 }},
       { $skip: (currentPage - 1) * limit },
       { $limit: limit }
     ]);
-    
-    // ---- DEBUG 4: VER O RESULTADO FINAL ----
-    console.log("4. Resultado final da agregação (primeiros 5):", cards.slice(0, 5));
 
-    const formattedCards = cards.map(card => ({
-        ...card,
-        averagePrice: card.lowestPrice
-    }));
+    const formattedCards = cards.map(card => ({ ...card, averagePrice: card.lowestPrice }));
 
+    // Garante que estamos renderizando com o título e jogo corretos
     res.render('pages/cardSearchPage', {
+      title: 'Explorar Cartas de Magic',
+      game: 'magic',
       cards: formattedCards,
-      currentPage: currentPage,
+      currentPage,
       hasMore: (currentPage * limit) < totalCards,
-      totalCards: totalCards,
-      filters: req.query
+      totalCards,
+      filters: req.query,
     });
 
   } catch (error) {
