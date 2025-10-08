@@ -33,19 +33,17 @@ async function bulkSyncOnePiece() {
     parser.on('data', async (cardData) => {
       parser.pause();
 
-      const optimizedCard = {
-  // CORREÇÃO: Garante que só criamos o ID se os dados existirem
-  api_id: (cardData.card_id && cardData.set?.set_id) 
-            ? `${cardData.card_id}-${cardData.set.set_id}` 
-            : cardData.card_id,
-
+     const optimizedCard = {
+  // CORREÇÃO: Usamos o campo 'id' do JSON, que já é único para cada impressão
+  api_id: cardData.id, 
+  
   game: 'onepiece',
   name: cardData.name,
   set_name: cardData.set?.name,
-  image_url: cardData.image_url,
-  rarity: cardData.rarity?.name,
-  colors: cardData.colors?.map(c => c.name) || [],
-  type_line: cardData.card_type?.name,
+  image_url: cardData.images?.large || cardData.images?.small, // Usa imagem grande, se não tiver, usa a pequena
+  rarity: cardData.rarity,
+  colors: cardData.color ? cardData.color.split('/') : [], // Transforma a string de cores em um array
+  type_line: cardData.type,
   legalities: {},
 };
 
