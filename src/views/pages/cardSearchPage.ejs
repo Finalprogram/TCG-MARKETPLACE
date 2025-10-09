@@ -18,35 +18,30 @@
 
         <div class="search-container">
             <aside class="filters">
-                <h3>Filtros</h3>
-                <form action="/cards/magic" method="GET">
-                    <div class="filter-group">
-                        <h4>Raridade</h4>
-                        <label><input type="radio" name="rarity" value="common"> Comum</label>
-                        <label><input type="radio" name="rarity" value="uncommon"> Incomum</label>
-                        <label><input type="radio" name="rarity" value="rare"> Rara</label>
-                        <label><input type="radio" name="rarity" value="mythic"> Mítica</label>
-                    </div>
-                    <div class="filter-group">
-                        <h4>Cor</h4>
-                        <label><input type="radio" name="color" value="w"> Branco</label>
-                        <label><input type="radio" name="color" value="u"> Azul</label>
-                        <label><input type="radio" name="color" value="b"> Preto</label>
-                        <label><input type="radio" name="color" value="r"> Vermelho</label>
-                        <label><input type="radio" name="color" value="g"> Verde</label>
-                    </div>
-                    <div class="filter-group">
-                        <h4>Tipo</h4>
-                        <label><input type="radio" name="type" value="creature"> Criatura</label>
-                        <label><input type="radio" name="type" value="instant"> Instantâneo</label>
-                        <label><input type="radio" name="type" value="sorcery"> Feitiço</label>
-                        <label><input type="radio" name="type" value="enchantment"> Encantamento</label>
-                        <label><input type="radio" name="type" value="artifact"> Artefato</label>
-                        <label><input type="radio" name="type" value="land"> Terreno</label>
-                    </div>
-                    <button type="submit" class="btn-primary">Aplicar Filtros</button>
-                </form>
-            </aside>
+    <h3>Filtros</h3>
+    <form action="/cards" method="GET">
+        
+        <% if (filterGroups && filterGroups.length > 0) { %>
+            <% filterGroups.forEach(group => { %>
+                <div class="filter-group">
+                    <h4><%= group.name %></h4>
+                    <% group.options.forEach(option => { %>
+                        <% 
+                            const value = typeof option === 'object' ? option.value : option;
+                            const label = typeof option === 'object' ? option.label : option;
+                        %>
+                        <label>
+                            <input type="radio" name="<%= group.key %>" value="<%= value %>">
+                            <%= label %>
+                        </label>
+                    <% }) %>
+                </div>
+            <% }) %>
+        <% } %>
+
+        <button type="submit" class="btn-primary">Aplicar Filtros</button>
+    </form>
+</aside>
             
             <section class="results">
                 <nav class="format-filters">

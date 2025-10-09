@@ -115,7 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             debounceTimer = setTimeout(async () => {
-                const response = await fetch(`/api/cards/search?q=${query}`);
+    // Usa a nova rota que busca apenas cartas com anúncios
+    const response = await fetch(`/api/cards/search-available?q=${query}`); 
                 const cards = await response.json();
                 searchResults.innerHTML = '';
                 cards.forEach(card => {
