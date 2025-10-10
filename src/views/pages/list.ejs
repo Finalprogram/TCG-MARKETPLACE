@@ -12,6 +12,7 @@
 
         <% if (wantList && wantList.length > 0) { %>
             <div class="optimizer-panel">
+                <!-- Filtros de otimização -->
                 <div class="form-group">
                     <label for="max-shops-select">Qtd. Máxima de Lojas</label>
                     <select id="max-shops-select" class="form-control">
@@ -42,7 +43,8 @@
                 </div>
                 <button id="optimize-list-btn" class="btn-primary">⚡ Otimizar</button>
             </div>
-            
+
+            <!-- Adicionar mais cartas à lista -->
             <button id="add-more-cards-btn" class="btn-secondary" style="margin-bottom: 1.5rem;">+ Adicionar mais cartas à lista</button>
 
             <div class="want-list-container">
@@ -64,11 +66,13 @@
                             </button>
                             <button class="remove-from-list-btn" data-cardid="<%= item.card._id %>" title="Remover da lista">&times;</button>
                         </div>
-                        
+
+                        <!-- Painel de vendedores -->
                         <div class="sellers-drawer" id="sellers-<%= item.card._id %>">
                             <div class="seller-filters">
                                 <select class="item-filter-select form-control" data-filter="condition">
-                                    <option value="">Qualidade</option>
+                                    <option value="N">Novo</option>
+                                    <option value="NM">Praticamente Nova</option>
                                     <option value="NM">Near Mint</option>
                                     <option value="LP">Lightly Played</option>
                                 </select>
@@ -122,6 +126,14 @@
                 <a href="/cards/magic" class="btn-primary">Explorar Cartas</a>
             </div>
         <% } %>
+
+        <!-- Resumo do Carrinho -->
+        <div id="cart-summary" class="cart-summary">
+            <h3>Carrinho</h3>
+            <ul id="cart-items-list"></ul>
+            <p>Total do Carrinho: R$ <span id="cart-total">0.00</span></p>
+            <button id="checkout-btn">Finalizar Compra</button>
+        </div>
     </main>
 
     <div id="add-card-modal" class="modal-overlay">
@@ -146,5 +158,6 @@
     </div>
 
     <%- include('../partials/footer') %>
+    <script src="/js/main.js"></script> <!-- Arquivo JavaScript -->
 </body>
 </html>

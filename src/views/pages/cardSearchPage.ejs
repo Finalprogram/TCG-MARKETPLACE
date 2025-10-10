@@ -13,8 +13,6 @@
             <span class="list-icon">📝</span>
             <span class="list-item-count hidden">0</span>
         </a>
-        
-        <h1>Explorar Cartas de Magic</h1>
 
         <div class="search-container">
             <aside class="filters">
@@ -44,18 +42,7 @@
 </aside>
             
             <section class="results">
-                <nav class="format-filters">
-                    <%
-                      const formats = ['standard', 'pioneer', 'modern', 'commander', 'legacy', 'pauper'];
-                      const currentFormat = filters.format || 'standard';
-                    %>
-                    <% formats.forEach(format => { %>
-                        <a href="?format=<%= format %>" class="<%= currentFormat === format ? 'active' : '' %>">
-                            <%= format.charAt(0).toUpperCase() + format.slice(1) %>
-                        </a>
-                    <% }) %>
-                </nav>
-
+                
                 <div class="cards-carousel">
                     <% if (cards && cards.length > 0) { %>
                         <% cards.forEach(card => { %>

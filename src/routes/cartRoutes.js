@@ -5,6 +5,6 @@ const router = express.Router();
 const cartController = require('../controllers/cartController');
 
 // Rota para adicionar um item ao carrinho
-router.post('/cart/add', cartController.addToCart);
+router.post('/add-to-cart', cartController.addToCart);
 
 module.exports = router;

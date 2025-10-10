@@ -115,8 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             debounceTimer = setTimeout(async () => {
-    // Usa a nova rota que busca apenas cartas com anúncios
-    const response = await fetch(`/api/cards/search-available?q=${query}`); 
+                // Usa a nova rota que busca apenas cartas com anúncios
+                const response = await fetch(`/api/cards/search-available?q=${query}`); 
                 const cards = await response.json();
                 searchResults.innerHTML = '';
                 cards.forEach(card => {
@@ -153,23 +153,46 @@ document.addEventListener('DOMContentLoaded', () => {
         // Fechar o modal
         closeModalBtn.addEventListener('click', () => addCardModal.classList.remove('active'));
     }
-
-    // (Outras lógicas de modais, como o do otimizador, podem vir aqui)
-
 });
+  const cart = []; // Array de itens no carrinho
+    const cartItemsList = document.getElementById('cart-items-list');
+    const cartTotalElement = document.getElementById('cart-total');
+    
+    // Função para atualizar o carrinho
+    const updateCartSummary = () => {
+        const total = cart.reduce((sum, item) => sum + item.quantity * item.price, 0);
+        cartTotalElement.innerText = total.toFixed(2);
 
-// --- LÓGICA GLOBAL PARA FECHAR MENUS E MODAIS ---
-// Listener para fechar menus ao clicar fora
-window.addEventListener('click', (event) => {
-    // Fecha dropdown de usuário
-    const userDropdown = document.querySelector('.user-dropdown');
-    if (userDropdown && !userDropdown.contains(event.target)) {
-        userDropdown.classList.remove('active');
-    }
+        cartItemsList.innerHTML = '';  // Limpa os itens
 
-    // Fecha modais ao clicar no fundo escuro
-    const activeModal = document.querySelector('.modal-overlay.active');
-    if (activeModal && event.target === activeModal) {
-        activeModal.classList.remove('active');
-    }
-});
+        cart.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.name} - ${item.quantity} x R$ ${item.price.toFixed(2)} = R$ ${(item.quantity * item.price).toFixed(2)}`;
+            cartItemsList.appendChild(li);
+        });
+    };
+
+    // Evento de clique para adicionar ao carrinho
+    document.body.addEventListener('click', (event) => {
+        if (event.target.classList.contains('add-final-cart-btn')) {
+            const listingId = event.target.getAttribute('data-listingid');
+            const price = parseFloat(event.target.closest('.listing-row').querySelector('.price-info strong').innerText.replace('R$', '').trim());
+            const quantity = parseInt(event.target.closest('.add-to-cart-controls').querySelector('.quantity-input').value, 10);
+
+            const item = {
+                listingId,
+                name: event.target.closest('.card-summary').querySelector('h3').innerText,
+                price,
+                quantity
+            };
+
+            const existingIndex = cart.findIndex(cartItem => cartItem.listingId === listingId);
+            if (existingIndex >= 0) {
+                cart[existingIndex].quantity += quantity;
+            } else {
+                cart.push(item);
+            }
+
+            updateCartSummary();
+        }
+    });

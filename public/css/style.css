@@ -441,3 +441,112 @@ h4 { font-size: 1.1rem; font-weight: 700; }
   cursor: pointer; transition: color 0.2s; padding: 0 1rem;
 }
 .remove-from-list-btn:hover { color: #e63946; }
+.seller-filters {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.filter-item {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.filter-item label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.filter-item select {
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+/* Estilos do Carrinho */
+.cart-summary {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--bg-surface); /* Cor de fundo do carrinho */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 320px;
+  max-height: 350px;
+  overflow-y: auto;
+  z-index: 1000; /* Garantir que fique visível acima de outros elementos */
+  border: 1px solid var(--border); /* Cor da borda do carrinho */
+}
+
+.cart-summary h3 {
+  font-size: 22px;
+  color: var(--text-primary); /* Cor do título do carrinho */
+  margin-bottom: 15px;
+}
+
+.cart-summary ul {
+  list-style-type: none;
+  margin-bottom: 15px;
+}
+
+.cart-summary li {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: var(--text-secondary); /* Cor do texto dos itens no carrinho */
+}
+
+#cart-total {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--accent-primary); /* Cor para o valor total */
+}
+
+#checkout-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--accent-primary); /* Cor de fundo do botão de checkout */
+  color: var(--text-primary); /* Texto claro no botão */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: bold;
+}
+
+#checkout-btn:hover {
+  background-color: var(--accent-hover); /* Cor de fundo do botão no hover */
+}
+
+#cart-summary p {
+  font-size: 18px;
+  color: var(--text-primary); /* Cor do total do carrinho */
+}
+
+/* Modificação para os Botões e Filtros do Carrinho */
+.add-to-cart-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-final-cart-btn {
+  background-color: var(--accent-primary); /* Cor do botão adicionar ao carrinho */
+  color: var(--text-primary); /* Texto claro no botão */
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.add-final-cart-btn:hover {
+  background-color: var(--accent-hover); /* Cor de fundo do botão no hover */
+}
+
+.add-final-cart-btn:focus {
+  outline: none;
+}
