@@ -1,3 +1,35 @@
+const getCartContents = async (req, res) => {
+    try {
+        const userCart = req.session.cart || [];
+
+        if (userCart.length === 0) {
+            return res.json([]); // Retorna um array vazio se o carrinho estiver vazio
+        }
+
+        // Pega todos os IDs dos anúncios que estão no carrinho
+        const listingIds = userCart.map(item => item.listingId);
+
+        // Busca todos os anúncios de uma só vez, populando os dados da carta e do vendedor
+        const listings = await Listing.find({ '_id': { $in: listingIds } })
+                                      .populate({ path: 'card', select: 'name image_url' })
+                                      .populate({ path: 'seller', select: 'username' });
+
+        // Junta as informações do banco com as quantidades da sessão
+        const populatedCart = userCart.map(item => {
+            const listingDetails = listings.find(l => l._id.toString() === item.listingId);
+            return {
+                quantity: item.quantity,
+                details: listingDetails
+            };
+        });
+
+        res.json(populatedCart);
+
+    } catch (error) {
+        console.error("Erro ao buscar conteúdo do carrinho:", error);
+        res.status(500).json({ message: 'Erro no servidor' });
+    }
+};
 const addToCart = (req, res) => {
     // Verifica se o usuário está logado pela sessão
     console.log(req.session.user); // Log para verificar a sessã
@@ -28,4 +60,7 @@ const addToCart = (req, res) => {
     res.status(200).json({ success: true, message: 'Item adicionado com sucesso!', cartCount });
 };
 
-module.exports = { addToCart };
+module.exports = { 
+    addToCart,
+    getCartContents
+ };

@@ -14,7 +14,6 @@ const sellerRoutes = require('./src/routes/sellerRoutes');
 const listingRoutes = require('./src/routes/listingRoutes');
 const cartRoutes = require('./src/routes/cartRoutes'); 
 
-
 // 2. Inicialização do App
 const app = express();
 const port = 3000;
