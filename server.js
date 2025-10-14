@@ -13,7 +13,7 @@ const authRoutes = require('./src/routes/authRoutes');
 const sellerRoutes = require('./src/routes/sellerRoutes');
 const listingRoutes = require('./src/routes/listingRoutes');
 const cartRoutes = require('./src/routes/cartRoutes'); 
-
+const checkoutRoutes = require('./src/routes/checkoutRoutes');
 // 2. Inicialização do App
 const app = express();
 const port = 3000;
@@ -55,7 +55,7 @@ app.use('/api', listRoutes);
 app.use('/', sellerRoutes);
 app.use('/api', listingRoutes);
 app.use('/cart', cartRoutes);
-
+app.use('/', checkoutRoutes);
 // 6. Inicia o Servidor
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);

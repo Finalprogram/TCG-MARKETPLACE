@@ -1,0 +1,11 @@
+<%- include('../partials/header') %>
+<main class="container">
+  <%- include('../partials/navbar') %>
+  <section class="panel" style="max-width:720px;margin:32px auto;">
+    <h2>Pedido realizado!</h2>
+    <p>Recebemos seu pedido <strong><%= orderId %></strong>.</p>
+    <p>Enviamos um e-mail para <strong><%= email %></strong> com os detalhes.</p>
+    <a class="btn btn-primary" href="/cards">Voltar às cartas</a>
+  </section>
+</main>
+<%- include('../partials/footer') %>

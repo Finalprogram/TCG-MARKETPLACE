@@ -1,0 +1,135 @@
+<%- include('../partials/header') %>
+<main class="container checkout-page">
+  <%- include('../partials/navbar') %>
+
+  <h1>Finalizar compra</h1>
+
+  <% if (typeof error !== 'undefined' && error) { %>
+    <div class="alert error"><%= error %></div>
+  <% } %>
+
+  <div class="checkout-grid">
+    <!-- Coluna esquerda: endereço & pagamento -->
+    <section class="checkout-left">
+      <form action="/checkout/confirm" method="post" id="checkout-form" class="panel">
+        <h3>Endereço de entrega</h3>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nome completo *</label>
+            <input class="form-control" name="fullName" required>
+          </div>
+          <div class="form-group">
+            <label>E-mail *</label>
+            <input class="form-control" type="email" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label>CEP *</label>
+            <input class="form-control" name="zip" required>
+          </div>
+
+          <div class="form-group span-2">
+            <label>Rua *</label>
+            <input class="form-control" name="street" required>
+          </div>
+
+          <div class="form-group">
+            <label>Número *</label>
+            <input class="form-control" name="number" required>
+          </div>
+
+          <div class="form-group">
+            <label>Complemento</label>
+            <input class="form-control" name="complement">
+          </div>
+
+          <div class="form-group">
+            <label>Bairro</label>
+            <input class="form-control" name="district">
+          </div>
+
+          <div class="form-group">
+            <label>Cidade *</label>
+            <input class="form-control" name="city" required>
+          </div>
+
+          <div class="form-group">
+            <label>UF *</label>
+            <input class="form-control" name="state" maxlength="2" required>
+          </div>
+        </div>
+
+        <h3>Frete</h3>
+        <div class="form-group">
+          <select id="shipping-method" name="shippingMethod" class="form-control">
+            <% shippingMethods.forEach(m => { %>
+              <option value="<%= m.code %>" <%= (m.code === selectedShipping ? 'selected' : '') %>>
+                <%= m.name %> — R$ <%= m.price.toFixed(2) %>
+              </option>
+            <% }) %>
+          </select>
+        </div>
+
+        <h3>Pagamento</h3>
+        <div class="fake-payment">
+          <p>Simulação para testes. Você pode finalizar sem inserir dados reais.</p>
+        </div>
+
+        <button class="btn btn-primary btn-submit-full" type="submit">Finalizar</button>
+      </form>
+    </section>
+
+    <!-- Coluna direita: resumo do pedido -->
+    <aside class="checkout-right panel">
+      <h3>Resumo do pedido</h3>
+
+      <% if (!cart.items.length) { %>
+        <p class="muted">Seu carrinho está vazio.</p>
+      <% } else { %>
+        <ul class="order-items">
+          <% cart.items.forEach(it => { %>
+            <li class="order-item">
+              <img src="<%= it?.meta?.imageUrl || '/img/card-placeholder.png' %>" alt="" class="order-thumb">
+              <div class="order-info">
+                <div class="order-title"><%= (it?.meta?.cardName || 'Carta') %></div>
+                <div class="order-sub">
+                  <%= it?.meta?.sellerName ? ('Vendedor: ' + it.meta.sellerName) : '' %>
+                  <%= it?.meta?.condition ? (' • ' + it.meta.condition) : '' %>
+                </div>
+              </div>
+              <div class="order-price">x <%= it.qty %></div>
+              <div class="order-line"><%= ('R$ ' + (it.qty * it.price).toFixed(2)) %></div>
+            </li>
+          <% }) %>
+        </ul>
+
+        <div class="totals">
+          <div><span>Subtotal</span><strong id="ck-subtotal">R$ <%= totals.subtotal.toFixed(2) %></strong></div>
+          <div><span>Frete</span><strong id="ck-shipping">R$ <%= totals.shipping.toFixed(2) %></strong></div>
+          <div class="grand"><span>Total</span><strong id="ck-grand">R$ <%= totals.grand.toFixed(2) %></strong></div>
+        </div>
+      <% } %>
+    </aside>
+  </div>
+</main>
+<%- include('../partials/footer') %>
+
+<script>
+  // atualiza total quando mudar frete
+  document.getElementById('shipping-method')?.addEventListener('change', async (e) => {
+    try {
+      const res = await fetch('/checkout/quote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ method: e.target.value })
+      });
+      const data = await res.json();
+      if (!data?.ok) return;
+
+      document.getElementById('ck-subtotal').textContent = 'R$ ' + Number(data.totals.subtotal).toFixed(2);
+      document.getElementById('ck-shipping').textContent = 'R$ ' + Number(data.totals.shipping).toFixed(2);
+      document.getElementById('ck-grand').textContent    = 'R$ ' + Number(data.totals.grand).toFixed(2);
+    } catch (err) { console.error(err); }
+  });
+</script>
