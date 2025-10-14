@@ -655,14 +655,104 @@ window.addEventListener('click', (event) => {
     }
   }
 
-  function openCart() {
-    // remove o atributo "hidden" (é ele que esconde)
-    modal.removeAttribute('hidden');
-    backdrop.removeAttribute('hidden');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    loadCart();
+ // === Abrir/fechar carrinho com null-safety ===
+function openCartModal(ev) {
+  ev?.preventDefault?.();
+
+  const modal    = document.getElementById('cart-modal');
+  const backdrop = document.getElementById('cart-backdrop');
+  const content  = document.getElementById('cart-content');
+  const totalEl  = document.getElementById('cart-total');
+
+  // Se o modal não existe nesta página, só avisa e sai
+  if (!modal || !backdrop) {
+    console.warn('[cart] modal/backdrop não encontrados nesta página.');
+    return;
   }
+
+  // Mostra modal (você usa atributo hidden)
+  modal.removeAttribute('hidden');
+  backdrop.removeAttribute('hidden');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+
+  // Carrega dados do carrinho, mas só mexe no DOM se os elementos existem
+  (async () => {
+    try {
+      const res  = await fetch('/cart/json');
+      const cart = res.ok ? await res.json() : { items: [], totalQty: 0, totalPrice: 0 };
+
+      if (content && totalEl) {
+        if (!cart.items || cart.items.length === 0) {
+          content.innerHTML = `
+            <div class="cart-empty">
+              <p>Seu carrinho está vazio.</p>
+              <a href="/cards" class="btn btn-primary">Explorar cartas</a>
+            </div>`;
+          totalEl.textContent = 'R$ 0,00';
+        } else {
+          content.innerHTML = cart.items.map(it => {
+            const img  = it?.meta?.imageUrl ? `<img src="${it.meta.imageUrl}" class="cart-thumb" alt="">` : '';
+            const name = it?.meta?.cardName || it.cardId;
+            const vend = it?.meta?.sellerName || it.vendorId;
+            const cond = it?.meta?.condition ? ` • ${it.meta.condition}` : '';
+            const line = (it.qty * it.price).toFixed(2);
+            return `
+              <div class="cart-row" data-key="${it.key}">
+                <div class="cart-left">
+                  ${img}
+                  <div class="cart-info">
+                    <div class="cart-title">${name}</div>
+                    <div class="cart-sub">Vendedor: ${vend}${cond}</div>
+                  </div>
+                </div>
+                <div class="cart-right">
+                  <div class="cart-price">R$ ${it.price.toFixed(2)}</div>
+                  <div class="qty-box">
+                    <button class="qty-btn minus" type="button">−</button>
+                    <input class="qty-input" type="number" min="1" value="${it.qty}">
+                    <button class="qty-btn plus" type="button">+</button>
+                  </div>
+                  <div class="cart-line-total">R$ ${line}</div>
+                  <button class="btn icon-only cart-remove" title="Remover">✕</button>
+                </div>
+              </div>`;
+          }).join('');
+          totalEl.textContent = 'R$ ' + Number(cart.totalPrice || 0).toFixed(2);
+        }
+      }
+
+      // Atualiza badge (se existir)
+      const badge = document.querySelector('#floating-cart-button .badge');
+      if (badge) {
+        const c = Number(cart.totalQty || 0);
+        badge.textContent = String(c);
+        badge.classList.toggle('hidden', c <= 0);
+      }
+    } catch (e) {
+      console.error(e);
+      if (content) content.innerHTML = '<div class="cart-empty"><p>Não foi possível carregar o carrinho.</p></div>';
+      if (totalEl) totalEl.textContent = 'R$ 0,00';
+    }
+  })();
+}
+
+function closeCartModal() {
+  const modal    = document.getElementById('cart-modal');
+  const backdrop = document.getElementById('cart-backdrop');
+  if (!modal || !backdrop) return;
+  modal.setAttribute('hidden', '');
+  backdrop.setAttribute('hidden', '');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+// binds (deixa no final do main.js)
+document.getElementById('floating-cart-button')?.addEventListener('click', openCartModal);
+document.getElementById('cart-backdrop')?.addEventListener('click', closeCartModal);
+document.getElementById('cart-close-btn')?.addEventListener('click', closeCartModal);
+document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') closeCartModal(); });
+
 
   function closeCart() {
     modal.setAttribute('hidden', '');
@@ -716,4 +806,105 @@ window.addEventListener('click', (event) => {
     await fetch('/cart/clear', { method:'POST' });
     loadCart();
   });
+})();
+// === CART MODAL: handler único com null-safety ===
+(() => {
+  if (window.__cartBound) return;  // evita duplicar listeners se o script carregar duas vezes
+  window.__cartBound = true;
+
+  const fab      = document.getElementById('floating-cart-button');
+  const modal    = document.getElementById('cart-modal');
+  const backdrop = document.getElementById('cart-backdrop');
+
+  const content  = document.getElementById('cart-content'); // pode ser null em algumas páginas
+  const totalEl  = document.getElementById('cart-total');
+
+  function money(n){ return 'R$ ' + Number(n || 0).toFixed(2); }
+
+  async function safeLoadCart() {
+    // Se a página não tem conteúdo/total, apenas não tenta mexer no DOM
+    if (!content || !totalEl) return;
+    try {
+      const res  = await fetch('/cart/json');
+      const cart = res.ok ? await res.json() : { items: [], totalQty: 0, totalPrice: 0 };
+
+      if (!cart.items || cart.items.length === 0) {
+        content.innerHTML = `
+          <div class="cart-empty">
+            <p>Seu carrinho está vazio.</p>
+            <a href="/cards" class="btn btn-primary">Explorar cartas</a>
+          </div>`;
+        totalEl.textContent = money(0);
+      } else {
+        content.innerHTML = cart.items.map(it => {
+          const img  = it?.meta?.imageUrl ? `<img src="${it.meta.imageUrl}" class="cart-thumb" alt="">` : '';
+          const name = it?.meta?.cardName || it.cardId;
+          const vend = it?.meta?.sellerName || it.vendorId;
+          const cond = it?.meta?.condition ? ` • ${it.meta.condition}` : '';
+          const line = (it.qty * it.price).toFixed(2);
+          return `
+            <div class="cart-row" data-key="${it.key}">
+              <div class="cart-left">
+                ${img}
+                <div class="cart-info">
+                  <div class="cart-title">${name}</div>
+                  <div class="cart-sub">Vendedor: ${vend}${cond}</div>
+                </div>
+              </div>
+              <div class="cart-right">
+                <div class="cart-price">R$ ${it.price.toFixed(2)}</div>
+                <div class="qty-box">
+                  <button class="qty-btn minus" type="button">−</button>
+                  <input class="qty-input" type="number" min="1" value="${it.qty}">
+                  <button class="qty-btn plus" type="button">+</button>
+                </div>
+                <div class="cart-line-total">R$ ${line}</div>
+                <button class="btn icon-only cart-remove" title="Remover">✕</button>
+              </div>
+            </div>`;
+        }).join('');
+        totalEl.textContent = money(cart.totalPrice);
+      }
+
+      // badge (se existir)
+      const badge = document.querySelector('#floating-cart-button .badge');
+      if (badge) {
+        const c = Number(cart.totalQty || 0);
+        badge.textContent = String(c);
+        badge.classList.toggle('hidden', c <= 0);
+      }
+    } catch (e) {
+      console.error('[cart] load error:', e);
+      if (content) content.innerHTML = '<div class="cart-empty"><p>Não foi possível carregar o carrinho.</p></div>';
+      if (totalEl) totalEl.textContent = money(0);
+    }
+  }
+
+  function openCartModal(e){
+    e?.preventDefault?.();
+    if (!modal || !backdrop) {
+      console.warn('[cart] modal/backdrop não encontrados nesta página.');
+      return;
+    }
+    modal.removeAttribute('hidden');
+    backdrop.removeAttribute('hidden');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    safeLoadCart(); // só escreve no DOM se achar os elementos
+  }
+
+  function closeCartModal(){
+    if (!modal || !backdrop) return;
+    modal.setAttribute('hidden', '');
+    backdrop.setAttribute('hidden', '');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // Garante que o FAB não navega
+  fab?.setAttribute('href', '#');
+  fab?.addEventListener('click', openCartModal);
+  document.getElementById('cart-close-btn')?.addEventListener('click', closeCartModal);
+  backdrop?.addEventListener('click', closeCartModal);
+  document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') closeCartModal(); });
 })();

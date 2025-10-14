@@ -3,8 +3,8 @@
 <main class="container list-page">
   <%- include('../partials/navbar') %>
 
-  <!-- Botão flutuante do carrinho -->
-  <a href="#" id="floating-cart-button" class="floating-btn" data-action="open-cart-modal" aria-label="Abrir carrinho">
+  <!-- Botão flutuante (opcional) -->
+  <a href="#" id="floating-cart-button" class="floating-btn">
     <span class="icon">🛒</span>
     <span class="badge hidden" id="cart-count">0</span>
   </a>
@@ -14,10 +14,10 @@
     <a href="/cards" class="btn btn-primary">+ Adicionar mais cartas</a>
   </div>
 
-  <%
+  <% 
     // Compat: aceita 'items' (novo) ou 'wantList' (antigo)
-    const _list = (typeof items !== 'undefined' && items && items.length)
-      ? items
+    const _list = (typeof items !== 'undefined' && items && items.length) 
+      ? items 
       : ((typeof wantList !== 'undefined' && wantList) ? wantList : []);
   %>
 
@@ -29,12 +29,12 @@
   <% } %>
 
   <section class="cards-stack">
-    <% (_list || []).forEach((item, i) => {
-         const card = item.card || item;
+    <% (_list || []).forEach((item, i) => { 
+         const card = item.card || item; 
          const cardId = (card && (card._id || card.id || card.cardId)) || '';
          const vendors = item.vendors || item.listings || [];
          const desired = item.desiredQty || item.quantityWanted || 1;
-         const lowest  = item.minPrice || item.lowestPrice || (vendors && vendors.length ? vendors[0].price : null);
+         const lowest = item.minPrice || item.lowestPrice || (vendors && vendors.length ? vendors[0].price : null);
          const drawerId = `sellers-${cardId || i}`;
     %>
       <article class="list-card" data-card-id="<%= cardId %>">
@@ -58,9 +58,9 @@
             </div>
 
             <!-- Botão para abrir/fechar vendedores -->
-            <button
-              class="btn btn-outline toggle-sellers-btn"
-              data-toggle="sellers"
+            <button 
+              class="btn btn-outline toggle-sellers-btn" 
+              data-toggle="sellers" 
               aria-controls="<%= drawerId %>">
               Ver vendedores ▾
             </button>
@@ -70,7 +70,7 @@
           </div>
         </div>
 
-        <!-- Gaveta de vendedores (oculta por padrão) -->
+        <!-- Gaveta de vendedores (inicia oculta) -->
         <div id="<%= drawerId %>" class="sellers-panel" hidden>
           <!-- Filtros simples (opcionais) -->
           <div class="sellers-filters">
@@ -111,43 +111,42 @@
             <div class="sellers-body">
               <% (vendors || []).forEach(v => {
                    // Normaliza campos
-                   const available  = v.availableQty || v.quantity || 0;
-                   const price      = Number(v.price || 0);
-                   const vendorId   = v.vendorId || v._id || v.sellerId || v.seller || '';
+                   const available = v.availableQty || v.quantity || 0;
+                   const price = Number(v.price || 0);
+                   const vendorId = v.vendorId || v._id || v.sellerId || v.seller || '';
                    const sellerName = v.sellerName || (v.seller && (v.seller.username || v.seller.name)) || v.seller || 'Vendedor';
-                   const cond       = (v.condition || '').toLowerCase();
-                   const lang       = (v.language || '').toLowerCase();
-                   const loc        = (v.location || (v.seller && v.seller.country) || '').toLowerCase();
+                   const cond = (v.condition || '').toLowerCase();
+                   const lang = (v.language || '').toLowerCase();
+                   const loc = (v.location || (v.seller && v.seller.country) || '').toLowerCase();
               %>
                 <!-- Linha do vendedor com ganchos para o JS -->
                 <div class="seller-row vendor-row"
                      data-condition="<%= cond %>"
-                     data-language ="<%= lang %>"
+                     data-language="<%= lang %>"
                      data-location ="<%= loc %>"
-                     data-cardid   ="<%= cardId %>"
-                     data-vendorid ="<%= vendorId %>"
-                     data-price    ="<%= price %>"
+                     data-cardid="<%= cardId %>"
+                     data-vendorid="<%= vendorId %>"
+                     data-price="<%= price %>"
                      data-available="<%= available %>">
 
                   <span class="seller-name">
-                    <%= sellerName %>
+                    <%= sellerName %> 
                     <% if (v.seller && v.seller.accountType === 'shop') { %>
                       <span class="shop-badge">LOJA</span>
                     <% } %>
                   </span>
 
                   <span><%= v.conditionLabel || v.condition || '—' %></span>
-                  <span><%= v.languageLabel  || v.language  || '—' %></span>
+                  <span><%= v.languageLabel || v.language || '—' %></span>
                   <span><%= available %></span>
 
-                  <!-- Célula de preço (o JS usa como referência) -->
+                  <!-- Célula de preço marcada para o JS injetar os controles depois -->
                   <span class="right price js-price-cell">R$ <%= price.toFixed(2) %></span>
 
-                  <!-- Coluna de Qtd. (pode ficar vazia; JS usa se quiser) -->
-                  <span class="right qty-col"></span>
-
-                  <!-- Coluna de Ação: o JS injeta aqui os controles -->
-                  <span class="right action-cell"></span>
+                  <!-- As duas colunas seguintes (Qtd./Ação) serão preenchidas pelo JS:
+                       ele injeta [ - 1 + ] e [Adicionar] logo após .js-price-cell -->
+                  <span class="right placeholder"></span>
+                  <span class="right placeholder"></span>
                 </div>
               <% }) %>
 
@@ -162,7 +161,13 @@
   </section>
 </main>
 
+<!-- Garante que seu main.js carregue depois do HTML -->
+<script src="/js/main.js"></script>
+
 <%- include('../partials/footer') %>
 
-<!-- JS principal (precisa estar depois do HTML) -->
-<script src="/js/main.js"></script>
+<!-- Ajuste opcional do botão flutuante: -->
+<script>
+  // Se você usa alguma ação custom no botão flutuante, configure aqui:
+  document.getElementById('floating-cart-button')?.setAttribute('data-action','open-cart-modal');
+</script>

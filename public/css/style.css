@@ -522,10 +522,39 @@ h4 { font-size: 1.1rem; font-weight: 700; }
 #floating-list-button { position: fixed; top: 100px; right: 30px; z-index: 1000; background-color: var(--accent-primary); color: white; width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); display: flex; justify-content: center; align-items: center; text-decoration: none; font-size: 1.5rem; transition: transform 0.2s ease-in-out;}
 #floating-list-button:hover { transform: scale(1.1); }
 
-.qty-box { display:inline-flex; align-items:center; border:1px solid rgba(255,255,255,.18); border-radius:10px; overflow:hidden; }
-.qty-btn { width:30px; height:32px; border:none; background:#1d2235; color:#fff; cursor:pointer; }
-.qty-input { width:52px; height:32px; border:none; outline:none; text-align:center; background:#111528; color:#fff; }
-.vendor-actions { display:inline-flex; align-items:center; gap:8px; margin-left:8px; }
+.qty-box {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.qty-btn {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: rgba(255,255,255,.06);
+  cursor: pointer;
+  font-weight: 700;
+  line-height: 1;
+}
+.qty-btn:hover { background: rgba(255,255,255,.12); }
+
+.qty-input {
+  width: 56px;
+  height: 32px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: center;
+  -moz-appearance: textfield;
+}
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* se sua tabela tiver a coluna "Ação", garanta espaço */
+td.action, td:last-child { white-space: nowrap; }.vendor-actions { display:inline-flex; align-items:center; gap:8px; margin-left:8px; }
 /* =========================
    LIST / SELLERS STYLES
    (adicione no final do style.css)
@@ -602,6 +631,17 @@ h4 { font-size: 1.1rem; font-weight: 700; }
 .filter-select{
   background:#1b2133; color:#e6e9f3; border:1px solid rgba(255,255,255,.08);
   padding:8px 10px; border-radius:10px;
+}
+.sellers-panel[hidden] { display: none !important; }
+.sellers-panel.open { display: block; } /* estado aberto explícito */
+
+/* opcional: animação suave */
+.sellers-panel.open {
+  animation: sellersFade .18s ease-out;
+}
+@keyframes sellersFade {
+  from { opacity: 0; transform: translateY(-2px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* tabela/lista de vendedores */
@@ -680,22 +720,14 @@ h4 { font-size: 1.1rem; font-weight: 700; }
   .right{ text-align:left; }
 }
 /* ===== Cart Modal ===== */
-.cart-backdrop{
-  position:fixed; inset:0; background:rgba(0,0,0,.55);
-  backdrop-filter: blur(2px);
-  z-index: 9998;
+[hidden] { display: none !important; }
+
+.cart-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 1001;
 }
-.cart-modal{
-  position:fixed;
-  right: 0; top: 0; bottom: 0;
-  width: min(480px, 100%);
-  background: #0f1220;
-  border-left: 1px solid rgba(255,255,255,.08);
-  box-shadow: -12px 0 32px rgba(0,0,0,.35);
-  display:flex; flex-direction:column;
-  z-index: 9999;
-  display: none;
-}
+
 #cart-modal.is-open, #cart-backdrop.is-open { display: block; }
 .cart-header{
   display:flex; align-items:center; justify-content:space-between;
@@ -738,3 +770,44 @@ h4 { font-size: 1.1rem; font-weight: 700; }
 .qty-box{ display:inline-flex; align-items:center; border:1px solid rgba(255,255,255,.14); border-radius:10px; overflow:hidden; }
 .qty-btn{ width:30px; height:32px; border:none; background:#1d2235; color:#e9ecf1; cursor:pointer; }
 .qty-input{ width:52px; height:32px; border:none; outline:none; text-align:center; background:#111528; color:#fff; }
+/* === Sellers drawer === */
+.sellers-panel[hidden] { display: none !important; }
+.sellers-panel.open { display: block; }
+
+/* se o container do card usa overflow:hidden, deixe a gaveta escapar */
+.want-list-item, .card-row, .card-item {
+  overflow: visible; /* evita cortar a gaveta */
+}
+
+/* animação opcional */
+.sellers-panel.open {
+  animation: sellersFade .16s ease-out;
+}
+@keyframes sellersFade {
+  from { opacity: 0; transform: translateY(-2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* === Cart modal / backdrop (garantia) === */
+[hidden] { display: none !important; }
+.cart-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 1001; }
+.cart-modal{
+  position: fixed;
+  top: 0; right: 0;
+  width: 560px;           /* mais largo no desktop */
+  max-width: 96vw;        /* ainda responsivo em telas menores */
+  height: 100vh;
+  background: #0e0f15;
+  color: #fff;
+  z-index: 1002;
+  display: flex;          /* garante layout em coluna */
+  flex-direction: column; /* header / content / footer */
+}
+
+.action-cell { justify-self: end; }
+
+/* Garante que os botões fiquem numa linha e não “quebrem” */
+.vendor-actions { display: inline-flex; align-items: center; gap: 8px; }
+
+/* Evita corte quando a célula for estreita */
+.action-cell, td.action { white-space: nowrap; }
