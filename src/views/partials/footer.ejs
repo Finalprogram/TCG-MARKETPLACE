@@ -3,18 +3,7 @@
     </footer>
 
     <script src="/js/main.js"></script>
-<div id="cart-modal" class="modal-overlay">
-    <div class="modal-content">
-        <button class="modal-close-btn">&times;</button>
-        <h2>Meu Carrinho</h2>
-        <div id="cart-items-container">
-            <p>Seu carrinho está vazio.</p>
-        </div>
-        <div class="cart-summary">
-            <strong>Subtotal: <span id="cart-subtotal">R$ 0,00</span></strong>
-            <button class="btn-primary btn-submit-full">Finalizar Compra</button>
-        </div>
-    </div>
-</div>
+<%- include('../partials/cartModal') %>
+
 </body>
 </html>

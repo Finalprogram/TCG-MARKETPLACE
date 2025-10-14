@@ -1,66 +1,133 @@
-const getCartContents = async (req, res) => {
-    try {
-        const userCart = req.session.cart || [];
+// src/controllers/cartController.js
 
-        if (userCart.length === 0) {
-            return res.json([]); // Retorna um array vazio se o carrinho estiver vazio
-        }
+/** Cria/retorna o carrinho na sessão */
+function getCart(req) {
+  if (!req.session.cart) {
+    req.session.cart = { items: [], totalQty: 0, totalPrice: 0 };
+  }
+  return req.session.cart;
+}
 
-        // Pega todos os IDs dos anúncios que estão no carrinho
-        const listingIds = userCart.map(item => item.listingId);
+/** Recalcula totais do carrinho */
+function recompute(cart) {
+  let totalQty = 0;
+  let totalPrice = 0;
+  for (const it of cart.items) {
+    totalQty += it.qty;
+    totalPrice += it.qty * it.price;
+  }
+  cart.totalQty = totalQty;
+  cart.totalPrice = Number(totalPrice.toFixed(2));
+}
 
-        // Busca todos os anúncios de uma só vez, populando os dados da carta e do vendedor
-        const listings = await Listing.find({ '_id': { $in: listingIds } })
-                                      .populate({ path: 'card', select: 'name image_url' })
-                                      .populate({ path: 'seller', select: 'username' });
+/** POST /cart/add  (JSON: { cardId, vendorId, price, qty, meta? }) */
+async function add(req, res) {
+  try {
+    const { cardId, vendorId, price, qty, meta } = req.body || {};
+    const q = Number(qty);
+    const p = Number(price);
 
-        // Junta as informações do banco com as quantidades da sessão
-        const populatedCart = userCart.map(item => {
-            const listingDetails = listings.find(l => l._id.toString() === item.listingId);
-            return {
-                quantity: item.quantity,
-                details: listingDetails
-            };
-        });
-
-        res.json(populatedCart);
-
-    } catch (error) {
-        console.error("Erro ao buscar conteúdo do carrinho:", error);
-        res.status(500).json({ message: 'Erro no servidor' });
-    }
-};
-const addToCart = (req, res) => {
-    // Verifica se o usuário está logado pela sessão
-    console.log(req.session.user); // Log para verificar a sessã
-    if (!req.session.user) {
-        return res.status(401).json({ success: false, message: 'Você precisa estar logado para adicionar ao carrinho.' });
+    if (!cardId || !vendorId || !Number.isFinite(p) || !Number.isFinite(q) || q < 1) {
+      return res.status(400).json({ error: 'Dados inválidos' });
     }
 
-    const { listingId, quantity } = req.body;
+    const cart = getCart(req);
+    const key = `${cardId}:${vendorId}`;
 
-    // Inicia o carrinho na sessão se ele não existir
-    if (!req.session.cart) {
-        req.session.cart = [];
-    }
-
-    // Verifica se o item já está no carrinho
-    const existingItemIndex = req.session.cart.findIndex(item => item.listingId === listingId);
-
-    if (existingItemIndex > -1) {
-        // Se já existe, apenas atualiza a quantidade
-        req.session.cart[existingItemIndex].quantity += parseInt(quantity, 10);
+    let found = cart.items.find(i => i.key === key);
+    if (!found) {
+      found = { key, cardId, vendorId, price: p, qty: 0, meta: meta || null };
+      cart.items.push(found);
     } else {
-        // Se não existe, adiciona o novo item
-        req.session.cart.push({ listingId, quantity: parseInt(quantity, 10) });
+      // atualiza preço/meta opcionalmente
+      if (Number.isFinite(p)) found.price = p;
+      if (meta) found.meta = { ...(found.meta || {}), ...meta };
     }
 
-    // Retorna o número total de itens no carrinho
-    const cartCount = req.session.cart.reduce((total, item) => total + item.quantity, 0);
-    res.status(200).json({ success: true, message: 'Item adicionado com sucesso!', cartCount });
-};
+    found.qty = Math.min(999, found.qty + q);
+    recompute(cart);
 
-module.exports = { 
-    addToCart,
-    getCartContents
- };
+    return res.json({ ok: true, count: cart.totalQty, total: cart.totalPrice });
+  } catch (err) {
+    console.error('cartController.add error:', err);
+    return res.status(500).json({ error: 'Erro interno' });
+  }
+}
+
+/** POST /cart/update  (JSON: { key, qty }) */
+async function update(req, res) {
+  try {
+    const { key, qty } = req.body || {};
+    const q = Number(qty);
+    if (!key || !Number.isFinite(q) || q < 1) {
+      return res.status(400).json({ error: 'Dados inválidos' });
+    }
+    const cart = getCart(req);
+    const it = cart.items.find(i => i.key === key);
+    if (!it) return res.status(404).json({ error: 'Item não encontrado' });
+
+    it.qty = Math.min(999, q);
+    recompute(cart);
+    return res.json({ ok: true, count: cart.totalQty, total: cart.totalPrice });
+  } catch (err) {
+    console.error('cartController.update error:', err);
+    return res.status(500).json({ error: 'Erro interno' });
+  }
+}
+
+/** POST /cart/remove  (JSON: { key }) */
+async function remove(req, res) {
+  try {
+    const { key } = req.body || {};
+    const cart = getCart(req);
+    const before = cart.items.length;
+    cart.items = cart.items.filter(i => i.key !== key);
+    if (cart.items.length !== before) recompute(cart);
+    return res.json({ ok: true, count: cart.totalQty, total: cart.totalPrice });
+  } catch (err) {
+    console.error('cartController.remove error:', err);
+    return res.status(500).json({ error: 'Erro interno' });
+  }
+}
+
+/** POST /cart/clear */
+async function clear(req, res) {
+  try {
+    req.session.cart = { items: [], totalQty: 0, totalPrice: 0 };
+    return res.json({ ok: true, count: 0, total: 0 });
+  } catch (err) {
+    console.error('cartController.clear error:', err);
+    return res.status(500).json({ error: 'Erro interno' });
+  }
+}
+
+/** GET /cart  → renderiza página ou retorna JSON se a view não existir */
+async function show(req, res) {
+  try {
+    const cart = getCart(req);
+    // Se você já tem EJS:
+    return res.render('pages/cart', { cart });
+  } catch (err) {
+    // fallback em JSON caso a view não exista
+    return res.json(getCart(req));
+  }
+}
+
+async function json(req, res) {
+  try {
+    // retorna a sessão do carrinho para o modal renderizar no front
+    const cart = req.session.cart || { items: [], totalQty: 0, totalPrice: 0 };
+    return res.json(cart);
+  } catch (err) {
+    console.error('cartController.json error:', err);
+    return res.status(500).json({ error: 'Erro interno' });
+  }
+}
+module.exports = {
+  add,
+  update,
+  remove,
+  clear,
+  show,
+  json,
+};

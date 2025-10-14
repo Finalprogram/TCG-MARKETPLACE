@@ -1,117 +1,173 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <%- include('../partials/header') %>
-    <title>Minha Lista - CardHub</title>
-</head>
-<body>
-    <%- include('../partials/navbar') %>
+<%- include('../partials/header') %>
 
-    <main class="container">
-        <h1>Minha Lista de Compras</h1>
+<main class="container list-page">
+  <%- include('../partials/navbar') %>
 
-        <% if (wantList && wantList.length > 0) { %>
-            <!-- Adicionar mais cartas à lista -->
-            <button id="add-more-cards-btn" class="btn-secondary" style="margin-bottom: 1.5rem;">+ Adicionar mais cartas à lista</button>
+  <!-- Botão flutuante (opcional) -->
+  <a href="#" id="floating-cart-button" class="floating-btn">
+    <span class="icon">🛒</span>
+    <span class="badge hidden" id="cart-count">0</span>
+  </a>
 
-            <div class="want-list-container">
-                <% wantList.forEach(item => { %>
-                    <div class="want-list-item">
-                        <div class="card-summary">
-                            <img src="<%= item.card.image_url %>" alt="<%= item.card.name %>" class="summary-img">
-                            <div class="summary-info">
-                                <h3><%= item.card.name %></h3>
-                                <p><%= item.card.set_name || 'N/A' %></p>
-                                <span>Quantidade desejada: <strong><%= item.quantityWanted %></strong></span>
-                            </div>
-                            <div class="summary-price">
-                                <span>A partir de</span>
-                                <strong>R$ <%= item.lowestPrice ? item.lowestPrice.toFixed(2) : 'N/A' %></strong>
-                            </div>
-                            <button class="toggle-sellers-btn" data-target="sellers-<%= item.card._id %>">
-                                Ver Vendedores <span>▼</span>
-                            </button>
-                            <button class="remove-from-list-btn" data-cardid="<%= item.card._id %>" title="Remover da lista">&times;</button>
-                        </div>
+  <div class="list-header" style="margin-top: 1rem;">
+    <h1>Sua Lista</h1>
+    <a href="/cards" class="btn btn-primary">+ Adicionar mais cartas</a>
+  </div>
 
-                        <!-- Painel de vendedores -->
-                        <div class="sellers-drawer" id="sellers-<%= item.card._id %>">
-                            <div class="seller-filters">
-                                <select class="item-filter-select form-control" data-filter="condition">
-                                    <option value="N">Novo</option>
-                                    <option value="NM">Praticamente Nova</option>
-                                    <option value="NM">Near Mint</option>
-                                    <option value="LP">Lightly Played</option>
-                                    <option value="MP">Moderadamente Usada</option>
-                                    
-                                </select>
-                                <select class="item-filter-select form-control" data-filter="language">
-                                    <option value="pt">Português</option>
-                                    <option value="en">Inglês</option>
-                                </select>
-                                <select class="item-filter-select form-control" data-filter="is_foil">
-                                    <option value="">Todos</option>
-                                    <option value="false">Normal</option>
-                                    <option value="true">Foil</option>
-                                </select>
-                            </div>
+  <% 
+    // Compat: aceita 'items' (novo) ou 'wantList' (antigo)
+    const _list = (typeof items !== 'undefined' && items && items.length) 
+      ? items 
+      : ((typeof wantList !== 'undefined' && wantList) ? wantList : []);
+  %>
 
-                            <div class="listings-container">
-                                <% if (item.listings.length > 0) { %>
-                                    <% item.listings.forEach(listing => { %>
-                                        <div class="listing-row">
-                                            <div class="seller-info">
-                                                <strong><%= listing.seller.username %></strong>
-                                                <% if (listing.seller.accountType === 'shop') { %>
-                                                    <span class="shop-badge">LOJA</span>
-                                                <% } %>
-                                            </div>
-                                            <div class="condition-info">
-                                                <span><%= listing.condition %></span> |
-                                                <span><%= listing.is_foil ? 'Foil' : 'Normal' %></span>
-                                            </div>
-                                            <div class="price-info">
-                                                <strong>R$ <%= listing.price.toFixed(2) %></strong>
-                                            </div>
-                                            <div class="add-to-cart-controls">
-                                                <input type="number" class="quantity-input form-control" value="1" min="1" max="<%= listing.quantity %>">
-                                                <button class="btn-primary add-final-cart-btn" data-listingid="<%= listing._id %>">+ Carrinho</button>
-                                            </div>
-                                        </div>
-                                    <% }) %>
-                                <% } else { %>
-                                    <p class="no-listings">Nenhum anúncio encontrado para esta carta.</p>
-                                <% } %>
-                            </div>
-                        </div>
-                    </div>
-                <% }) %>
+  <% if (!_list || _list.length === 0) { %>
+    <section class="empty" style="margin: 24px 0;">
+      <p>Sua lista está vazia.</p>
+      <a class="btn btn-secondary" href="/cards">Explorar Cartas</a>
+    </section>
+  <% } %>
+
+  <section class="cards-stack">
+    <% (_list || []).forEach((item, i) => { 
+         const card = item.card || item; 
+         const cardId = (card && (card._id || card.id || card.cardId)) || '';
+         const vendors = item.vendors || item.listings || [];
+         const desired = item.desiredQty || item.quantityWanted || 1;
+         const lowest = item.minPrice || item.lowestPrice || (vendors && vendors.length ? vendors[0].price : null);
+         const drawerId = `sellers-${cardId || i}`;
+    %>
+      <article class="list-card" data-card-id="<%= cardId %>">
+        <div class="list-card__header">
+          <div class="list-card__left">
+            <img class="card-thumb" src="<%= card.image_url || card.imageUrl || '/img/card-placeholder.png' %>" alt="<%= card.name || 'Carta' %>">
+            <div>
+              <h3 class="card-title"><%= card.name %></h3>
+              <p class="card-sub">
+                <%- (card.set_name || card.setName || card.set || '') %>
+                <%- (card.code ? ' — [' + card.code + ']' : '') %>
+              </p>
+              <p class="card-qty">Quantidade desejada: <strong><%= desired %></strong></p>
             </div>
-        <% } else { %>
-            <div class="empty-list-message" style="text-align: center; padding: 4rem 0;">
-                <h2>Sua lista está vazia.</h2>
-                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Navegue pelas cartas e clique em "+ Lista" para adicioná-las aqui.</p>
-                <a href="/cards/magic" class="btn-primary">Explorar Cartas</a>
-            </div>
-        <% } %>
-<button id="floating-cart-button">
-    <span class="list-icon">🛒</span> <span class="list-item-count hidden">0</span>
-</button>
-    </main>
+          </div>
 
-    <div id="add-card-modal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="modal-close-btn">&times;</button>
-            <h2>Adicionar Carta à Lista</h2>
-            <div class="form-group">
-                <input type="search" id="modal-search-input" class="form-control" placeholder="Digite o nome da carta...">
+          <div class="list-card__right">
+            <div class="price-chip">
+              <span>A partir de</span>
+              <strong><%= (lowest != null) ? ('R$ ' + Number(lowest).toFixed(2)) : 'N/A' %></strong>
             </div>
-            <div id="modal-search-results"></div>
+
+            <!-- Botão para abrir/fechar vendedores -->
+            <button 
+              class="btn btn-outline toggle-sellers-btn" 
+              data-toggle="sellers" 
+              aria-controls="<%= drawerId %>">
+              Ver vendedores ▾
+            </button>
+
+            <!-- Remover item da lista (opcional) -->
+            <button class="btn icon-only remove-item" title="Remover" data-remove="<%= cardId %>">✕</button>
+          </div>
         </div>
-    </div>
 
-    <%- include('../partials/footer') %>
-    <script src="/js/main.js"></script>
-    <script>  document.getElementById('floating-list-button')?.setAttribute('data-action', 'open-cart-modal');</script>
-</body>
-</html>
+        <!-- Gaveta de vendedores (inicia oculta) -->
+        <div id="<%= drawerId %>" class="sellers-panel" hidden>
+          <!-- Filtros simples (opcionais) -->
+          <div class="sellers-filters">
+            <select class="filter-select" data-filter="condition">
+              <option value="">Condição (todas)</option>
+              <option value="novo">(N) Novo</option>
+              <option value="normal">Normal</option>
+              <option value="danificada">Danificada</option>
+            </select>
+
+            <select class="filter-select" data-filter="language">
+              <option value="">Idioma (todos)</option>
+              <option value="pt">Português</option>
+              <option value="en">Inglês</option>
+              <option value="jp">Japonês</option>
+            </select>
+
+            <select class="filter-select" data-filter="location">
+              <option value="">Local (todos)</option>
+              <option value="br">Brasil</option>
+              <option value="latam">LatAm</option>
+              <option value="global">Global</option>
+            </select>
+          </div>
+
+          <!-- Tabela/Lista de vendedores -->
+          <div class="sellers-table">
+            <div class="sellers-head">
+              <span>Vendedor</span>
+              <span>Condição</span>
+              <span>Idioma</span>
+              <span>Disp.</span>
+              <span class="right">Preço</span>
+              <span class="right">Qtd.</span>
+              <span class="right">Ação</span>
+            </div>
+
+            <div class="sellers-body">
+              <% (vendors || []).forEach(v => {
+                   // Normaliza campos
+                   const available = v.availableQty || v.quantity || 0;
+                   const price = Number(v.price || 0);
+                   const vendorId = v.vendorId || v._id || v.sellerId || v.seller || '';
+                   const sellerName = v.sellerName || (v.seller && (v.seller.username || v.seller.name)) || v.seller || 'Vendedor';
+                   const cond = (v.condition || '').toLowerCase();
+                   const lang = (v.language || '').toLowerCase();
+                   const loc = (v.location || (v.seller && v.seller.country) || '').toLowerCase();
+              %>
+                <!-- Linha do vendedor com ganchos para o JS -->
+                <div class="seller-row vendor-row"
+                     data-condition="<%= cond %>"
+                     data-language="<%= lang %>"
+                     data-location ="<%= loc %>"
+                     data-cardid="<%= cardId %>"
+                     data-vendorid="<%= vendorId %>"
+                     data-price="<%= price %>"
+                     data-available="<%= available %>">
+
+                  <span class="seller-name">
+                    <%= sellerName %> 
+                    <% if (v.seller && v.seller.accountType === 'shop') { %>
+                      <span class="shop-badge">LOJA</span>
+                    <% } %>
+                  </span>
+
+                  <span><%= v.conditionLabel || v.condition || '—' %></span>
+                  <span><%= v.languageLabel || v.language || '—' %></span>
+                  <span><%= available %></span>
+
+                  <!-- Célula de preço marcada para o JS injetar os controles depois -->
+                  <span class="right price js-price-cell">R$ <%= price.toFixed(2) %></span>
+
+                  <!-- As duas colunas seguintes (Qtd./Ação) serão preenchidas pelo JS:
+                       ele injeta [ - 1 + ] e [Adicionar] logo após .js-price-cell -->
+                  <span class="right placeholder"></span>
+                  <span class="right placeholder"></span>
+                </div>
+              <% }) %>
+
+              <% if (!vendors || vendors.length === 0) { %>
+                <div class="no-sellers">Nenhum vendedor encontrado para esta carta.</div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </article>
+    <% }) %>
+  </section>
+</main>
+
+<!-- Garante que seu main.js carregue depois do HTML -->
+<script src="/js/main.js"></script>
+
+<%- include('../partials/footer') %>
+
+<!-- Ajuste opcional do botão flutuante: -->
+<script>
+  // Se você usa alguma ação custom no botão flutuante, configure aqui:
+  document.getElementById('floating-cart-button')?.setAttribute('data-action','open-cart-modal');
+</script>
