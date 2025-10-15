@@ -1,5 +1,3 @@
-// server.js
-
 // 1. Imports
 require('dotenv').config();
 const path = require('path');
