@@ -20,6 +20,27 @@ function recompute(cart) {
   cart.totalPrice = Number(totalPrice.toFixed(2));
 }
 
+/** Normaliza meta para garantir campos úteis no front/checkout */
+function normalizeMeta(baseMeta = {}, { cardId, vendorId }) {
+  const safe = { ...baseMeta };
+
+  // IDs chave para split por vendedor no checkout
+  safe.sellerId   = safe.sellerId   || vendorId;
+  safe.sellerName = safe.sellerName || baseMeta?.sellerName || 'Vendedor';
+
+  // Dados da carta para exibir no modal
+  safe.cardId    = safe.cardId    || cardId;
+  safe.cardName  = safe.cardName  || baseMeta?.cardName  || 'Carta';
+  safe.imageUrl  = safe.imageUrl  || baseMeta?.imageUrl  || '/img/card-placeholder.png';
+  safe.condition = safe.condition || baseMeta?.condition || null;
+
+  // Origem do frete (se você já tiver isso por vendedor)
+  // Pode vir preenchido do front ou popular aqui via DB num próximo passo
+  safe.originZip = (safe.originZip || '').replace?.(/\D/g, '') || null;
+
+  return safe;
+}
+
 /** POST /cart/add  (JSON: { cardId, vendorId, price, qty, meta? }) */
 async function add(req, res) {
   try {
@@ -32,16 +53,24 @@ async function add(req, res) {
     }
 
     const cart = getCart(req);
+    // chave único por carta+vendedor; se quiser separar por preço, use `${cardId}:${vendorId}:${p}`
     const key = `${cardId}:${vendorId}`;
 
     let found = cart.items.find(i => i.key === key);
     if (!found) {
-      found = { key, cardId, vendorId, price: p, qty: 0, meta: meta || null };
+      found = {
+        key,
+        cardId,
+        vendorId,
+        price: p,
+        qty: 0,
+        meta: normalizeMeta(meta, { cardId, vendorId })
+      };
       cart.items.push(found);
     } else {
-      // atualiza preço/meta opcionalmente
+      // atualiza preço e mescla meta
       if (Number.isFinite(p)) found.price = p;
-      if (meta) found.meta = { ...(found.meta || {}), ...meta };
+      found.meta = normalizeMeta({ ...(found.meta || {}), ...(meta || {}) }, { cardId, vendorId });
     }
 
     found.qty = Math.min(999, found.qty + q);
@@ -101,28 +130,41 @@ async function clear(req, res) {
   }
 }
 
-/** GET /cart  → renderiza página ou retorna JSON se a view não existir */
+/**
+ * GET /cart → renderiza a página se existir; se não, devolve JSON
+ * Dica: se você não tem views/cart.ejs, prefira usar apenas /cart/json no modal
+ */
 async function show(req, res) {
   try {
     const cart = getCart(req);
-    // Se você já tem EJS:
     return res.render('pages/cart', { cart });
   } catch (err) {
-    // fallback em JSON caso a view não exista
+    // fallback em JSON caso a view não exista para não quebrar
     return res.json(getCart(req));
   }
 }
 
+/** GET /cart/json → resposta limpa pro modal do front */
 async function json(req, res) {
   try {
-    // retorna a sessão do carrinho para o modal renderizar no front
-    const cart = req.session.cart || { items: [], totalQty: 0, totalPrice: 0 };
+    const cart = getCart(req);
+
+    // Garante que todos os itens têm meta normalizada (evita undefined no front)
+    cart.items = cart.items.map(it => ({
+      ...it,
+      meta: normalizeMeta(it.meta, { cardId: it.cardId, vendorId: it.vendorId })
+    }));
+
+    // recompute por segurança (se algo mudou)
+    recompute(cart);
+
     return res.json(cart);
   } catch (err) {
     console.error('cartController.json error:', err);
     return res.status(500).json({ error: 'Erro interno' });
   }
 }
+
 module.exports = {
   add,
   update,

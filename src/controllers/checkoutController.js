@@ -1,80 +1,104 @@
 // src/controllers/checkoutController.js
-function getCartFromSession(req) {
-  const cart = req.session?.cart || { items: [], totalQty: 0, totalPrice: 0 };
-  // força números
-  cart.totalQty = Number(cart.totalQty || 0);
-  cart.totalPrice = Number(cart.totalPrice || 0);
-  return cart;
+
+// Util: garante que o carrinho exista
+// src/controllers/checkoutController.js
+function getCart(req) {
+  if (!req.session.cart) req.session.cart = { items: [], totalQty: 0, totalPrice: 0 };
+  return req.session.cart;
 }
 
-const SHIPPING_METHODS = [
-  { code: 'standard', name: 'Econômico (5–9 dias)',  price: 14.90 },
-  { code: 'express',  name: 'Expresso (2–3 dias)',   price: 29.90 },
-  { code: 'pickup',   name: 'Retirar na loja',        price: 0.00  }
-];
+function toMoney(n) { return Number(n || 0); }
 
-function computeTotals(cart, shippingCode = 'standard') {
-  const ship = SHIPPING_METHODS.find(m => m.code === shippingCode) || SHIPPING_METHODS[0];
-  const subtotal = Number(cart.totalPrice || 0);
-  const shipping = Number(ship.price || 0);
-  const grand = subtotal + shipping;
-  return { ship, subtotal, shipping, grand };
+/** GET /checkout */
+async function showCheckout(req, res) {
+  const cart = getCart(req);
+  const items = (cart.items || []).map(it => ({
+    key: it.key,
+    cardId: it.cardId,
+    vendorId: it.vendorId,
+    qty: Number(it.qty || 0),
+    price: toMoney(it.price),
+    meta: it.meta || {}
+  }));
+
+  // subtotal
+  const subtotal = items.reduce((s, i) => s + i.qty * i.price, 0);
+
+  // agrupa por vendedor
+  const map = new Map();
+  for (const it of items) {
+    const sid = it.vendorId || 'sem-vendedor';
+    const group = map.get(sid) || {
+      sellerId: sid,
+      sellerName: (it.meta && it.meta.sellerName) || 'Vendedor',
+      items: []
+    };
+    group.items.push({
+      name: (it.meta && it.meta.cardName) || it.cardId,
+      imageUrl: (it.meta && it.meta.imageUrl) || '',
+      condition: (it.meta && it.meta.condition) || '',
+      qty: it.qty,
+      unit: it.price,
+      line: Number((it.qty * it.price).toFixed(2)),
+    });
+    map.set(sid, group);
+  }
+  const groups = Array.from(map.values());
+
+  return res.render('pages/checkout', {
+    groups, // <- usado para listar cartas por vendedor
+    totals: {
+      subtotal: Number(subtotal.toFixed(2)),
+      shipping: 0,
+      grand: Number(subtotal.toFixed(2))
+    }
+  });
 }
 
-exports.show = (req, res) => {
-  const cart = getCartFromSession(req);
-  const { ship, subtotal, shipping, grand } = computeTotals(cart);
-  res.render('pages/checkout', {
-    cart,
-    shippingMethods: SHIPPING_METHODS,
-    selectedShipping: ship.code,
-    totals: { subtotal, shipping, grand }
-  });
-};
+/** POST /checkout/quote-detailed  (mantém como você já tem) */
+async function quoteDetailed(req, res) {
+  try {
+    const { zip } = req.body || {};
+    if (!zip) return res.json({ ok: false, error: 'zip required' });
 
-exports.quote = (req, res) => {
-  const cart = getCartFromSession(req);
-  const { method } = req.body || {};
-  const { ship, subtotal, shipping, grand } = computeTotals(cart, method);
-  res.json({
-    ok: true,
-    method: ship.code,
-    totals: { subtotal, shipping, grand }
-  });
-};
+    // Monte aqui suas opções de frete por vendedor (exemplo fake):
+    const cart = getCart(req);
+    const vendors = [...new Set((cart.items || []).map(i => i.vendorId))];
 
-exports.confirm = async (req, res) => {
-  const cart = getCartFromSession(req);
-  if (!cart.items.length) {
-    return res.status(400).render('pages/checkout', {
-      cart,
-      shippingMethods: SHIPPING_METHODS,
-      selectedShipping: 'standard',
-      totals: { subtotal: 0, shipping: 0, grand: 0 },
-      error: 'Seu carrinho está vazio.'
+    const packages = vendors.map((sellerId) => {
+      const opts = [
+        { servico: '04510', nome: 'PAC',  preco: 20.0, prazoEmDias: 7 },
+        { servico: '04014', nome: 'SEDEX', preco: 35.0, prazoEmDias: 2 },
+      ];
+      const chosen = opts.reduce((m, o) => (o.preco < m.preco ? o : m), opts[0]);
+      return { sellerId, options: opts, chosen };
     });
+
+    const subtotal = Number((cart.totalPrice || 0).toFixed(2));
+    const shipping = packages.reduce((s, p) => s + p.chosen.preco, 0);
+    const totals = {
+      subtotal,
+      shipping: Number(shipping.toFixed(2)),
+      grand: Number((subtotal + shipping).toFixed(2)),
+    };
+
+    res.json({ ok: true, packages, totals });
+  } catch (e) {
+    console.error(e);
+    res.json({ ok: false, error: 'quote failed' });
   }
+}
 
-  const { fullName, email, zip, street, number, city, state, shippingMethod } = req.body || {};
-  if (!fullName || !email || !zip || !street || !number || !city || !state) {
-    const { ship, subtotal, shipping, grand } = computeTotals(cart, shippingMethod);
-    return res.status(400).render('pages/checkout', {
-      cart,
-      shippingMethods: SHIPPING_METHODS,
-      selectedShipping: ship.code,
-      totals: { subtotal, shipping, grand },
-      error: 'Preencha todos os campos obrigatórios.'
-    });
+/** POST /checkout/confirm  (ajuste ao seu fluxo de pedido) */
+async function confirm(req, res) {
+  try {
+    const selections = JSON.parse(req.body.shippingSelections || '[]');
+    // persista o pedido, etc.
+    res.redirect('/pedido/confirmado');
+  } catch (e) {
+    console.error(e);
+    res.status(400).send('Erro ao finalizar');
   }
+}
 
-  // TODO: criar pedido no banco / gateway de pagamento
-  const fakeOrderId = Math.random().toString(36).slice(2, 10).toUpperCase();
-
-  // limpa carrinho
-  req.session.cart = { items: [], totalQty: 0, totalPrice: 0 };
-
-  return res.render('pages/checkout-success', {
-    orderId: fakeOrderId,
-    email
-  });
-};
+module.exports = { showCheckout, quoteDetailed, confirm };

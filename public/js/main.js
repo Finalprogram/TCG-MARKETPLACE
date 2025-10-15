@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
       input.value = String(val);
     }
 
-    // + Lista (opcional fora da página /lista)
+    // + Lista (fora da /lista)
     if (event.target.classList.contains('add-to-list-btn')) {
       event.stopPropagation();
       const btn = event.target;
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadCart();
   });
 
-  // expõe compat
+  // expõe compat para recarregar se o modal estiver aberto
   window.refreshCartIfOpen = () => { if (!modal.hasAttribute('hidden')) loadCart(); };
 })();
 
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
    LISTA — Toggle "Ver vendedores" por delegation (robusto)
 ========================================================================= */
 (function () {
-  // limite à página da lista
+  // limite à página da lista (se existir); se não, usa document
   const root = document.querySelector('.want-list-container') || document;
 
   root.addEventListener('click', (e) => {
@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* ========================================================================
    LISTA — Injeta [−][qty][+] + Adicionar em cada .vendor-row
-   (agora envia 'meta' junto ao /cart/add)
+   (envia 'meta' junto ao /cart/add)
 ========================================================================= */
 (function () {
   window.enhanceVendorRows = function enhanceVendorRows(scope = document) {
@@ -433,7 +433,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // chama para painéis abertos por SSR
   qsa('.sellers-panel:not([hidden])').forEach(p => window.enhanceVendorRows(p));
 
-  // observa abertura de gavetas
+  // observa abertura de gavetas e injeta quando abrir
   const obs = new MutationObserver(muts => {
     muts.forEach(m => {
       const el = m.target;

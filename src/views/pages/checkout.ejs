@@ -1,135 +1,170 @@
 <%- include('../partials/header') %>
-<main class="container checkout-page">
+<main class="container" style="max-width: 880px; margin-top: 24px;">
   <%- include('../partials/navbar') %>
 
-  <h1>Finalizar compra</h1>
+  <h1 style="margin: 24px 0 16px;">Checkout</h1>
 
-  <% if (typeof error !== 'undefined' && error) { %>
-    <div class="alert error"><%= error %></div>
-  <% } %>
+  <form action="/checkout/confirm" method="post" id="checkout-form" class="panel" style="background:var(--bg-surface); padding:20px; border-radius:12px; border:1px solid var(--border)">
 
-  <div class="checkout-grid">
-    <!-- Coluna esquerda: endereço & pagamento -->
-    <section class="checkout-left">
-      <form action="/checkout/confirm" method="post" id="checkout-form" class="panel">
-        <h3>Endereço de entrega</h3>
+    <!-- ENDEREÇO / CEP -->
+    <div class="form-group">
+      <label>CEP</label>
+      <input class="form-control" name="zip" placeholder="00000-000">
+    </div>
+    <div class="form-group">
+      <label>Endereço</label>
+      <input class="form-control" name="address1" placeholder="Rua / Av.">
+    </div>
+    <div style="display:grid; grid-template-columns: 1fr 140px; gap:12px;">
+      <div class="form-group">
+        <label>Cidade</label>
+        <input class="form-control" name="city">
+      </div>
+      <div class="form-group">
+        <label>UF</label>
+        <input class="form-control" name="state" maxlength="2">
+      </div>
+    </div>
 
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Nome completo *</label>
-            <input class="form-control" name="fullName" required>
-          </div>
-          <div class="form-group">
-            <label>E-mail *</label>
-            <input class="form-control" type="email" name="email" required>
-          </div>
+    <hr style="border-color: var(--border); margin: 16px 0; opacity:.4">
 
-          <div class="form-group">
-            <label>CEP *</label>
-            <input class="form-control" name="zip" required>
-          </div>
+    <h3 style="margin: 10px 0 6px;">Frete por vendedor</h3>
 
-          <div class="form-group span-2">
-            <label>Rua *</label>
-            <input class="form-control" name="street" required>
-          </div>
-
-          <div class="form-group">
-            <label>Número *</label>
-            <input class="form-control" name="number" required>
-          </div>
-
-          <div class="form-group">
-            <label>Complemento</label>
-            <input class="form-control" name="complement">
-          </div>
-
-          <div class="form-group">
-            <label>Bairro</label>
-            <input class="form-control" name="district">
-          </div>
-
-          <div class="form-group">
-            <label>Cidade *</label>
-            <input class="form-control" name="city" required>
-          </div>
-
-          <div class="form-group">
-            <label>UF *</label>
-            <input class="form-control" name="state" maxlength="2" required>
-          </div>
-        </div>
-
-        <h3>Frete</h3>
-        <div class="form-group">
-          <select id="shipping-method" name="shippingMethod" class="form-control">
-            <% shippingMethods.forEach(m => { %>
-              <option value="<%= m.code %>" <%= (m.code === selectedShipping ? 'selected' : '') %>>
-                <%= m.name %> — R$ <%= m.price.toFixed(2) %>
-              </option>
-            <% }) %>
-          </select>
-        </div>
-
-        <h3>Pagamento</h3>
-        <div class="fake-payment">
-          <p>Simulação para testes. Você pode finalizar sem inserir dados reais.</p>
-        </div>
-
-        <button class="btn btn-primary btn-submit-full" type="submit">Finalizar</button>
-      </form>
-    </section>
-
-    <!-- Coluna direita: resumo do pedido -->
-    <aside class="checkout-right panel">
-      <h3>Resumo do pedido</h3>
-
-      <% if (!cart.items.length) { %>
-        <p class="muted">Seu carrinho está vazio.</p>
-      <% } else { %>
-        <ul class="order-items">
-          <% cart.items.forEach(it => { %>
-            <li class="order-item">
-              <img src="<%= it?.meta?.imageUrl || '/img/card-placeholder.png' %>" alt="" class="order-thumb">
-              <div class="order-info">
-                <div class="order-title"><%= (it?.meta?.cardName || 'Carta') %></div>
-                <div class="order-sub">
-                  <%= it?.meta?.sellerName ? ('Vendedor: ' + it.meta.sellerName) : '' %>
-                  <%= it?.meta?.condition ? (' • ' + it.meta.condition) : '' %>
-                </div>
-              </div>
-              <div class="order-price">x <%= it.qty %></div>
-              <div class="order-line"><%= ('R$ ' + (it.qty * it.price).toFixed(2)) %></div>
-            </li>
-          <% }) %>
-        </ul>
-
-        <div class="totals">
-          <div><span>Subtotal</span><strong id="ck-subtotal">R$ <%= totals.subtotal.toFixed(2) %></strong></div>
-          <div><span>Frete</span><strong id="ck-shipping">R$ <%= totals.shipping.toFixed(2) %></strong></div>
-          <div class="grand"><span>Total</span><strong id="ck-grand">R$ <%= totals.grand.toFixed(2) %></strong></div>
-        </div>
+    <!-- listagem de pacotes + itens (server-render) -->
+    <div id="packages">
+      <% if ((groups || []).length === 0) { %>
+        <div class="empty">Seu carrinho está vazio.</div>
       <% } %>
-    </aside>
-  </div>
+
+      <% (groups || []).forEach(function(g){ %>
+        <div class="ship-package panel" data-seller="<%= g.sellerId %>" style="border:1px solid var(--border); border-radius:10px; padding:12px; margin:10px 0; background:var(--bg-surface)">
+          <h4 style="margin:6px 0 10px;">Vendedor: <%= g.sellerName %></h4>
+
+          <ul class="ck-items" style="list-style:none; margin:0 0 10px; padding:0; display:flex; flex-direction:column; gap:8px;">
+            <% g.items.forEach(function(it){ %>
+              <li class="ck-item" style="display:flex; align-items:center; gap:10px; border:1px solid var(--border); border-radius:8px; padding:8px;">
+                <% if (it.imageUrl) { %>
+                  <img src="<%= it.imageUrl %>" alt="" class="ck-thumb" style="width:48px; height:68px; object-fit:cover; border-radius:6px;">
+                <% } %>
+                <div class="ck-info" style="flex:1;">
+                  <div class="ck-title" style="font-weight:600;"><%= it.name %> <span style="opacity:.7"><%= it.condition %></span></div>
+                  <div class="ck-meta" style="opacity:.8; font-size:.92rem;">Qtd: <%= it.qty %> — Unit: R$ <%= it.unit.toFixed(2) %></div>
+                </div>
+                <div class="ck-line" style="min-width:110px; text-align:right; font-weight:700;">R$ <%= it.line.toFixed(2) %></div>
+              </li>
+            <% }) %>
+          </ul>
+
+          <!-- o select de frete será preenchido pelo JS quando informar o CEP -->
+          <div class="ck-ship">
+            <select class="ship-select form-control">
+              <option>Informe o CEP acima para cotar</option>
+            </select>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+
+    <!-- selections (JSON) enviados no POST -->
+    <input type="hidden" name="shippingSelections" id="shippingSelections" value="[]">
+
+    <div class="totals" style="margin-top:14px; border-top:1px solid var(--border); padding-top:12px;">
+      <div style="display:flex; justify-content:space-between; margin:6px 0;">
+        <span>Subtotal</span><strong id="ck-subtotal">R$ <%= totals.subtotal.toFixed(2) %></strong>
+      </div>
+      <div style="display:flex; justify-content:space-between; margin:6px 0;">
+        <span>Frete</span><strong id="ck-shipping">R$ <%= totals.shipping.toFixed(2) %></strong>
+      </div>
+      <div class="grand" style="display:flex; justify-content:space-between; margin:10px 0; font-size:1.1rem;">
+        <span>Total</span><strong id="ck-grand" style="color:var(--accent-primary);">R$ <%= totals.grand.toFixed(2) %></strong>
+      </div>
+    </div>
+
+    <button class="btn btn-primary btn-submit-full" type="submit">Finalizar</button>
+  </form>
 </main>
+
 <%- include('../partials/footer') %>
 
 <script>
-  // atualiza total quando mudar frete
-  document.getElementById('shipping-method')?.addEventListener('change', async (e) => {
-    try {
-      const res = await fetch('/checkout/quote', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ method: e.target.value })
-      });
-      const data = await res.json();
-      if (!data?.ok) return;
+(async function(){
+  const zipInput = document.querySelector('input[name="zip"]');
+  const pkWrap   = document.getElementById('packages');
+  const hidden   = document.getElementById('shippingSelections');
 
-      document.getElementById('ck-subtotal').textContent = 'R$ ' + Number(data.totals.subtotal).toFixed(2);
-      document.getElementById('ck-shipping').textContent = 'R$ ' + Number(data.totals.shipping).toFixed(2);
-      document.getElementById('ck-grand').textContent    = 'R$ ' + Number(data.totals.grand).toFixed(2);
-    } catch (err) { console.error(err); }
+  async function refreshQuotes() {
+    const zip = (zipInput?.value || '').replace(/\D/g,'');
+    if (!zip) return;
+
+    const res = await fetch('/checkout/quote-detailed', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ zip })
+    });
+    const data = await res.json();
+    if (!data?.ok) return;
+
+    // só atualiza os selects, mantém a lista de itens renderizada
+    data.packages.forEach((p) => {
+      const box = pkWrap.querySelector(`.ship-package[data-seller="${p.sellerId}"]`);
+      if (!box) return;
+      const sel = box.querySelector('.ship-select');
+      sel.innerHTML = p.options.map(opt => `
+        <option value="${opt.servico}"
+                data-name="${opt.nome}"
+                data-price="${opt.preco}"
+                data-eta="${opt.prazoEmDias ?? ''}"
+                ${opt.servico === p.chosen?.servico ? 'selected' : ''}>
+          ${opt.nome} — R$ ${opt.preco.toFixed(2)} ${opt.prazoEmDias ? `(${opt.prazoEmDias}d)` : ''}
+        </option>`).join('');
+    });
+
+    // selections padrão
+    const selections = data.packages.map(p => ({
+      sellerId: p.sellerId,
+      serviceCode: p.chosen?.servico,
+      serviceName: p.chosen?.nome,
+      price: Number(p.chosen?.preco || 0),
+      etaDays: p.chosen?.prazoEmDias ?? null
+    }));
+    hidden.value = JSON.stringify(selections);
+
+    // totais
+    document.getElementById('ck-subtotal').textContent = 'R$ ' + Number(data.totals.subtotal).toFixed(2);
+    document.getElementById('ck-shipping').textContent = 'R$ ' + Number(data.totals.shipping).toFixed(2);
+    document.getElementById('ck-grand').textContent    = 'R$ ' + Number(data.totals.grand).toFixed(2);
+  }
+
+  zipInput?.addEventListener('blur', refreshQuotes);
+
+  pkWrap?.addEventListener('change', (e) => {
+    const sel = e.target.closest('.ship-select'); if (!sel) return;
+
+    const current = JSON.parse(hidden.value || '[]');
+    const box = sel.closest('.ship-package');
+    const sellerId = box.dataset.seller;
+
+    const opt = sel.selectedOptions[0];
+    const payload = {
+      sellerId,
+      serviceCode: opt.value,
+      serviceName: opt.dataset.name,
+      price: Number(opt.dataset.price || 0),
+      etaDays: opt.dataset.eta ? Number(opt.dataset.eta) : null
+    };
+
+    const idx = current.findIndex(x => x.sellerId == sellerId);
+    if (idx >= 0) current[idx] = payload; else current.push(payload);
+    hidden.value = JSON.stringify(current);
+
+    // recalcula total na tela
+    const subtotal = Number('<%= totals.subtotal.toFixed(2) %>');
+    let ship = 0;
+    pkWrap.querySelectorAll('.ship-select').forEach(s => {
+      ship += Number(s.selectedOptions[0]?.dataset.price || 0);
+    });
+    document.getElementById('ck-shipping').textContent = 'R$ ' + ship.toFixed(2);
+    document.getElementById('ck-grand').textContent    = 'R$ ' + (subtotal + ship).toFixed(2);
   });
+})();
 </script>

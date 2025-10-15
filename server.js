@@ -55,7 +55,7 @@ app.use('/api', listRoutes);
 app.use('/', sellerRoutes);
 app.use('/api', listingRoutes);
 app.use('/cart', cartRoutes);
-app.use('/', checkoutRoutes);
+app.use('/checkout', checkoutRoutes);
 // 6. Inicia o Servidor
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
