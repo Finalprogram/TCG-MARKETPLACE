@@ -1,0 +1,46 @@
+<%- include('../partials/header') %>
+<main class="container" style="max-width: 600px; margin-top: 24px;">
+  <%- include('../partials/navbar') %>
+
+  <h1 style="margin: 24px 0 16px;">Cadastro de Endereço</h1>
+  <p>Para começar a vender, por favor, preencha seu endereço de postagem.</p>
+
+  <form action="/profile/address" method="post" class="panel" style="background:var(--bg-surface); padding:20px; border-radius:12px; border:1px solid var(--border)">
+
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+
+    <div class="form-group">
+      <label>CEP</label>
+      <input class="form-control" name="cep" placeholder="00000-000" value="<%= user.address?.cep || '' %>" required>
+    </div>
+    <div class="form-group">
+      <label>Rua / Avenida</label>
+      <input class="form-control" name="street" placeholder="Sua rua ou avenida" value="<%= user.address?.street || '' %>" required>
+    </div>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+        <div class="form-group">
+            <label>Número</label>
+            <input class="form-control" name="number" value="<%= user.address?.number || '' %>" required>
+        </div>
+        <div class="form-group">
+            <label>Complemento (opcional)</label>
+            <input class="form-control" name="complement" value="<%= user.address?.complement || '' %>">
+        </div>
+    </div>
+    <div style="display:grid; grid-template-columns: 1fr 140px; gap:12px;">
+      <div class="form-group">
+        <label>Cidade</label>
+        <input class="form-control" name="city" value="<%= user.address?.city || '' %>" required>
+      </div>
+      <div class="form-group">
+        <label>UF</label>
+        <input class="form-control" name="state" maxlength="2" value="<%= user.address?.state || '' %>" required>
+      </div>
+    </div>
+
+    <button class="btn btn-primary btn-submit-full" type="submit">Salvar Endereço</button>
+  </form>
+</main>
+<%- include('../partials/footer') %>

@@ -8,21 +8,23 @@ const showHomePage = (req, res) => {
 };
 const showProfilePage = async (req, res) => {
   try {
-    // 1. Pega o nome de usuário do parâmetro da URL
     const username = req.params.username;
+    const profileUser = await User.findOne({ username: username });
 
-    // 2. Busca o usuário no banco de dados
-    // IMPORTANTE: Usamos .select() por segurança, para NUNCA enviar a senha ou email para a página.
-    const profileUser = await User.findOne({ username: username })
-                                  .select('username accountType businessName createdAt');
-
-    // 3. Se o usuário não for encontrado, mostra uma página de erro (ou redireciona)
     if (!profileUser) {
       return res.status(404).send('Usuário não encontrado.');
     }
 
-    // 4. Renderiza a página de perfil, passando os dados do usuário encontrado
-    res.render('pages/profile', { profileUser });
+    // Prepara uma mensagem de erro se a validação do endereço falhou
+    let errorMessage = null;
+    if (req.query.error === 'validation') {
+      errorMessage = 'Falha na validação. Por favor, preencha todos os campos de endereço obrigatórios.';
+    }
+
+    res.render('pages/profile', { 
+      profileUser,
+      error: errorMessage // Passa a mensagem de erro para a view
+    });
 
   } catch (error) {
     console.error('Erro ao buscar perfil:', error);

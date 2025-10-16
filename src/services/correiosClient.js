@@ -23,10 +23,14 @@ function buildPrecoPayload({
   contrato = process.env.CWS_CONTRATO,
   cartaoPostagem = process.env.CWS_CARTAO_POSTAGEM,
 }) {
+  // Garante que o CEP contém apenas números
+  const sanitizedCepOrigem = (cepOrigem || '').replace(/\D/g, '');
+  const sanitizedCepDestino = (cepDestino || '').replace(/\D/g, '');
+
   return {
     // campos típicos (exemplos): confirme no "api-docs" da sua conta
-    cepOrigem,
-    cepDestino,
+    cepOrigem: sanitizedCepOrigem,
+    cepDestino: sanitizedCepDestino,
     codigoServico: servico,
     peso: pesoKg,
     comprimento: comprimentoCm,
@@ -56,7 +60,14 @@ async function cotarPreco(payload) {
     const text = await res.text().catch(() => '');
     throw new Error(`[correios] PRECO ${res.status} ${res.statusText} ${text}`);
   }
-  return res.json();
+
+  try {
+    return await res.json();
+  } catch (e) {
+    const text = await res.text().catch(() => '(não foi possível ler a resposta)');
+    // Lança o erro incluindo o texto da resposta para facilitar a depuração.
+    throw new Error(`A API dos Correios retornou uma resposta inesperada (não-JSON). Resposta: ${text}`);
+  }
 }
 
 /** (Opcional) Faz POST na API de Prazo */
@@ -75,7 +86,14 @@ async function cotarPrazo(payloadPrazo) {
     const text = await res.text().catch(() => '');
     throw new Error(`[correios] PRAZO ${res.status} ${res.statusText} ${text}`);
   }
-  return res.json();
+
+  try {
+    return await res.json();
+  } catch (e) {
+    const text = await res.text().catch(() => '(não foi possível ler a resposta)');
+    // Lança o erro incluindo o texto da resposta para facilitar a depuração.
+    throw new Error(`A API de prazo dos Correios retornou uma resposta inesperada (não-JSON). Resposta: ${text}`);
+  }
 }
 
 /**
@@ -89,41 +107,47 @@ async function cotarFrete({
   comprimentoCm, larguraCm, alturaCm, diametroCm = 0,
   cepOrigem = process.env.CWS_CEP_ORIGEM,
 }) {
-  const results = [];
 
-  for (const servico of servicos) {
-    const bodyPreco = buildPrecoPayload({
-      cepOrigem, cepDestino, servico, pesoKg,
-      comprimentoCm, larguraCm, alturaCm, diametroCm
-    });
-
-    // Chamada PREÇO
-    const precoResp = await cotarPreco(bodyPreco);
-
-    // EXTRAIA dos campos corretos conforme resposta do seu catálogo:
-    // abaixo ilustro com nomes genéricos.
-    const preco = Number(precoResp?.preco || precoResp?.valor || 0);
-    const nomeServico = precoResp?.nomeServico || servico;
-
-    // Se quiser também o prazo, repita com o schema da API de Prazo
-    let prazoEmDias = undefined;
+  // Cria um array de "promessas", uma para cada serviço de frete
+  const promises = servicos.map(async (servico) => {
     try {
-      const prazoResp = await cotarPrazo({
-        cepOrigem, cepDestino, codigoServico: servico
+      const bodyPreco = buildPrecoPayload({
+        cepOrigem, cepDestino, servico, pesoKg,
+        comprimentoCm, larguraCm, alturaCm, diametroCm
       });
-      prazoEmDias = Number(prazoResp?.prazoDias || prazoResp?.prazo || 0);
-    } catch (e) {
-      // se a API de prazo não estiver habilitada, ignore
-      console.warn('[correios] prazo indisponível para', servico, e.message);
-    }
 
-    results.push({
-      servico,
-      nome: nomeServico,
-      preco,
-      prazoEmDias
-    });
-  }
+      const precoResp = await cotarPreco(bodyPreco);
+      const preco = Number(precoResp?.preco || precoResp?.valor || 0);
+      const nomeServico = precoResp?.nomeServico || (servico === '04014' ? 'SEDEX' : 'PAC');
+
+      let prazoEmDias = undefined;
+      try {
+        const prazoResp = await cotarPrazo({ cepOrigem, cepDestino, codigoServico: servico });
+        prazoEmDias = Number(prazoResp?.prazoDias || prazoResp?.prazo || 0);
+      } catch (e) {
+        console.warn(`[correios] API de prazo indisponível para o serviço ${servico}: ${e.message}`);
+      }
+
+      return {
+        servico,
+        nome: nomeServico,
+        preco,
+        prazoEmDias
+      };
+
+    } catch (error) {
+      console.error(`[correios] Falha ao cotar o serviço ${servico}. Erro: ${error.message}`);
+      return {
+        servico,
+        nome: servico === '04014' ? 'SEDEX' : 'PAC',
+        preco: 0,
+        erro: `Não foi possível calcular.`
+      };
+    }
+  });
+
+  // Executa todas as promessas em paralelo e espera a conclusão de todas
+  const results = await Promise.all(promises);
 
   return results;
 }

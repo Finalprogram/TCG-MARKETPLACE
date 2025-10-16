@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    
     <%- include('../partials/header') %>
     <title>Perfil de <%= profileUser.username %> - CardHub</title>
 </head>
 <body>
     <div class="container">
-    <%- include('../partials/navbar') %>
+        <%- include('../partials/navbar') %>
     </div>
     <main class="container">
         <div class="profile-header">
             <h1>Perfil de <%= profileUser.username %></h1>
-            
             <% if (user && user.id === profileUser.id.toString()) { %>
-                <a href="/perfil/editar" class="btn-secondary">Editar Perfil</a>
+                <!-- Botão de editar pode ser usado no futuro -->
             <% } %>
         </div>
 
@@ -32,14 +30,59 @@
             </p>
         </div>
 
-        <div class="user-listings">
+        <% if (user && user.id === profileUser.id.toString()) { %>
+        <div class="address-section" style="margin-top: 2rem;">
+            <h2>Meu Endereço</h2>
+            <p>Este endereço será usado como origem para o cálculo de fretes.</p>
+
+            <% if (typeof error !== 'undefined' && error) { %>
+                <div class="alert alert-danger" style="background-color: #581b1b; color: #fecaca; padding: 1rem; border-radius: 6px; margin: 1rem 0;">
+                    <%= error %>
+                </div>
+            <% } %>
+
+            <form action="/profile/update" method="post" class="panel" style="background:var(--bg-surface); padding:20px; border-radius:12px; border:1px solid var(--border); margin-top: 1rem;">
+                <div class="form-group">
+                    <label>CEP</label>
+                    <input class="form-control" name="cep" placeholder="00000-000" value="<%= profileUser.address?.cep || '' %>" required>
+                </div>
+                <div class="form-group">
+                    <label>Rua / Avenida</label>
+                    <input class="form-control" name="street" placeholder="Sua rua ou avenida" value="<%= profileUser.address?.street || '' %>" required>
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+                    <div class="form-group">
+                        <label>Número</label>
+                        <input class="form-control" name="number" value="<%= profileUser.address?.number || '' %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Complemento (opcional)</label>
+                        <input class="form-control" name="complement" value="<%= profileUser.address?.complement || '' %>">
+                    </div>
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 140px; gap:12px;">
+                    <div class="form-group">
+                        <label>Cidade</label>
+                        <input class="form-control" name="city" value="<%= profileUser.address?.city || '' %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label>UF</label>
+                        <input class="form-control" name="state" maxlength="2" value="<%= profileUser.address?.state || '' %>" required>
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Salvar Endereço</button>
+            </form>
+        </div>
+        <% } %>
+
+        <div class="user-listings" style="margin-top: 2rem;">
             <h2>Anúncios de <%= profileUser.username %></h2>
             <p>(Em breve...)</p>
         </div>
         
     </main>
     <div class="container">
-    <%- include('../partials/footer') %>
+        <%- include('../partials/footer') %>
     </div>
 </body>
 </html>

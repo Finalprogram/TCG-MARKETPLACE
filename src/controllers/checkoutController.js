@@ -1,5 +1,9 @@
 // src/controllers/checkoutController.js
 
+const User = require('../models/User');
+const { cotarFrete } = require('../services/correiosClient');
+const { estimatePackageDims } = require('../services/packaging');
+
 // Util: garante que o carrinho exista
 // src/controllers/checkoutController.js
 function getCart(req) {
@@ -55,27 +59,78 @@ async function showCheckout(req, res) {
   });
 }
 
-/** POST /checkout/quote-detailed  (mantém como você já tem) */
+/** POST /checkout/quote-detailed */
 async function quoteDetailed(req, res) {
   try {
     const { zip } = req.body || {};
     if (!zip) return res.json({ ok: false, error: 'zip required' });
 
-    // Monte aqui suas opções de frete por vendedor (exemplo fake):
     const cart = getCart(req);
-    const vendors = [...new Set((cart.items || []).map(i => i.vendorId))];
+    const items = cart.items || [];
 
-    const packages = vendors.map((sellerId) => {
-      const opts = [
-        { servico: '04510', nome: 'PAC',  preco: 20.0, prazoEmDias: 7 },
-        { servico: '04014', nome: 'SEDEX', preco: 35.0, prazoEmDias: 2 },
-      ];
-      const chosen = opts.reduce((m, o) => (o.preco < m.preco ? o : m), opts[0]);
-      return { sellerId, options: opts, chosen };
-    });
+    // 1. Agrupar itens por vendedor
+    const itemsBySeller = items.reduce((acc, item) => {
+      const sellerId = item.vendorId || 'sem-vendedor';
+      if (!acc[sellerId]) acc[sellerId] = [];
+      acc[sellerId].push(item);
+      return acc;
+    }, {});
 
+    const packages = [];
+    const globalCepOrigem = process.env.CWS_CEP_ORIGEM;
+
+    // 2. Para cada vendedor, estimar pacote e cotar frete
+    for (const sellerId in itemsBySeller) {
+      const sellerItems = itemsBySeller[sellerId];
+      const sellerName = sellerItems[0]?.meta?.sellerName || 'Vendedor';
+
+      // Buscar CEP do vendedor no banco de dados
+      let cepOrigem = globalCepOrigem;
+      if (sellerId !== 'sem-vendedor') {
+        const seller = await User.findById(sellerId);
+
+        // DEBUG: Inspecionar o objeto do vendedor que veio do banco
+        if (seller) {
+            console.log(`[checkout] Verificando vendedor para frete:`, seller.toObject());
+        } else {
+            console.log(`[checkout] Vendedor com ID ${sellerId} não encontrado.`);
+        }
+
+        if (seller && seller.address && seller.address.cep) {
+          cepOrigem = seller.address.cep;
+        } else {
+          console.warn(`[checkout] Vendedor ${sellerId} sem CEP definido. Usando CEP global.`);
+        }
+      }
+
+      // Estimar dimensões e peso
+      const { comprimentoCm, larguraCm, alturaCm, pesoKg } = estimatePackageDims(sellerItems);
+
+      // Cotar frete para os serviços desejados
+      const servicos = ['04510', '04014']; // PAC, SEDEX
+      const options = await cotarFrete({
+        cepOrigem,
+        cepDestino: zip,
+        servicos,
+        pesoKg,
+        comprimentoCm,
+        larguraCm,
+        alturaCm,
+      });
+
+      // Filtra apenas as opções válidas (sem erro) e ordena por preço
+      const validOptions = options.filter(opt => !opt.erro);
+      validOptions.sort((a, b) => (a.preco || 0) - (b.preco || 0));
+      
+      // O frete escolhido por padrão é o mais barato dos válidos
+      const chosen = validOptions.length > 0 ? validOptions[0] : null;
+
+      packages.push({ sellerId, sellerName, options, chosen });
+    }
+
+    // 3. Calcular totais
     const subtotal = Number((cart.totalPrice || 0).toFixed(2));
-    const shipping = packages.reduce((s, p) => s + p.chosen.preco, 0);
+    const shipping = packages.reduce((s, p) => s + (p.chosen?.preco || 0), 0);
     const totals = {
       subtotal,
       shipping: Number(shipping.toFixed(2)),
@@ -83,9 +138,10 @@ async function quoteDetailed(req, res) {
     };
 
     res.json({ ok: true, packages, totals });
+
   } catch (e) {
-    console.error(e);
-    res.json({ ok: false, error: 'quote failed' });
+    console.error('[checkout] quoteDetailed error:', e);
+    res.json({ ok: false, error: e.message || 'quote failed' });
   }
 }
 

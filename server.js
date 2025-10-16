@@ -1,5 +1,31 @@
 // 1. Imports
 require('dotenv').config();
+
+// Validação de Variáveis de Ambiente Essenciais dos Correios
+const requiredEnv = ['CWS_TOKEN', 'CWS_CEP_ORIGEM'];
+const missingEnv = requiredEnv.filter(v => !process.env[v]);
+
+if (missingEnv.length > 0) {
+    console.error(`
+    ==================================================================
+    ERRO DE CONFIGURAÇÃO: Variáveis de ambiente dos Correios ausentes.
+    ==================================================================
+
+    A aplicação não pode iniciar sem as seguintes variáveis no seu arquivo .env:
+    
+    ${missingEnv.join('\n    ')}
+
+    Por favor, verifique se o arquivo .env existe na raiz do projeto e
+    se ele contém essas variáveis com valores válidos.
+
+    Exemplo:
+    CWS_TOKEN="SEU_TOKEN_AQUI"
+    CWS_CEP_ORIGEM="01001000"
+    
+    `);
+    process.exit(1); // Encerra a aplicação com um código de erro.
+}
+
 const path = require('path');
 const express = require('express');
 const session = require('express-session');

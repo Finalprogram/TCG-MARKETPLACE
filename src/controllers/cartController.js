@@ -1,4 +1,4 @@
-// src/controllers/cartController.js
+const User = require('../models/User');
 
 /** Cria/retorna o carrinho na sessão */
 function getCart(req) {
@@ -52,8 +52,15 @@ async function add(req, res) {
       return res.status(400).json({ error: 'Dados inválidos' });
     }
 
+    // --- NOVA VALIDAÇÃO ---
+    // Verifica se o vendedor realmente existe antes de adicionar ao carrinho
+    const seller = await User.findById(vendorId);
+    if (!seller) {
+      return res.status(404).json({ error: 'Vendedor não encontrado. O anúncio pode ter sido removido.' });
+    }
+    // --- FIM DA VALIDAÇÃO ---
+
     const cart = getCart(req);
-    // chave único por carta+vendedor; se quiser separar por preço, use `${cardId}:${vendorId}:${p}`
     const key = `${cardId}:${vendorId}`;
 
     let found = cart.items.find(i => i.key === key);
@@ -68,7 +75,6 @@ async function add(req, res) {
       };
       cart.items.push(found);
     } else {
-      // atualiza preço e mescla meta
       if (Number.isFinite(p)) found.price = p;
       found.meta = normalizeMeta({ ...(found.meta || {}), ...(meta || {}) }, { cardId, vendorId });
     }

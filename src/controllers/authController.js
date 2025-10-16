@@ -9,40 +9,35 @@ const showRegisterPage = (req, res) => {
 // Função para PROCESSAR o formulário de registro
 const registerUser = async (req, res) => {
   try {
-    const { username, email, password, confirmPassword, accountType, businessName, taxId } = req.body;
+    const { username, email, password, confirmPassword } = req.body;
 
-    // --- VALIDAÇÃO ---
-    if (!username || !email || !password || !confirmPassword || !accountType) {
+    // --- VALIDAÇÃO SIMPLIFICADA ---
+    if (!username || !email || !password || !confirmPassword) {
       return res.status(400).send('Por favor, preencha todos os campos obrigatórios.');
     }
     if (password !== confirmPassword) {
       return res.status(400).send('As senhas não coincidem.');
     }
 
-    // Verifica se o usuário ou email já existe
     const existingUser = await User.findOne({ $or: [{ email }, { username }] });
     if (existingUser) {
       return res.status(400).send('Nome de usuário ou email já cadastrado.');
     }
 
-    // --- CRIPTOGRAFIA DA SENHA ---
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // --- CRIAÇÃO DO NOVO USUÁRIO ---
+    // --- CRIAÇÃO DO NOVO USUÁRIO (SEMPRE PESSOA FÍSICA) ---
     const newUser = new User({
       username,
       email,
       password: hashedPassword,
-      accountType,
-      businessName: accountType === 'shop' ? businessName : undefined,
-      taxId: accountType === 'shop' ? taxId : undefined,
+      accountType: 'individual', // Definido como 'individual' diretamente
     });
 
     await newUser.save();
 
-    // Redireciona para a página de login ou para uma página de sucesso
-    res.redirect('/login'); // (Criaremos o login depois)
+    res.redirect('/login');
 
   } catch (error) {
     console.error("Erro no registro:", error);
@@ -102,10 +97,57 @@ const logoutUser = (req, res) => {
     res.redirect('/'); // Redireciona para a página inicial
   });
 };
+
+// Atualiza o endereço do usuário
+const updateAddress = async (req, res) => {
+  const userId = req.session.user.id;
+  console.log(`[updateAddress] Iniciando atualização para o usuário ID: ${userId}`);
+  console.log('[updateAddress] Dados recebidos:', req.body);
+
+  try {
+    const { cep, street, number, complement, city, state } = req.body;
+
+    if (!cep || !street || !number || !city || !state) {
+        // Se houver erro de validação, busca os dados do usuário para renderizar o formulário novamente com o erro
+        const user = await User.findById(userId);
+        // Nota: Precisamos de uma forma de passar o erro para a página de perfil.
+        // Por enquanto, apenas redirecionamos de volta com uma query string de erro (pode ser melhorado).
+        return res.redirect(`/perfil/${req.session.user.username}?error=validation`);
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(userId, {
+      $set: {
+        'address.cep': cep,
+        'address.street': street,
+        'address.number': number,
+        'address.complement': complement,
+        'address.city': city,
+        'address.state': state,
+      }
+    }, { new: true }); // { new: true } retorna o documento atualizado
+
+    if (updatedUser) {
+        console.log('[updateAddress] Usuário após a atualização:', updatedUser.toObject());
+        console.log('[updateAddress] Objeto de endereço salvo:', updatedUser.toObject().address);
+    } else {
+        console.log('[updateAddress] Nenhum usuário encontrado para atualizar.');
+    }
+
+    // Redireciona de volta para a página de perfil.
+    res.redirect(`/perfil/${req.session.user.username}`);
+
+  } catch (error) {
+    console.error('Erro ao atualizar endereço:', error.message);
+    console.error(error.stack);
+    res.status(500).send('Erro no servidor.');
+  }
+};
+
 module.exports = {
   showRegisterPage,
   registerUser,
   showLoginPage,
   loginUser,
-  logoutUser
+  logoutUser,
+  updateAddress
 };

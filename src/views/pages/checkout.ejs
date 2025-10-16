@@ -109,14 +109,19 @@
       const box = pkWrap.querySelector(`.ship-package[data-seller="${p.sellerId}"]`);
       if (!box) return;
       const sel = box.querySelector('.ship-select');
-      sel.innerHTML = p.options.map(opt => `
-        <option value="${opt.servico}"
-                data-name="${opt.nome}"
-                data-price="${opt.preco}"
-                data-eta="${opt.prazoEmDias ?? ''}"
-                ${opt.servico === p.chosen?.servico ? 'selected' : ''}>
-          ${opt.nome} — R$ ${opt.preco.toFixed(2)} ${opt.prazoEmDias ? `(${opt.prazoEmDias}d)` : ''}
-        </option>`).join('');
+      sel.innerHTML = p.options.map(opt => {
+        if (opt.erro) {
+          return `<option disabled>${opt.nome} - ${opt.erro}</option>`;
+        }
+        return `
+          <option value="${opt.servico}"
+                  data-name="${opt.nome}"
+                  data-price="${opt.preco}"
+                  data-eta="${opt.prazoEmDias ?? ''}"
+                  ${opt.servico === p.chosen?.servico ? 'selected' : ''}>
+            ${opt.nome} — R$ ${opt.preco.toFixed(2)} ${opt.prazoEmDias ? `(${opt.prazoEmDias}d)` : ''}
+          </option>`;
+      }).join('');
     });
 
     // selections padrão
