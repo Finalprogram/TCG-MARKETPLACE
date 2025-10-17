@@ -60,6 +60,7 @@
             <select class="ship-select form-control">
               <option>Informe o CEP acima para cotar</option>
             </select>
+            <button type="button" class="btn btn-sm btn-add-to-cart">Adicionar ao Carrinho ME</button>
           </div>
         </div>
       <% }) %>
@@ -170,6 +171,55 @@
     });
     document.getElementById('ck-shipping').textContent = 'R$ ' + ship.toFixed(2);
     document.getElementById('ck-grand').textContent    = 'R$ ' + (subtotal + ship).toFixed(2);
+  });
+
+  pkWrap?.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.btn-add-to-cart');
+    if (!btn) return;
+
+    const box = btn.closest('.ship-package');
+    const sellerId = box.dataset.seller;
+    const sel = box.querySelector('.ship-select');
+    const selectedOption = sel.selectedOptions[0];
+
+    if (!selectedOption || !selectedOption.value) {
+      alert('Por favor, selecione uma opção de frete.');
+      return;
+    }
+
+    const shipping = {
+      servico: selectedOption.value,
+      nome: selectedOption.dataset.name,
+      preco: parseFloat(selectedOption.dataset.price),
+      prazoEmDias: parseInt(selectedOption.dataset.eta, 10),
+    };
+
+    try {
+      btn.disabled = true;
+      btn.textContent = 'Adicionando...';
+
+      const res = await fetch('/checkout/add-to-cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sellerId, shipping }),
+      });
+
+      const data = await res.json();
+
+      if (data.ok) {
+        alert('Item adicionado ao carrinho do Melhor Envio com sucesso!');
+        btn.textContent = 'Adicionado';
+      } else {
+        alert(`Erro: ${data.error}`);
+        btn.disabled = false;
+        btn.textContent = 'Adicionar ao Carrinho ME';
+      }
+    } catch (error) {
+      console.error('Erro ao adicionar ao carrinho ME:', error);
+      alert('Ocorreu um erro. Tente novamente.');
+      btn.disabled = false;
+      btn.textContent = 'Adicionar ao Carrinho ME';
+    }
   });
 })();
 </script>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <%- include('../partials/header') %>
+    <title>Meus Anúncios - CardHub</title>
+</head>
+<body>
+    <div class="container">
+        <%- include('../partials/navbar') %>
+    </div>
+    <main class="container">
+        <h1>Meus Anúncios</h1>
+
+        <% if (listings && listings.length > 0) { %>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Imagem</th>
+                        <th>Carta</th>
+                        <th>Condição</th>
+                        <th>Idioma</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% listings.forEach(listing => { %>
+                        <tr>
+                            <td>
+                                <% if (listing.card.image_url) { %>
+                                    <img src="<%= listing.card.image_url %>" alt="<%= listing.card.name %>" style="width: 50px; border-radius: 4px;">
+                                <% } %>
+                            </td>
+                            <td><%= listing.card.name %></td>
+                            <td><%= listing.condition %></td>
+                            <td><%= listing.language %></td>
+                            <td>R$ <%= listing.price.toFixed(2) %></td>
+                            <td><%= listing.quantity %></td>
+                            <td>
+                                <a href="/listings/<%= listing._id %>/edit" class="btn btn-sm btn-secondary">Editar</a>
+                                <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" style="display: inline;">
+                                    <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>Você ainda não tem nenhum anúncio.</p>
+        <% } %>
+    </main>
+    <div class="container">
+        <%- include('../partials/footer') %>
+    </div>
+</body>
+</html>

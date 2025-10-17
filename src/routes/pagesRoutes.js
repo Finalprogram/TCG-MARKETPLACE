@@ -8,5 +8,6 @@ const pagesController = require('../controllers/pagesController');
 // A URL '/' vai chamar a função showHomePage do nosso controller
 router.get('/', pagesController.showHomePage);
 router.get('/lista', listController.showListPage);
+router.get('/meus-anuncios', pagesController.showMyListingsPage);
 
 module.exports = router;

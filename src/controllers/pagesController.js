@@ -1,10 +1,22 @@
 // src/controllers/pagesController.js
 const User = require('../models/User');
-const showHomePage = (req, res) => {
-  // Agora a lógica de renderizar a página fica aqui
-  res.render('pages/index', {
-    title: 'Bem-vindo ao Magic Card Search',
-  });
+const Listing = require('../models/Listing');
+const Card = require('../models/Card');
+const showHomePage = async (req, res) => {
+  try {
+    const recentListings = await Listing.find()
+                                        .sort({ createdAt: -1 })
+                                        .limit(10)
+                                        .populate('card');
+
+    res.render('pages/index', {
+      title: 'Bem-vindo ao CardHub',
+      recentListings: recentListings,
+    });
+  } catch (error) {
+    console.error('Error fetching recent listings:', error);
+    res.status(500).send('Server Error');
+  }
 };
 const showProfilePage = async (req, res) => {
   try {
@@ -15,6 +27,11 @@ const showProfilePage = async (req, res) => {
       return res.status(404).send('Usuário não encontrado.');
     }
 
+    const listings = await Listing.find({ seller: profileUser._id })
+                                  .sort({ createdAt: -1 })
+                                  .limit(5)
+                                  .populate('card');
+
     // Prepara uma mensagem de erro se a validação do endereço falhou
     let errorMessage = null;
     if (req.query.error === 'validation') {
@@ -23,6 +40,7 @@ const showProfilePage = async (req, res) => {
 
     res.render('pages/profile', { 
       profileUser,
+      listings, // Pass the listings to the view
       error: errorMessage // Passa a mensagem de erro para a view
     });
 
@@ -41,4 +59,29 @@ module.exports = {
   showHomePage,
   showProfilePage,
   showSellPage,
+};
+
+const showMyListingsPage = async (req, res) => {
+  try {
+    if (!req.session.user) {
+      return res.redirect('/login');
+    }
+
+    const userId = req.session.user.id;
+    const listings = await Listing.find({ seller: userId }).populate('card');
+
+    res.render('pages/my-listings', {
+      listings: listings,
+    });
+  } catch (error) {
+    console.error('Error fetching user listings:', error);
+    res.status(500).send('Server Error');
+  }
+};
+
+module.exports = {
+  showHomePage,
+  showProfilePage,
+  showSellPage,
+  showMyListingsPage,
 };

@@ -13,21 +13,26 @@
   <button>Buscar</button>
 </form>
         </section>
-        <!-- 3. "Recém-Adicionados" -->
         <section class="recently-added">
             <h2>Recém-Adicionados</h2>
-            <div class="cards-carousel">
-                <% if (typeof recentlyAdded !== 'undefined' && recentlyAdded.length) { %>
-                    <% recentlyAdded.forEach(card => { %>
-                        <div class="card-item">
-                            <img src="<%= card.image %>" alt="[Imagem da carta <%= card.name %>]">
-                            <h4><%= card.name %></h4>
-                            <p>A partir de R$ <%= card.price %></p>
-                        </div>
-                    <% }); %>
-                <% } else { %>
-                    <p>Nenhuma carta encontrada.</p>
-                <% } %>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn prev" aria-label="Previous slide">‹</button>
+                <div class="cards-carousel">
+                    <% if (typeof recentListings !== 'undefined' && recentListings.length) { %>
+                        <% recentListings.forEach(listing => { %>
+                            <div class="card-item">
+                                <a href="/card/<%= listing.card._id %>">
+                                    <img src="<%= listing.card.image_url %>" alt="<%= listing.card.name %>">
+                                    <h4><%= listing.card.name %></h4>
+                                    <p>R$ <%= listing.price.toFixed(2) %></p>
+                                </a>
+                            </div>
+                        <% }); %>
+                    <% } else { %>
+                        <p>Nenhuma carta encontrada.</p>
+                    <% } %>
+                </div>
+                <button class="carousel-btn next" aria-label="Next slide">›</button>
             </div>
         </section>
 
@@ -72,4 +77,26 @@
 </div> <!-- A tag </div> do container é fechada aqui -->
 
 <%- include('../partials/footer') %>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.querySelector('.cards-carousel');
+    const prevBtn = document.querySelector('.carousel-btn.prev');
+    const nextBtn = document.querySelector('.carousel-btn.next');
+
+    if (!carousel || !prevBtn || !nextBtn) {
+        return;
+    }
+
+    const cardWidth = 220 + 24; // card width (220px) + gap (1.5rem = 24px)
+
+    prevBtn.addEventListener('click', () => {
+        carousel.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+    });
+
+    nextBtn.addEventListener('click', () => {
+        carousel.scrollBy({ left: cardWidth, behavior: 'smooth' });
+    });
+});
+</script>
 

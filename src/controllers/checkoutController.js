@@ -2,7 +2,7 @@
 
 const User = require('../models/User');
 // const { cotarFrete } = require('../services/correiosClient'); // Comentado para trocar para Melhor Envio
-const { cotarFreteMelhorEnvio } = require('../services/melhorEnvioClient');
+const { cotarFreteMelhorEnvio, addItemToCart } = require('../services/melhorEnvioClient');
 const { estimatePackageDims } = require('../services/packaging');
 
 // Util: garante que o carrinho exista
@@ -161,3 +161,97 @@ async function confirm(req, res) {
 }
 
 module.exports = { showCheckout, quoteDetailed, confirm };
+
+/** POST /checkout/add-to-cart */
+async function addToCart(req, res) {
+  try {
+    const { sellerId, shipping } = req.body;
+    const userId = req.session.user.id;
+
+    if (!sellerId || !shipping || !shipping.servico) {
+      return res.status(400).json({ ok: false, error: 'sellerId and shipping service are required' });
+    }
+
+    const cart = getCart(req);
+    const sellerItems = (cart.items || []).filter(item => item.vendorId === sellerId);
+
+    if (sellerItems.length === 0) {
+      return res.status(400).json({ ok: false, error: 'No items in cart for this seller' });
+    }
+
+    const seller = await User.findById(sellerId);
+    const buyer = await User.findById(userId);
+
+    if (!seller || !buyer) {
+      return res.status(404).json({ ok: false, error: 'Seller or buyer not found' });
+    }
+    
+    // Ensure seller and buyer have address information
+    if (!seller.address || !seller.address.cep || !buyer.address || !buyer.address.cep) {
+        return res.status(400).json({ ok: false, error: 'Seller or buyer is missing address information' });
+    }
+
+
+    const { comprimentoCm, larguraCm, alturaCm, pesoKg } = estimatePackageDims(sellerItems);
+    const insuranceValue = sellerItems.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+    const shipmentDetails = {
+      service: shipping.servico,
+      from: {
+        name: seller.name,
+        phone: seller.phone,
+        email: seller.email,
+        document: seller.document, // Assuming CPF/CNPJ is stored here
+        address: seller.address.street,
+        complement: seller.address.complement,
+        number: seller.address.number,
+        district: seller.address.district,
+        city: seller.address.city,
+        state_abbr: seller.address.state,
+        country_id: 'BR',
+        postal_code: seller.address.cep,
+      },
+      to: {
+        name: buyer.name,
+        phone: buyer.phone,
+        email: buyer.email,
+        document: buyer.document,
+        address: buyer.address.street,
+        complement: buyer.address.complement,
+        number: buyer.address.number,
+        district: buyer.address.district,
+        city: buyer.address.city,
+        state_abbr: buyer.address.state,
+        country_id: 'BR',
+        postal_code: buyer.address.cep,
+      },
+      products: sellerItems.map(item => ({
+        name: item.meta.cardName,
+        quantity: item.qty,
+        unitary_value: item.price,
+      })),
+      volumes: [{
+        height: alturaCm,
+        width: larguraCm,
+        length: comprimentoCm,
+        weight: pesoKg,
+      }],
+      options: {
+        insurance_value: insuranceValue,
+        receipt: false,
+        own_hand: false,
+        non_commercial: true, // Assuming non-commercial shipment
+      },
+    };
+
+    const result = await addItemToCart(shipmentDetails);
+
+    res.json({ ok: true, data: result });
+
+  } catch (e) {
+    console.error('[checkout] addToCart error:', e);
+    res.status(500).json({ ok: false, error: e.message || 'Failed to add to cart' });
+  }
+}
+
+module.exports = { showCheckout, quoteDetailed, confirm, addToCart };

@@ -46,3 +46,77 @@ const bulkCreateListings = async (req, res) => {
 module.exports = {
   bulkCreateListings,
 };
+
+const showEditListingPage = async (req, res) => {
+  try {
+    const listing = await Listing.findById(req.params.id).populate('card');
+    if (!listing) {
+      return res.status(404).send('Anúncio não encontrado.');
+    }
+    // Authorization: Check if the logged-in user is the seller
+    if (listing.seller.toString() !== req.session.user.id) {
+      return res.status(403).send('Você não tem permissão para editar este anúncio.');
+    }
+    res.render('pages/edit-listing', { listing });
+  } catch (error) {
+    console.error('Erro ao buscar anúncio para edição:', error);
+    res.status(500).send('Erro no servidor');
+  }
+};
+
+const updateListing = async (req, res) => {
+  try {
+    const { price, quantity, condition, language } = req.body;
+    const listing = await Listing.findById(req.params.id);
+
+    if (!listing) {
+      return res.status(404).send('Anúncio não encontrado.');
+    }
+
+    // Authorization: Check if the logged-in user is the seller
+    if (listing.seller.toString() !== req.session.user._id) {
+      return res.status(403).send('Você não tem permissão para editar este anúncio.');
+    }
+
+    listing.price = price;
+    listing.quantity = quantity;
+    listing.condition = condition;
+    listing.language = language;
+
+    await listing.save();
+
+    res.redirect('/meus-anuncios');
+  } catch (error) {
+    console.error('Erro ao atualizar anúncio:', error);
+    res.status(500).send('Erro no servidor');
+  }
+};
+
+const deleteListing = async (req, res) => {
+  try {
+    const listing = await Listing.findById(req.params.id);
+
+    if (!listing) {
+      return res.status(404).send('Anúncio não encontrado.');
+    }
+
+    // Authorization: Check if the logged-in user is the seller
+    if (listing.seller.toString() !== req.session.user.id) {
+      return res.status(403).send('Você não tem permissão para deletar este anúncio.');
+    }
+
+    await listing.remove();
+
+    res.redirect('/meus-anuncios');
+  } catch (error) {
+    console.error('Erro ao deletar anúncio:', error);
+    res.status(500).send('Erro no servidor');
+  }
+};
+
+module.exports = {
+  bulkCreateListings,
+  showEditListingPage,
+  updateListing,
+  deleteListing,
+};

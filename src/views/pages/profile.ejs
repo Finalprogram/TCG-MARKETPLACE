@@ -8,78 +8,115 @@
     <div class="container">
         <%- include('../partials/navbar') %>
     </div>
-    <main class="container">
-        <div class="profile-header">
-            <h1>Perfil de <%= profileUser.username %></h1>
+    <main class="container profile-grid">
+        <aside class="profile-sidebar">
+            <div class="profile-card">
+                <img src="/images/default-avatar.png" alt="Avatar de <%= profileUser.username %>" class="profile-avatar">
+                <h2 class="profile-username"><%= profileUser.username %></h2>
+                <p class="profile-account-type"><%= profileUser.accountType === 'shop' ? 'Loja' : 'Pessoa Física' %></p>
+                <% if (profileUser.accountType === 'shop' && profileUser.businessName) { %>
+                    <p class="profile-business-name"><strong><%= profileUser.businessName %></strong></p>
+                <% } %>
+                <p class="profile-member-since">Membro desde <%= profileUser.createdAt.toLocaleDateString('pt-BR') %></p>
+            </div>
+        </aside>
+
+        <section class="profile-main">
             <% if (user && user.id === profileUser.id.toString()) { %>
-                <!-- Botão de editar pode ser usado no futuro -->
+            <div class="address-section card">
+                <h2>Meu Endereço</h2>
+                <p>Este endereço será usado como origem para o cálculo de fretes.</p>
+
+                <% if (typeof error !== 'undefined' && error) { %>
+                    <div class="alert alert-danger">
+                        <%= error %>
+                    </div>
+                <% } %>
+
+                <form action="/profile/update" method="post" class="address-form">
+                    <div class="form-group">
+                        <label>CEP</label>
+                        <input class="form-control" name="cep" placeholder="00000-000" value="<%= profileUser.address?.cep || '' %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Rua / Avenida</label>
+                        <input class="form-control" name="street" placeholder="Sua rua ou avenida" value="<%= profileUser.address?.street || '' %>" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Número</label>
+                            <input class="form-control" name="number" value="<%= profileUser.address?.number || '' %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Complemento (opcional)</label>
+                            <input class="form-control" name="complement" value="<%= profileUser.address?.complement || '' %>">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group city-group">
+                            <label>Cidade</label>
+                            <input class="form-control" name="city" value="<%= profileUser.address?.city || '' %>" required>
+                        </div>
+                        <div class="form-group state-group">
+                            <label>UF</label>
+                            <input class="form-control" name="state" maxlength="2" value="<%= profileUser.address?.state || '' %>" required>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Salvar Endereço</button>
+                </form>
+            </div>
             <% } %>
-        </div>
 
-        <div class="profile-details">
-            <p><strong>Tipo de Conta:</strong> 
-                <%= profileUser.accountType === 'shop' ? 'Loja' : 'Pessoa Física' %>
-            </p>
-            
-            <% if (profileUser.accountType === 'shop' && profileUser.businessName) { %>
-                <p><strong>Nome da Loja:</strong> <%= profileUser.businessName %></p>
-            <% } %>
-
-            <p><strong>Membro desde:</strong> 
-                <%= profileUser.createdAt.toLocaleDateString('pt-BR') %>
-            </p>
-        </div>
-
-        <% if (user && user.id === profileUser.id.toString()) { %>
-        <div class="address-section" style="margin-top: 2rem;">
-            <h2>Meu Endereço</h2>
-            <p>Este endereço será usado como origem para o cálculo de fretes.</p>
-
-            <% if (typeof error !== 'undefined' && error) { %>
-                <div class="alert alert-danger" style="background-color: #581b1b; color: #fecaca; padding: 1rem; border-radius: 6px; margin: 1rem 0;">
-                    <%= error %>
-                </div>
-            <% } %>
-
-            <form action="/profile/update" method="post" class="panel" style="background:var(--bg-surface); padding:20px; border-radius:12px; border:1px solid var(--border); margin-top: 1rem;">
-                <div class="form-group">
-                    <label>CEP</label>
-                    <input class="form-control" name="cep" placeholder="00000-000" value="<%= profileUser.address?.cep || '' %>" required>
-                </div>
-                <div class="form-group">
-                    <label>Rua / Avenida</label>
-                    <input class="form-control" name="street" placeholder="Sua rua ou avenida" value="<%= profileUser.address?.street || '' %>" required>
-                </div>
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
-                    <div class="form-group">
-                        <label>Número</label>
-                        <input class="form-control" name="number" value="<%= profileUser.address?.number || '' %>" required>
+            <div class="user-listings card">
+                <h2>Anúncios de <%= profileUser.username %></h2>
+                <% if (listings && listings.length > 0) { %>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Imagem</th>
+                                <th>Carta</th>
+                                <th>Condição</th>
+                                <th>Idioma</th>
+                                <th>Preço</th>
+                                <th>Quantidade</th>
+                                <% if (user && user.id === profileUser.id.toString()) { %>
+                                    <th>Ações</th>
+                                <% } %>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% listings.forEach(listing => { %>
+                                <tr>
+                                    <td>
+                                        <% if (listing.card.image_url) { %>
+                                            <img src="<%= listing.card.image_url %>" alt="<%= listing.card.name %>" style="width: 50px; border-radius: 4px;">
+                                        <% } %>
+                                    </td>
+                                    <td><%= listing.card.name %></td>
+                                    <td><%= listing.condition %></td>
+                                    <td><%= listing.language %></td>
+                                    <td>R$ <%= listing.price.toFixed(2) %></td>
+                                    <td><%= listing.quantity %></td>
+                                    <% if (user && user.id === profileUser.id.toString()) { %>
+                                        <td>
+                                            <a href="/listings/<%= listing._id %>/edit" class="btn btn-sm btn-secondary">Editar</a>
+                                            <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" style="display: inline;">
+                                                <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                                            </form>
+                                        </td>
+                                    <% } %>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                    <div style="text-align: right; margin-top: 1rem;">
+                        <a href="/meus-anuncios" class="btn btn-secondary">Ver todos os anúncios</a>
                     </div>
-                    <div class="form-group">
-                        <label>Complemento (opcional)</label>
-                        <input class="form-control" name="complement" value="<%= profileUser.address?.complement || '' %>">
-                    </div>
-                </div>
-                <div style="display:grid; grid-template-columns: 1fr 140px; gap:12px;">
-                    <div class="form-group">
-                        <label>Cidade</label>
-                        <input class="form-control" name="city" value="<%= profileUser.address?.city || '' %>" required>
-                    </div>
-                    <div class="form-group">
-                        <label>UF</label>
-                        <input class="form-control" name="state" maxlength="2" value="<%= profileUser.address?.state || '' %>" required>
-                    </div>
-                </div>
-                <button class="btn btn-primary" type="submit">Salvar Endereço</button>
-            </form>
-        </div>
-        <% } %>
-
-        <div class="user-listings" style="margin-top: 2rem;">
-            <h2>Anúncios de <%= profileUser.username %></h2>
-            <p>(Em breve...)</p>
-        </div>
-        
+                <% } else { %>
+                    <p>Este usuário ainda não tem nenhum anúncio.</p>
+                <% } %>
+            </div>
+        </section>
     </main>
     <div class="container">
         <%- include('../partials/footer') %>

@@ -68,6 +68,44 @@ async function cotarFreteMelhorEnvio({
   }
 }
 
+const ADD_TO_CART_PATH = '/api/v2/me/cart';
+
+/**
+ * Adiciona um item ao carrinho de compras do Melhor Envio.
+ * @param {object} shipmentDetails - Detalhes da remessa.
+ * @returns {Promise<object>} - A resposta da API.
+ */
+async function addItemToCart(shipmentDetails) {
+  const url = new URL(ADD_TO_CART_PATH, BASE_URL).toString();
+
+  console.log('[melhor-envio] Adicionando item ao carrinho com payload:', JSON.stringify(shipmentDetails, null, 2));
+
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${TOKEN}`,
+        'User-Agent': USER_AGENT,
+      },
+      body: JSON.stringify(shipmentDetails),
+    });
+
+    const text = await res.text();
+    if (!res.ok) {
+      throw new Error(`[melhor-envio] ${res.status} ${res.statusText} ${text}`);
+    }
+
+    return JSON.parse(text);
+
+  } catch (error) {
+    console.error(`[melhor-envio] Falha ao adicionar item ao carrinho: ${error.message}`);
+    throw error;
+  }
+}
+
 module.exports = {
   cotarFreteMelhorEnvio,
+  addItemToCart,
 };

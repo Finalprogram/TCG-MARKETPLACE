@@ -1,8 +1,13 @@
 // 1. Imports
 require('dotenv').config();
 
-// Validação de Variáveis de Ambiente Essenciais dos Correios
-const requiredEnv = ['CWS_TOKEN', 'CWS_CEP_ORIGEM'];
+// Validação de Variáveis de Ambiente Essenciais
+const requiredEnv = [
+    'CWS_TOKEN', 
+    'CWS_CEP_ORIGEM',
+    'MELHOR_ENVIO_TOKEN',
+    'MELHOR_ENVIO_USER_AGENT'
+];
 const missingEnv = requiredEnv.filter(v => !process.env[v]);
 
 if (missingEnv.length > 0) {
@@ -29,6 +34,7 @@ if (missingEnv.length > 0) {
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
+const methodOverride = require('method-override');
 const connectDB = require('./src/database/connection');
 const pagesRoutes = require('./src/routes/pagesRoutes');
 const cardRoutes = require('./src/routes/cardRoutes');
@@ -57,6 +63,7 @@ app.set('views', path.join(__dirname, 'src', 'views'));
 // Serve arquivos estáticos (CSS, JS, imagens) da pasta 'public'
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride('_method'));
 // Configuração da Sessão
 app.use(session({
   secret: 'um_segredo_muito_forte_aqui',
