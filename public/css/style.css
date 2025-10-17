@@ -1115,3 +1115,44 @@ td.action, td:last-child { white-space: nowrap; }.vendor-actions { display:inlin
 .carousel-btn:hover {
   background-color: rgba(0, 0, 0, 0.8);
 }
+
+/* --- 4.9. Card Detail Page --- */
+.card-detail-container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.card-image-section img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+.card-info-section h1 {
+  margin-bottom: 1rem;
+}
+
+.card-info-section p {
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.price-trend {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+.listings-section h2 {
+  margin-bottom: 1rem;
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}

@@ -43,18 +43,22 @@
         <% if (cards && cards.length > 0) { %>
           <% cards.forEach(card => { %>
             <div class="card-item">
-              <div class="card-image-container">
-                <img src="<%= card.image_url %>" alt="<%= card.name %>">
-              </div>
-              <h4><%= card.name %></h4>
-              <p>
-                Preço Médio: R$ <%= card.averagePrice ? card.averagePrice.toFixed(2) : 'N/A' %>
-                <% if (card.price_trend === 'up') { %>
-                  <span style="color: green;">▲</span>
-                <% } else if (card.price_trend === 'down') { %>
-                  <span style="color: red;">▼</span>
-                <% } %>
-              </p>
+              <a href="/card/<%= card._id %>" class="card-link">
+                <div class="card-image-container">
+                  <img src="<%= card.image_url %>" alt="<%= card.name %>">
+                </div>
+                <h4><%= card.name %></h4>
+                <p>
+                  Preço Médio: <%= card.averagePrice ? formatPrice(card.averagePrice) : 'N/A' %>
+                  <% if (card.price_trend === 'up') { %>
+                    <span style="color: green; font-size: 1.5em;">▲</span>
+                  <% } else if (card.price_trend === 'down') { %>
+                    <span style="color: red; font-size: 1.5em;">▼</span>
+                  <% } else { %>
+                    <span style="color: #555; font-size: 1.5em;">→</span>
+                  <% } %>
+                </p>
+              </a>
               <div class="add-to-list-controls">
                 <div class="quantity-selector">
                   <button class="quantity-btn minus" type="button">-</button>

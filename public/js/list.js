@@ -293,7 +293,7 @@
               <span>${condLabel}</span>
               <span>${langLabel}</span>
               <span>${available}</span>
-              <span class="right price js-price-cell">R$ ${price.toFixed(2)}</span>
+              <span class="right price js-price-cell">${money(price)}</span>
               <span class="right qty-col"></span>
               <span class="right action-cell"></span>
             </div>`;

@@ -10,7 +10,13 @@
 })();
 // const qs  = window.qs;
 // const qsa = window.qsa;
-const money = (n) => 'R$ ' + Number(n || 0).toFixed(2);
+window.money = (n) => {
+  let priceStr = 'R$ ' + Number(n || 0).toFixed(2).replace('.', ',');
+  if (priceStr.endsWith(',00')) {
+    return priceStr.slice(0, -3);
+  }
+  return priceStr;
+};
 
 /* ========================================================================
    UI GLOBAL
@@ -96,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const vend = /^[a-f0-9]{24}$/i.test(vendRaw) ? '' : vendRaw;
 
           const cond = it?.meta?.condition ? ` • ${it.meta.condition}` : '';
-          const line = (it.qty * it.price).toFixed(2);
+          const line = (it.qty * it.price);
           return `
             <div class="cart-row" data-key="${it.key}">
               <div class="cart-left">
@@ -107,13 +113,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
               </div>
               <div class="cart-right">
-                <div class="cart-price">R$ ${Number(it.price || 0).toFixed(2)}</div>
+                <div class="cart-price">${money(it.price)}</div>
                 <div class="qty-box">
                   <button class="qty-btn minus" type="button">−</button>
                   <input class="qty-input" type="number" min="1" value="${it.qty}">
                   <button class="qty-btn plus" type="button">+</button>
                 </div>
-                <div class="cart-line-total">R$ ${line}</div>
+                <div class="cart-line-total">${money(line)}</div>
                 <button class="btn icon-only cart-remove" title="Remover">✕</button>
               </div>
             </div>`;

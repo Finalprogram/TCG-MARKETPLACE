@@ -1,0 +1,65 @@
+<%- include('../partials/header') %>
+
+<main class="container">
+  <%- include('../partials/navbar') %>
+
+  <div class="card-detail-container">
+    <div class="card-image-section">
+      <img src="<%= card.image_url %>" alt="<%= card.name %>">
+    </div>
+    <div class="card-info-section">
+      <h1><%= card.name %></h1>
+      <p><strong>Set:</strong> <%= card.set_name %></p>
+      <p><strong>Raridade:</strong> <%= card.rarity %></p>
+      <p><strong>Tipo:</strong> <%= card.type_line %></p>
+      
+      <div class="price-trend">
+        <strong>Preço Médio:</strong> <%= formatPrice(card.averagePrice) %>
+        <% if (card.price_trend === 'up') { %>
+          <span style="color: green; font-size: 1.5em;">▲</span>
+        <% } else if (card.price_trend === 'down') { %>
+          <span style="color: red; font-size: 1.5em;">▼</span>
+        <% } else { %>
+          <span style="color: #555; font-size: 1.5em;">→</span>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="listings-section">
+    <h2>Anúncios Disponíveis</h2>
+    <% if (listings && listings.length > 0) { %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Vendedor</th>
+            <th>Condição</th>
+            <th>Idioma</th>
+            <th>Preço</th>
+            <th>Quantidade</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% listings.forEach(listing => { %>
+            <tr>
+              <td><%= listing.seller.username %></td>
+              <td><%= listing.condition %></td>
+              <td><%= listing.language %></td>
+              <td><%= formatPrice(listing.price) %></td>
+              <td><%= listing.quantity %></td>
+              <td>
+                <button class="btn btn-primary add-to-cart-btn" data-listing-id="<%= listing._id %>">Adicionar ao Carrinho</button>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <p>Nenhum anúncio disponível para esta carta no momento.</p>
+    <% } %>
+  </div>
+
+</main>
+
+<%- include('../partials/footer') %>

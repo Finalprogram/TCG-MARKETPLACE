@@ -48,9 +48,9 @@
                 <% } %>
                 <div class="ck-info" style="flex:1;">
                   <div class="ck-title" style="font-weight:600;"><%= it.name %> <span style="opacity:.7"><%= it.condition %></span></div>
-                  <div class="ck-meta" style="opacity:.8; font-size:.92rem;">Qtd: <%= it.qty %> — Unit: R$ <%= it.unit.toFixed(2) %></div>
+                  <div class="ck-meta" style="opacity:.8; font-size:.92rem;">Qtd: <%= it.qty %> — Unit: <%= formatPrice(it.unit) %></div>
                 </div>
-                <div class="ck-line" style="min-width:110px; text-align:right; font-weight:700;">R$ <%= it.line.toFixed(2) %></div>
+                <div class="ck-line" style="min-width:110px; text-align:right; font-weight:700;"><%= formatPrice(it.line) %></div>
               </li>
             <% }) %>
           </ul>
@@ -71,13 +71,13 @@
 
     <div class="totals" style="margin-top:14px; border-top:1px solid var(--border); padding-top:12px;">
       <div style="display:flex; justify-content:space-between; margin:6px 0;">
-        <span>Subtotal</span><strong id="ck-subtotal">R$ <%= totals.subtotal.toFixed(2) %></strong>
+        <span>Subtotal</span><strong id="ck-subtotal"><%= formatPrice(totals.subtotal) %></strong>
       </div>
       <div style="display:flex; justify-content:space-between; margin:6px 0;">
-        <span>Frete</span><strong id="ck-shipping">R$ <%= totals.shipping.toFixed(2) %></strong>
+        <span>Frete</span><strong id="ck-shipping"><%= formatPrice(totals.shipping) %></strong>
       </div>
       <div class="grand" style="display:flex; justify-content:space-between; margin:10px 0; font-size:1.1rem;">
-        <span>Total</span><strong id="ck-grand" style="color:var(--accent-primary);">R$ <%= totals.grand.toFixed(2) %></strong>
+        <span>Total</span><strong id="ck-grand" style="color:var(--accent-primary);"><%= formatPrice(totals.grand) %></strong>
       </div>
     </div>
 
@@ -89,6 +89,14 @@
 
 <script>
 (async function(){
+  const formatPrice = (n) => {
+    let priceStr = 'R$ ' + Number(n || 0).toFixed(2).replace('.', ',');
+    if (priceStr.endsWith(',00')) {
+      return priceStr.slice(0, -3);
+    }
+    return priceStr;
+  }
+
   const zipInput = document.querySelector('input[name="zip"]');
   const pkWrap   = document.getElementById('packages');
   const hidden   = document.getElementById('shippingSelections');
@@ -120,7 +128,7 @@
                   data-price="${opt.preco}"
                   data-eta="${opt.prazoEmDias ?? ''}"
                   ${opt.servico === p.chosen?.servico ? 'selected' : ''}>
-            ${opt.nome} — R$ ${opt.preco.toFixed(2)} ${opt.prazoEmDias ? `(${opt.prazoEmDias}d)` : ''}
+            ${opt.nome} — ${formatPrice(opt.preco)} ${opt.prazoEmDias ? `(${opt.prazoEmDias}d)` : ''}
           </option>`;
       }).join('');
     });
@@ -136,9 +144,9 @@
     hidden.value = JSON.stringify(selections);
 
     // totais
-    document.getElementById('ck-subtotal').textContent = 'R$ ' + Number(data.totals.subtotal).toFixed(2);
-    document.getElementById('ck-shipping').textContent = 'R$ ' + Number(data.totals.shipping).toFixed(2);
-    document.getElementById('ck-grand').textContent    = 'R$ ' + Number(data.totals.grand).toFixed(2);
+    document.getElementById('ck-subtotal').textContent = formatPrice(data.totals.subtotal);
+    document.getElementById('ck-shipping').textContent = formatPrice(data.totals.shipping);
+    document.getElementById('ck-grand').textContent    = formatPrice(data.totals.grand);
   }
 
   zipInput?.addEventListener('blur', refreshQuotes);
@@ -164,13 +172,13 @@
     hidden.value = JSON.stringify(current);
 
     // recalcula total na tela
-    const subtotal = Number('<%= totals.subtotal.toFixed(2) %>');
+    const subtotal = Number('<%= totals.subtotal %>');
     let ship = 0;
     pkWrap.querySelectorAll('.ship-select').forEach(s => {
       ship += Number(s.selectedOptions[0]?.dataset.price || 0);
     });
-    document.getElementById('ck-shipping').textContent = 'R$ ' + ship.toFixed(2);
-    document.getElementById('ck-grand').textContent    = 'R$ ' + (subtotal + ship).toFixed(2);
+    document.getElementById('ck-shipping').textContent = formatPrice(ship);
+    document.getElementById('ck-grand').textContent    = formatPrice(subtotal + ship);
   });
 
   pkWrap?.addEventListener('click', async (e) => {

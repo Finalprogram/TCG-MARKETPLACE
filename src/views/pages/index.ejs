@@ -24,7 +24,7 @@
                                 <a href="/card/<%= listing.card._id %>">
                                     <img src="<%= listing.card.image_url %>" alt="<%= listing.card.name %>">
                                     <h4><%= listing.card.name %></h4>
-                                    <p>R$ <%= listing.price.toFixed(2) %></p>
+                                    <p><%= formatPrice(listing.price) %></p>
                                 </a>
                             </div>
                         <% }); %>

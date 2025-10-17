@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
 const CardSchema = new mongoose.Schema({
-  // ID do Scryfall (único para Magic)
-  scryfall_id: { 
-    type: String, 
-    unique: true, 
-    required: false, // Não é obrigatório
-    sparse: true     // ESSENCIAL: Garante que a regra 'unique' ignore os valores nulos
-  },
+  // // ID do Scryfall (único para Magic)
+  // scryfall_id: { 
+  //   type: String, 
+  //   unique: true, 
+  //   required: false, // Não é obrigatório
+  //   sparse: true     // ESSENCIAL: Garante que a regra 'unique' ignore os valores nulos
+  // },
   
   // ID da API de origem (ex: One Piece API)
   api_id: { 
@@ -18,7 +18,7 @@ const CardSchema = new mongoose.Schema({
   // Jogo ao qual a carta pertence
   game: {
     type: String,
-    enum: ['magic', 'onepiece', 'yugioh', 'pokemon'],
+    enum: ['onepiece'],
     required: true,
     index: true
   },
@@ -31,6 +31,15 @@ const CardSchema = new mongoose.Schema({
   colors: { type: Array },
   type_line: { type: String },
   legalities: { type: Object },
+  price_trend: {
+    type: String,
+    enum: ['up', 'down', 'stable'],
+    default: 'stable'
+  },
+  averagePrice: {
+    type: Number,
+    default: 0
+  }
 });
 
 // Índice composto: Garante que api_id + game seja uma combinação única

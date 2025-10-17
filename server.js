@@ -48,6 +48,18 @@ const checkoutRoutes = require('./src/routes/checkoutRoutes');
 const app = express();
 const port = 3000;
 
+// Helper para formatar preços
+app.locals.formatPrice = function(price) {
+  if (typeof price !== 'number') {
+    return price;
+  }
+  let formattedPrice = `R$ ${price.toFixed(2).replace('.', ',')}`;
+  if (formattedPrice.endsWith(',00')) {
+    return formattedPrice.slice(0, -3);
+  }
+  return formattedPrice;
+};
+
 // 3. Conexão com o Banco de Dados
 connectDB();
 
@@ -88,6 +100,15 @@ app.use('/api', listingRoutes);
 app.use('/cart', cartRoutes);
 app.use('/checkout', checkoutRoutes);
 // 6. Inicia o Servidor
+const cron = require('node-cron');
+const { recordPriceHistory } = require('./src/services/priceTracker');
+
+// Schedule to run once a day at midnight
+cron.schedule('0 0 * * *', () => {
+  console.log('Running daily price history recording...');
+  recordPriceHistory();
+});
+
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });

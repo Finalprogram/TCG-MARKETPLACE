@@ -54,7 +54,7 @@
           <div class="list-card__right">
             <div class="price-chip">
               <span>A partir de</span>
-              <strong><%= (lowest != null) ? ('R$ ' + Number(lowest).toFixed(2)) : 'N/A' %></strong>
+              <strong><%= (lowest != null) ? formatPrice(lowest) : 'N/A' %></strong>
             </div>
 
             <!-- Botão para abrir/fechar vendedores -->
@@ -141,7 +141,7 @@
                   <span><%= available %></span>
 
                   <!-- Célula de preço (o JS usa como referência) -->
-                  <span class="right price js-price-cell">R$ <%= price.toFixed(2) %></span>
+                  <span class="right price js-price-cell"><%= formatPrice(price) %></span>
 
                   <!-- Coluna de Qtd. (pode ficar vazia; JS usa se quiser) -->
                   <span class="right qty-col"></span>

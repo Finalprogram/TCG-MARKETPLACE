@@ -35,7 +35,7 @@
                             <td><%= listing.card.name %></td>
                             <td><%= listing.condition %></td>
                             <td><%= listing.language %></td>
-                            <td>R$ <%= listing.price.toFixed(2) %></td>
+                            <td><%= formatPrice(listing.price) %></td>
                             <td><%= listing.quantity %></td>
                             <td>
                                 <a href="/listings/<%= listing._id %>/edit" class="btn btn-sm btn-secondary">Editar</a>
