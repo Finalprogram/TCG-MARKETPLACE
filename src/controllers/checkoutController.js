@@ -1,11 +1,11 @@
 // src/controllers/checkoutController.js
 
 const User = require('../models/User');
-const { cotarFrete } = require('../services/correiosClient');
+// const { cotarFrete } = require('../services/correiosClient'); // Comentado para trocar para Melhor Envio
+const { cotarFreteMelhorEnvio } = require('../services/melhorEnvioClient');
 const { estimatePackageDims } = require('../services/packaging');
 
 // Util: garante que o carrinho exista
-// src/controllers/checkoutController.js
 function getCart(req) {
   if (!req.session.cart) req.session.cart = { items: [], totalQty: 0, totalPrice: 0 };
   return req.session.cart;
@@ -77,7 +77,7 @@ async function quoteDetailed(req, res) {
     }, {});
 
     const packages = [];
-    const globalCepOrigem = process.env.CWS_CEP_ORIGEM;
+    const globalCepOrigem = process.env.MELHOR_ENVIO_CEP_ORIGEM; // Usar CEP de origem do Melhor Envio
 
     // 2. Para cada vendedor, estimar pacote e cotar frete
     for (const sellerId in itemsBySeller) {
@@ -88,14 +88,6 @@ async function quoteDetailed(req, res) {
       let cepOrigem = globalCepOrigem;
       if (sellerId !== 'sem-vendedor') {
         const seller = await User.findById(sellerId);
-
-        // DEBUG: Inspecionar o objeto do vendedor que veio do banco
-        if (seller) {
-            console.log(`[checkout] Verificando vendedor para frete:`, seller.toObject());
-        } else {
-            console.log(`[checkout] Vendedor com ID ${sellerId} não encontrado.`);
-        }
-
         if (seller && seller.address && seller.address.cep) {
           cepOrigem = seller.address.cep;
         } else {
@@ -105,27 +97,38 @@ async function quoteDetailed(req, res) {
 
       // Estimar dimensões e peso
       const { comprimentoCm, larguraCm, alturaCm, pesoKg } = estimatePackageDims(sellerItems);
+      const insuranceValue = sellerItems.reduce((sum, item) => sum + (item.price * item.qty), 0);
 
-      // Cotar frete para os serviços desejados
-      const servicos = ['04510', '04014']; // PAC, SEDEX
-      const options = await cotarFrete({
-        cepOrigem,
-        cepDestino: zip,
-        servicos,
-        pesoKg,
-        comprimentoCm,
-        larguraCm,
-        alturaCm,
+      // Cotar frete usando o Melhor Envio
+      const services = '1,2,18'; // Exemplo: PAC, SEDEX, Jadlog.Package
+      const options = await cotarFreteMelhorEnvio({
+        fromPostalCode: cepOrigem,
+        toPostalCode: zip,
+        pkg: {
+          width: larguraCm,
+          height: alturaCm,
+          length: comprimentoCm,
+          weight: pesoKg,
+          insurance_value: insuranceValue,
+        },
+        services,
       });
 
       // Filtra apenas as opções válidas (sem erro) e ordena por preço
-      const validOptions = options.filter(opt => !opt.erro);
+      const validOptions = options
+        .filter(opt => !opt.error)
+        .map(opt => ({ // Adapta o formato da resposta
+          servico: opt.id,
+          nome: opt.name,
+          preco: parseFloat(opt.custom_price || opt.price),
+          prazoEmDias: opt.delivery_time,
+        }));
+
       validOptions.sort((a, b) => (a.preco || 0) - (b.preco || 0));
       
-      // O frete escolhido por padrão é o mais barato dos válidos
       const chosen = validOptions.length > 0 ? validOptions[0] : null;
 
-      packages.push({ sellerId, sellerName, options, chosen });
+      packages.push({ sellerId, sellerName, options: validOptions, chosen });
     }
 
     // 3. Calcular totais
