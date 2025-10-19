@@ -75,7 +75,21 @@ const showCardDetailPage = async (req, res) => {
                                   .sort({ price: 1 })
                                   .populate('seller', 'username accountType');
 
-    res.render('pages/card-detail', { card, listings });
+    // Calcula o preço médio
+    let averagePrice = 0;
+    if (listings.length > 0) {
+      const total = listings.reduce((acc, listing) => acc + listing.price, 0);
+      averagePrice = total / listings.length;
+    }
+
+    // Adiciona o preço médio e a tendência ao objeto card
+    const cardData = {
+      ...card.toObject(),
+      averagePrice: averagePrice,
+      price_trend: 'neutral' // Lógica de tendência pode ser adicionada aqui
+    };
+
+    res.render('pages/card-detail', { card: cardData, listings });
   } catch (error) {
     console.error("Erro ao buscar detalhes da carta:", error);
     res.status(500).send('Erro no servidor');
