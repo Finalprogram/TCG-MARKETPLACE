@@ -66,6 +66,9 @@
           </div>
           <div class="order-actions">
             <a href="/meus-pedidos/<%= order._id %>" class="btn btn-secondary">Ver Detalhes</a>
+            <% if (order.items.some(item => order.status === 'Delivered' && !item.isReviewed)) { %>
+              <a href="/meus-pedidos/<%= order._id %>#items-to-review" class="btn btn-primary">Avaliar Pedido</a>
+            <% } %>
           </div>
         </div>
       <% }) %>

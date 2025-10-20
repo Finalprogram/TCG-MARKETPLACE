@@ -46,6 +46,7 @@ const cartRoutes = require('./src/routes/cartRoutes');
 const checkoutRoutes = require('./src/routes/checkoutRoutes');
 const paymentRoutes = require('./src/routes/paymentRoutes');
 const reviewRoutes = require('./src/routes/reviewRoutes');
+
 // 2. Inicialização do App
 const app = express();
 const port = 3000;
@@ -103,6 +104,7 @@ app.use('/cart', cartRoutes);
 app.use('/checkout', checkoutRoutes);
 app.use('/payment', paymentRoutes);
 app.use('/', reviewRoutes);
+
 // 6. Inicia o Servidor
 const cron = require('node-cron');
 const { recordPriceHistory } = require('./src/services/priceTracker');

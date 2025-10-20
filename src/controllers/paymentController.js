@@ -2,6 +2,7 @@
 
 const Order = require('../models/Order');
 const User = require('../models/User');
+const Listing = require('../models/Listing');
 
 /** GET /payment */
 function showPayment(req, res) {
@@ -43,6 +44,28 @@ async function processPayment(req, res) {
     });
 
     await newOrder.save();
+
+    // Atualiza a quantidade do anúncio
+    for (const item of orderItems) {
+      if (item.listing) {
+        try {
+          const listing = await Listing.findById(item.listing);
+          if (listing) {
+            listing.quantity -= item.quantity;
+            if (listing.quantity < 0) {
+              listing.quantity = 0; // Garante que a quantidade não fique negativa
+            }
+            await listing.save();
+            console.log(`[payment] Quantidade atualizada para o anúncio #${item.listing}. Nova quantidade: ${listing.quantity}`);
+          } else {
+            console.warn(`[payment] Anúncio com ID #${item.listing} não encontrado para atualização de quantidade.`);
+          }
+        } catch (error) {
+          console.error(`[payment] Erro ao atualizar a quantidade para o anúncio #${item.listing}:`, error);
+          // Decida se quer interromper o processo ou apenas registrar o erro
+        }
+      }
+    }
 
     console.log(`[payment] Pedido #${newOrder._id} criado com o método: ${paymentMethod}`);
 

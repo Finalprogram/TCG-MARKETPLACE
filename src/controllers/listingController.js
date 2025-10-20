@@ -32,6 +32,7 @@ const bulkCreateListings = async (req, res) => {
 
     // Responde com sucesso
     res.status(201).json({ 
+      success: true,
       message: 'Anúncios criados com sucesso!',
       count: createdListings.length 
     });
@@ -41,10 +42,6 @@ const bulkCreateListings = async (req, res) => {
     console.error('Stack trace:', error.stack);
     res.status(500).json({ message: 'Erro no servidor ao criar anúncios.' });
   }
-};
-
-module.exports = {
-  bulkCreateListings,
 };
 
 const showEditListingPage = async (req, res) => {
@@ -74,7 +71,7 @@ const updateListing = async (req, res) => {
     }
 
     // Authorization: Check if the logged-in user is the seller
-    if (listing.seller.toString() !== req.session.user._id) {
+    if (listing.seller.toString() !== req.session.user.id) {
       return res.status(403).send('Você não tem permissão para editar este anúncio.');
     }
 
@@ -105,7 +102,7 @@ const deleteListing = async (req, res) => {
       return res.status(403).send('Você não tem permissão para deletar este anúncio.');
     }
 
-    await listing.remove();
+    await listing.deleteOne();
 
     res.redirect('/meus-anuncios');
   } catch (error) {

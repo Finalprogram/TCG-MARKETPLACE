@@ -44,7 +44,7 @@ function normalizeMeta(baseMeta = {}, { cardId, vendorId }) {
 /** POST /cart/add  (JSON: { cardId, vendorId, price, qty, meta? }) */
 async function add(req, res) {
   try {
-    const { cardId, vendorId, price, qty, meta } = req.body || {};
+    const { cardId, vendorId, price, qty, meta, listingId } = req.body || {};
     const q = Number(qty);
     const p = Number(price);
 
@@ -69,6 +69,7 @@ async function add(req, res) {
         key,
         cardId,
         vendorId,
+        listingId, // Adicionado para referência futura
         price: p,
         qty: 0,
         meta: normalizeMeta(meta, { cardId, vendorId })

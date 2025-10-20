@@ -37,5 +37,19 @@
             </p>
         </div>
     </main>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get('message');
+
+        if (message === 'registration_success') {
+            if (window.showToast) {
+                window.showToast('Usuário registrado com sucesso! Faça login para continuar.', 'success');
+            } else {
+                alert('Usuário registrado com sucesso! Faça login para continuar.');
+            }
+        }
+    });
+    </script>
 </body>
 </html>

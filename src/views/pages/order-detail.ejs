@@ -94,10 +94,18 @@
           <div class="order-date"><%= new Date(order.createdAt).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }) %></div>
         </div>
         <div class="order-status"><%= order.status %></div>
+        <% if (order.trackingCode) { %>
+          <div class="tracking-code-display">Código de Rastreio: <%= order.trackingCode %></div>
+        <% } %>
+        <% if (order.status === 'Shipped') { %>
+          <form action="/meus-pedidos/<%= order._id %>/confirmar-recebimento" method="POST">
+            <button type="submit" class="btn btn-success">Confirmar Recebimento</button>
+          </form>
+        <% } %>
       </div>
 
       <div class="order-body">
-        <h3 style="margin-top: 1rem; margin-bottom: 1rem;">Itens do Pedido</h3>
+        <h3 id="items-to-review" style="margin-top: 1rem; margin-bottom: 1rem;">Itens do Pedido</h3>
         <ul class="item-list">
           <% order.items.forEach(item => { %>
             <li class="order-item">

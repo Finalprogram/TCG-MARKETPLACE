@@ -60,6 +60,65 @@ const showSellerDashboard = async (req, res) => {
   }
 };
 
+const showSoldOrders = async (req, res) => {
+  try {
+    const sellerObjectId = new mongoose.Types.ObjectId(req.session.user.id);
+
+    const orders = await Order.find({ 'items.seller': sellerObjectId })
+      .sort({ createdAt: -1 })
+      .populate('user'); // Popula os dados do comprador
+
+    const sellerOrders = orders.map(order => {
+      return {
+        ...order.toObject(),
+        items: order.items.filter(item => item.seller.toString() === sellerObjectId.toString())
+      };
+    });
+
+    res.render('pages/my-sold-orders', { orders: sellerOrders });
+
+  } catch (error) {
+    console.error('Erro ao carregar os pedidos vendidos:', error);
+    res.status(500).send('Erro no servidor');
+  }
+};
+
+const markAsShipped = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const { trackingCode } = req.body;
+    const sellerId = req.session.user.id;
+
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+      return res.status(404).send('Pedido não encontrado.');
+    }
+
+    if (order.status !== 'Processing') {
+      return res.status(400).send('Este pedido não pode ser marcado como enviado.');
+    }
+
+    const isSellerOfItem = order.items.some(item => item.seller.toString() === sellerId);
+
+    if (!isSellerOfItem) {
+      return res.status(403).send('Você não tem permissão para atualizar este pedido.');
+    }
+
+    order.status = 'Shipped';
+    order.trackingCode = trackingCode;
+    await order.save();
+
+    res.status(200).json({ message: 'Pedido marcado como enviado com sucesso.' });
+
+  } catch (error) {
+    console.error('Erro ao marcar pedido como enviado:', error);
+    res.status(500).send('Erro no servidor');
+  }
+};
+
 module.exports = {
   showSellerDashboard,
+  showSoldOrders,
+  markAsShipped,
 };

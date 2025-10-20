@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Evita adicionar a mesma carta múltiplas vezes na área de staging
         if (stagingArea.querySelector(`[data-card-id="${cardId}"]`)) {
-            alert('Esta carta já foi adicionada para anúncio.');
+            window.showToast('Esta carta já foi adicionada para anúncio.', 'info');
             return;
         }
 
@@ -89,7 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         <option value="DMG">Damaged (DMG)</option>
                     </select>
                     <select name="language" class="form-control">
-                        <option value="PT">Português</option>
                         <option value="EN">Inglês</option>
                     </select>
                     <input type="number" name="quantity" class="form-control" placeholder="Qtd." min="1" value="1">
@@ -117,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     saveAllButton.addEventListener('click', async () => {
         const stagedItems = stagingArea.querySelectorAll('.staging-item');
         if (stagedItems.length === 0) {
-            alert('Adicione pelo menos uma carta para criar anúncios.');
+            window.showToast('Adicione pelo menos uma carta para criar anúncios.', 'info');
             return;
         }
 
@@ -138,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (!allValid) {
-            alert('Por favor, preencha um preço válido para todos os anúncios.');
+            window.showToast('Por favor, preencha um preço válido para todos os anúncios.', 'error');
             return;
         }
 
@@ -160,12 +159,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(errorData.message || 'Falha ao salvar os anúncios.');
             }
 
-            alert('Anúncios criados com sucesso!');
-            stagingArea.innerHTML = '<p class="empty-staging-message">As cartas que você adicionar aparecerão aqui.</p>';
+            const data = await response.json();
+            if (data.success) {
+                window.showToast('Anúncios criados com sucesso!', 'success');
+                stagingArea.innerHTML = '<p class="empty-staging-message">As cartas que você adicionar aparecerão aqui.</p>';
+            } else {
+                throw new Error(data.message || 'Falha ao salvar os anúncios.');
+            }
 
         } catch (error) {
             console.error('Erro ao salvar anúncios:', error);
-            alert(`Erro: ${error.message}`);
+            window.showToast(`Erro: ${error.message}`, 'error');
         } finally {
             saveAllButton.disabled = false;
             saveAllButton.textContent = 'Salvar Todos os Anúncios';

@@ -3,6 +3,7 @@ const User = require('../models/User');
 const Listing = require('../models/Listing');
 const Card = require('../models/Card');
 const Order = require('../models/Order');
+const Review = require('../models/Review');
 const showHomePage = async (req, res) => {
   try {
     const recentListings = await Listing.find()
@@ -39,9 +40,22 @@ const showProfilePage = async (req, res) => {
       errorMessage = 'Falha na validação. Por favor, preencha todos os campos de endereço obrigatórios.';
     }
 
+    const reviews = await Review.find({ seller: profileUser._id })
+                                .populate('buyer', 'username') // Popula apenas o username do comprador
+                                .sort({ createdAt: -1 });
+
+    // Calcula a média das avaliações
+    let averageRating = 0;
+    if (reviews.length > 0) {
+      const totalRating = reviews.reduce((acc, review) => acc + review.rating, 0);
+      averageRating = totalRating / reviews.length;
+    }
+
     res.render('pages/profile', { 
       profileUser,
       listings, // Pass the listings to the view
+      reviews, // Pass the reviews to the view
+      averageRating, // Pass the average rating to the view
       error: errorMessage // Passa a mensagem de erro para a view
     });
 

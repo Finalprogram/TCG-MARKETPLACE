@@ -10,18 +10,34 @@ const showRegisterPage = (req, res) => {
 const registerUser = async (req, res) => {
   try {
     const { username, email, password, confirmPassword } = req.body;
+    const errors = {};
 
-    // --- VALIDAÇÃO SIMPLIFICADA ---
-    if (!username || !email || !password || !confirmPassword) {
-      return res.status(400).send('Por favor, preencha todos os campos obrigatórios.');
+    // --- VALIDAÇÃO ---
+    if (!username) {
+      errors.username = 'Nome de usuário é obrigatório.';
+    }
+    if (!email) {
+      errors.email = 'Email é obrigatório.';
+    }
+    if (!password) {
+      errors.password = 'Senha é obrigatória.';
     }
     if (password !== confirmPassword) {
-      return res.status(400).send('As senhas não coincidem.');
+      errors.confirmPassword = 'As senhas não coincidem.';
     }
 
-    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
-    if (existingUser) {
-      return res.status(400).send('Nome de usuário ou email já cadastrado.');
+    const existingUserByEmail = await User.findOne({ email });
+    if (existingUserByEmail) {
+      errors.email = 'Este email já está cadastrado.';
+    }
+
+    const existingUserByUsername = await User.findOne({ username });
+    if (existingUserByUsername) {
+      errors.username = 'Este nome de usuário já está em uso.';
+    }
+
+    if (Object.keys(errors).length > 0) {
+      return res.render('pages/register', { errors, oldInput: req.body });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -37,11 +53,12 @@ const registerUser = async (req, res) => {
 
     await newUser.save();
 
-    res.redirect('/login');
+    res.redirect('/login?message=registration_success');
 
   } catch (error) {
     console.error("Erro no registro:", error);
-    res.status(500).send('Erro ao registrar usuário.');
+    // Para erros inesperados do servidor, podemos renderizar a página com um erro geral
+    res.render('pages/register', { errors: { general: 'Erro ao registrar usuário. Tente novamente.' }, oldInput: req.body });
   }
 };
 const showLoginPage = (req, res) => {

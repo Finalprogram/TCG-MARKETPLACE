@@ -244,8 +244,9 @@
           const data = await res.json().catch(() => ({}));
           if (!res.ok) throw new Error(data?.message || 'Falha ao remover');
           row.remove();
+          window.showToast('Item removido da lista com sucesso!', 'success'); // Added success toast
         })
-        .catch(err => alert(`Erro ao remover item: ${err.message}`));
+        .catch(err => window.showToast(`Erro ao remover item: ${err.message}`, 'error')); // Replaced alert
     }
   });
 

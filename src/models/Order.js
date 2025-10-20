@@ -52,6 +52,9 @@ const orderSchema = new mongoose.Schema({
     required: true,
     enum: ['Processing', 'Shipped', 'Delivered', 'Cancelled'],
     default: 'Processing'
+  },
+  trackingCode: {
+    type: String,
   }
 }, { timestamps: true });
 

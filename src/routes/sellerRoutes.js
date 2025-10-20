@@ -34,5 +34,11 @@ router.post('/profile/update', isAuthPage, authController.updateAddress);
 // Rota para o Dashboard do Vendedor
 router.get('/dashboard-vendedor', isAuthPage, sellerController.showSellerDashboard);
 
+// Rota para a página de pedidos vendidos do vendedor
+router.get('/meus-pedidos-vendidos', isAuthPage, sellerController.showSoldOrders);
+
+// Rota para marcar um pedido como enviado
+router.post('/pedidos-vendidos/:orderId/marcar-enviado', isAuthPage, sellerController.markAsShipped);
+
 
 module.exports = router;
