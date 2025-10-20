@@ -4,6 +4,7 @@ const pagesController = require('../controllers/pagesController');
 const authController = require('../controllers/authController');
 const User = require('../models/User');
 const { isAuthPage } = require('../middleware/auth');
+const sellerController = require('../controllers/sellerController');
 
 // Middleware para garantir que o endereço está cadastrado
 const ensureAddress = async (req, res, next) => {
@@ -29,5 +30,9 @@ router.get('/vender', isAuthPage, ensureAddress, pagesController.showSellPage);
 
 // Nova rota para o formulário da página de perfil
 router.post('/profile/update', isAuthPage, authController.updateAddress);
+
+// Rota para o Dashboard do Vendedor
+router.get('/dashboard-vendedor', isAuthPage, sellerController.showSellerDashboard);
+
 
 module.exports = router;

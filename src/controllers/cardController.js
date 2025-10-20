@@ -30,11 +30,16 @@ const showCardsPage = async (req, res) => {
     ]);
     const formattedCards = cards.map(card => ({ ...card, averagePrice: card.lowestPrice }));
 
-    // Define os filtros que serão enviados para a view (sempre de One Piece)
+    // Busca as opções de filtro dinamicamente do banco de dados
+    const rarities = await Card.distinct('rarity');
+    const colors = await Card.distinct('colors');
+    const types = await Card.distinct('type_line');
+
+    // Define os filtros que serão enviados para a view
     const filterGroups = [
-      { name: 'Raridade', key: 'rarity', options: ['C', 'UC', 'R', 'SR', 'SEC', 'L'] },
-      { name: 'Cor', key: 'color', options: ['Red', 'Green', 'Blue', 'Purple', 'Black', 'Yellow'] },
-      { name: 'Tipo', key: 'type', options: ['LEADER', 'CHARACTER', 'EVENT', 'STAGE'] }
+      { name: 'Raridade', key: 'rarity', options: rarities.sort() },
+      { name: 'Cor', key: 'color', options: colors.sort() },
+      { name: 'Tipo', key: 'type', options: types.sort() }
     ];
 
     res.render('pages/cardSearchPage', {

@@ -2,6 +2,7 @@
 const User = require('../models/User');
 const Listing = require('../models/Listing');
 const Card = require('../models/Card');
+const Order = require('../models/Order');
 const showHomePage = async (req, res) => {
   try {
     const recentListings = await Listing.find()
@@ -79,9 +80,67 @@ const showMyListingsPage = async (req, res) => {
   }
 };
 
+const showCheckoutSuccessPage = (req, res) => {
+  // Pega os totais da sessão, ou usa um objeto zerado como fallback.
+  const totals = req.session.totals || { subtotal: 0, shipping: 0, grand: 0 };
+  
+  // Limpa os totais da sessão para não "vazarem" para a próxima compra.
+  delete req.session.totals;
+
+  res.render('pages/checkout-success', { totals });
+};
+
+
+
+const showMyOrdersPage = async (req, res) => {
+  try {
+    if (!req.session.user) {
+      return res.redirect('/login');
+    }
+
+    const orders = await Order.find({ user: req.session.user.id })
+                              .populate('items.card') // Popula os dados dos cards nos itens do pedido
+                              .sort({ createdAt: -1 }); // Mais recentes primeiro
+
+    res.render('pages/my-orders', { orders });
+
+  } catch (error) {
+    console.error('Erro ao buscar pedidos do usuário:', error);
+    res.status(500).send('Erro no servidor');
+  }
+};
+
+const showOrderDetailPage = async (req, res) => {
+  try {
+    if (!req.session.user) {
+      return res.redirect('/login');
+    }
+
+    const orderId = req.params.id;
+    const userId = req.session.user.id;
+
+    const order = await Order.findOne({ _id: orderId, user: userId })
+                             .populate('items.card');
+
+    if (!order) {
+      // Renderiza a página de detalhes com uma mensagem de não encontrado
+      return res.status(404).render('pages/order-detail', { order: null });
+    }
+
+    res.render('pages/order-detail', { order });
+
+  } catch (error) {
+    console.error('Erro ao buscar detalhes do pedido:', error);
+    res.status(500).send('Erro no servidor');
+  }
+};
+
 module.exports = {
   showHomePage,
   showProfilePage,
   showSellPage,
   showMyListingsPage,
+  showCheckoutSuccessPage,
+  showMyOrdersPage,
+  showOrderDetailPage,
 };

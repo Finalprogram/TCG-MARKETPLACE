@@ -9,5 +9,10 @@ const pagesController = require('../controllers/pagesController');
 router.get('/', pagesController.showHomePage);
 router.get('/lista', listController.showListPage);
 router.get('/meus-anuncios', pagesController.showMyListingsPage);
+router.get('/checkout-success', pagesController.showCheckoutSuccessPage);
+router.get('/meus-pedidos', pagesController.showMyOrdersPage);
+router.get('/meus-pedidos/:id', pagesController.showOrderDetailPage);
+
+
 
 module.exports = router;

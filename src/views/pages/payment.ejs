@@ -1,0 +1,34 @@
+<%- include('../partials/header') %>
+<main class="container" style="max-width: 680px; margin-top: 24px;">
+  <%- include('../partials/navbar') %>
+
+  <h1 style="margin: 24px 0 16px;">Pagamento</h1>
+
+  <div class="panel" style="background:var(--bg-surface); padding:20px; border-radius:12px; border:1px solid var(--border)">
+    <p>Selecione a forma de pagamento desejada. Por enquanto, qualquer opção irá finalizar o pedido.</p>
+    
+    <div class="payment-options" style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
+      
+      <!-- Opção 1: Cartão de Crédito -->
+      <form action="/payment/process" method="post">
+        <input type="hidden" name="paymentMethod" value="credit_card">
+        <button type="submit" class="btn btn-primary btn-submit-full">Pagar com Cartão de Crédito</button>
+      </form>
+
+      <!-- Opção 2: Pix -->
+      <form action="/payment/process" method="post">
+        <input type="hidden" name="paymentMethod" value="pix">
+        <button type="submit" class="btn btn-secondary btn-submit-full">Pagar com Pix</button>
+      </form>
+
+      <!-- Opção 3: Boleto -->
+      <form action="/payment/process" method="post">
+        <input type="hidden" name="paymentMethod" value="boleto">
+        <button type="submit" class="btn btn-secondary btn-submit-full">Pagar com Boleto</button>
+      </form>
+
+    </div>
+  </div>
+
+</main>
+<%- include('../partials/footer') %>

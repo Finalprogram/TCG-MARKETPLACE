@@ -151,12 +151,21 @@ async function quoteDetailed(req, res) {
 /** POST /checkout/confirm  (ajuste ao seu fluxo de pedido) */
 async function confirm(req, res) {
   try {
-    const selections = JSON.parse(req.body.shippingSelections || '[]');
-    // persista o pedido, etc.
-    res.redirect('/pedido/confirmado');
+    const cart = getCart(req);
+    const fixedShipping = 15;
+    const subtotal = cart.totalPrice || 0;
+    const grandTotal = subtotal + fixedShipping;
+
+    req.session.totals = {
+      subtotal: subtotal,
+      shipping: fixedShipping,
+      grand: grandTotal,
+    };
+
+    res.redirect('/payment');
   } catch (e) {
     console.error(e);
-    res.status(400).send('Erro ao finalizar');
+    res.status(400).send('Erro ao processar o checkout');
   }
 }
 

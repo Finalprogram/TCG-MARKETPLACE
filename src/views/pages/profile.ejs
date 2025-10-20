@@ -18,6 +18,9 @@
                     <p class="profile-business-name"><strong><%= profileUser.businessName %></strong></p>
                 <% } %>
                 <p class="profile-member-since">Membro desde <%= profileUser.createdAt.toLocaleDateString('pt-BR') %></p>
+                <% if (user && user.id === profileUser.id.toString()) { %>
+                    <a href="/dashboard-vendedor" class="btn btn-primary" style="margin-top: 1rem; width: 100%;">Acessar Dashboard</a>
+                <% } %>
             </div>
         </aside>
 

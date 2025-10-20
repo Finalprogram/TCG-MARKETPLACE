@@ -6,29 +6,16 @@
 
   <form action="/checkout/confirm" method="post" id="checkout-form" class="panel" style="background:var(--bg-surface); padding:20px; border-radius:12px; border:1px solid var(--border)">
 
-    <!-- ENDEREÇO / CEP -->
+    <!-- ENDEREÇO SIMPLIFICADO -->
     <div class="form-group">
-      <label>CEP</label>
-      <input class="form-control" name="zip" placeholder="00000-000">
+      <label>Endereço de Entrega</label>
+      <input class="form-control" name="address" placeholder="Rua, Número, Bairro, Cidade - Estado" required>
     </div>
-    <div class="form-group">
-      <label>Endereço</label>
-      <input class="form-control" name="address1" placeholder="Rua / Av.">
-    </div>
-    <div style="display:grid; grid-template-columns: 1fr 140px; gap:12px;">
-      <div class="form-group">
-        <label>Cidade</label>
-        <input class="form-control" name="city">
-      </div>
-      <div class="form-group">
-        <label>UF</label>
-        <input class="form-control" name="state" maxlength="2">
-      </div>
-    </div>
+    <p style="font-size: .9rem; opacity: .8;">Por enquanto, qualquer endereço é válido e o frete é fixo.</p>
 
     <hr style="border-color: var(--border); margin: 16px 0; opacity:.4">
 
-    <h3 style="margin: 10px 0 6px;">Frete por vendedor</h3>
+    <h3 style="margin: 10px 0 6px;">Resumo do Pedido</h3>
 
     <!-- listagem de pacotes + itens (server-render) -->
     <div id="packages">
@@ -54,14 +41,6 @@
               </li>
             <% }) %>
           </ul>
-
-          <!-- o select de frete será preenchido pelo JS quando informar o CEP -->
-          <div class="ck-ship">
-            <select class="ship-select form-control">
-              <option>Informe o CEP acima para cotar</option>
-            </select>
-            <button type="button" class="btn btn-sm btn-add-to-cart">Adicionar ao Carrinho ME</button>
-          </div>
         </div>
       <% }) %>
     </div>
@@ -69,165 +48,25 @@
     <!-- selections (JSON) enviados no POST -->
     <input type="hidden" name="shippingSelections" id="shippingSelections" value="[]">
 
+    <% const fixedShipping = 15; %>
+    <% const grandTotal = totals.subtotal + fixedShipping; %>
+
     <div class="totals" style="margin-top:14px; border-top:1px solid var(--border); padding-top:12px;">
       <div style="display:flex; justify-content:space-between; margin:6px 0;">
         <span>Subtotal</span><strong id="ck-subtotal"><%= formatPrice(totals.subtotal) %></strong>
       </div>
       <div style="display:flex; justify-content:space-between; margin:6px 0;">
-        <span>Frete</span><strong id="ck-shipping"><%= formatPrice(totals.shipping) %></strong>
+        <span>Frete</span><strong id="ck-shipping"><%= formatPrice(fixedShipping) %></strong>
       </div>
       <div class="grand" style="display:flex; justify-content:space-between; margin:10px 0; font-size:1.1rem;">
-        <span>Total</span><strong id="ck-grand" style="color:var(--accent-primary);"><%= formatPrice(totals.grand) %></strong>
+        <span>Total</span><strong id="ck-grand" style="color:var(--accent-primary);"><%= formatPrice(grandTotal) %></strong>
       </div>
     </div>
 
-    <button class="btn btn-primary btn-submit-full" type="submit">Finalizar</button>
+    <button class="btn btn-primary btn-submit-full" type="submit">Ir para Pagamento</button>
   </form>
 </main>
 
 <%- include('../partials/footer') %>
 
-<script>
-(async function(){
-  const formatPrice = (n) => {
-    let priceStr = 'R$ ' + Number(n || 0).toFixed(2).replace('.', ',');
-    if (priceStr.endsWith(',00')) {
-      return priceStr.slice(0, -3);
-    }
-    return priceStr;
-  }
-
-  const zipInput = document.querySelector('input[name="zip"]');
-  const pkWrap   = document.getElementById('packages');
-  const hidden   = document.getElementById('shippingSelections');
-
-  async function refreshQuotes() {
-    const zip = (zipInput?.value || '').replace(/\D/g,'');
-    if (!zip) return;
-
-    const res = await fetch('/checkout/quote-detailed', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ zip })
-    });
-    const data = await res.json();
-    if (!data?.ok) return;
-
-    // só atualiza os selects, mantém a lista de itens renderizada
-    data.packages.forEach((p) => {
-      const box = pkWrap.querySelector(`.ship-package[data-seller="${p.sellerId}"]`);
-      if (!box) return;
-      const sel = box.querySelector('.ship-select');
-      sel.innerHTML = p.options.map(opt => {
-        if (opt.erro) {
-          return `<option disabled>${opt.nome} - ${opt.erro}</option>`;
-        }
-        return `
-          <option value="${opt.servico}"
-                  data-name="${opt.nome}"
-                  data-price="${opt.preco}"
-                  data-eta="${opt.prazoEmDias ?? ''}"
-                  ${opt.servico === p.chosen?.servico ? 'selected' : ''}>
-            ${opt.nome} — ${formatPrice(opt.preco)} ${opt.prazoEmDias ? `(${opt.prazoEmDias}d)` : ''}
-          </option>`;
-      }).join('');
-    });
-
-    // selections padrão
-    const selections = data.packages.map(p => ({
-      sellerId: p.sellerId,
-      serviceCode: p.chosen?.servico,
-      serviceName: p.chosen?.nome,
-      price: Number(p.chosen?.preco || 0),
-      etaDays: p.chosen?.prazoEmDias ?? null
-    }));
-    hidden.value = JSON.stringify(selections);
-
-    // totais
-    document.getElementById('ck-subtotal').textContent = formatPrice(data.totals.subtotal);
-    document.getElementById('ck-shipping').textContent = formatPrice(data.totals.shipping);
-    document.getElementById('ck-grand').textContent    = formatPrice(data.totals.grand);
-  }
-
-  zipInput?.addEventListener('blur', refreshQuotes);
-
-  pkWrap?.addEventListener('change', (e) => {
-    const sel = e.target.closest('.ship-select'); if (!sel) return;
-
-    const current = JSON.parse(hidden.value || '[]');
-    const box = sel.closest('.ship-package');
-    const sellerId = box.dataset.seller;
-
-    const opt = sel.selectedOptions[0];
-    const payload = {
-      sellerId,
-      serviceCode: opt.value,
-      serviceName: opt.dataset.name,
-      price: Number(opt.dataset.price || 0),
-      etaDays: opt.dataset.eta ? Number(opt.dataset.eta) : null
-    };
-
-    const idx = current.findIndex(x => x.sellerId == sellerId);
-    if (idx >= 0) current[idx] = payload; else current.push(payload);
-    hidden.value = JSON.stringify(current);
-
-    // recalcula total na tela
-    const subtotal = Number('<%= totals.subtotal %>');
-    let ship = 0;
-    pkWrap.querySelectorAll('.ship-select').forEach(s => {
-      ship += Number(s.selectedOptions[0]?.dataset.price || 0);
-    });
-    document.getElementById('ck-shipping').textContent = formatPrice(ship);
-    document.getElementById('ck-grand').textContent    = formatPrice(subtotal + ship);
-  });
-
-  pkWrap?.addEventListener('click', async (e) => {
-    const btn = e.target.closest('.btn-add-to-cart');
-    if (!btn) return;
-
-    const box = btn.closest('.ship-package');
-    const sellerId = box.dataset.seller;
-    const sel = box.querySelector('.ship-select');
-    const selectedOption = sel.selectedOptions[0];
-
-    if (!selectedOption || !selectedOption.value) {
-      alert('Por favor, selecione uma opção de frete.');
-      return;
-    }
-
-    const shipping = {
-      servico: selectedOption.value,
-      nome: selectedOption.dataset.name,
-      preco: parseFloat(selectedOption.dataset.price),
-      prazoEmDias: parseInt(selectedOption.dataset.eta, 10),
-    };
-
-    try {
-      btn.disabled = true;
-      btn.textContent = 'Adicionando...';
-
-      const res = await fetch('/checkout/add-to-cart', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sellerId, shipping }),
-      });
-
-      const data = await res.json();
-
-      if (data.ok) {
-        alert('Item adicionado ao carrinho do Melhor Envio com sucesso!');
-        btn.textContent = 'Adicionado';
-      } else {
-        alert(`Erro: ${data.error}`);
-        btn.disabled = false;
-        btn.textContent = 'Adicionar ao Carrinho ME';
-      }
-    } catch (error) {
-      console.error('Erro ao adicionar ao carrinho ME:', error);
-      alert('Ocorreu um erro. Tente novamente.');
-      btn.disabled = false;
-      btn.textContent = 'Adicionar ao Carrinho ME';
-    }
-  });
-})();
-</script>
+<%# O script de cotação de frete foi removido temporariamente %>
