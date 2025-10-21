@@ -29,6 +29,17 @@ const showProfilePage = async (req, res) => {
       return res.status(404).send('Usuário não encontrado.');
     }
 
+    // If the logged-in user is viewing their own profile, update the session with the latest data
+    if (req.session.user && req.session.user.id === profileUser._id.toString()) {
+      req.session.user = {
+        id: profileUser._id.toString(), // Ensure ID is a string
+        username: profileUser.username,
+        accountType: profileUser.accountType,
+        address: profileUser.address, // Also update address if it changed
+        // Add any other relevant user properties you want to keep in the session
+      };
+    }
+
     const listings = await Listing.find({ seller: profileUser._id })
                                   .sort({ createdAt: -1 })
                                   .limit(5)

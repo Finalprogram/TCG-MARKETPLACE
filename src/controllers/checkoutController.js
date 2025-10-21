@@ -272,4 +272,4 @@ async function confirm(req, res) {
   }
 }
 
-module.exports = { showCheckout, quoteDetailed, confirm, addToCart };
+module.exports = { showCheckout, quoteDetailed, confirm };

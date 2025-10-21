@@ -9,6 +9,6 @@ const { isAuthApi } = require('../middleware/auth');
 router.get('/', checkout.showCheckout);
 router.post('/quote-detailed', checkout.quoteDetailed);
 router.post('/confirm', checkout.confirm);
-router.post('/add-to-cart', isAuthApi, checkout.addToCart);
+
 
 module.exports = router;

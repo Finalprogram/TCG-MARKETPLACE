@@ -92,7 +92,7 @@ const loginUser = async (req, res) => {
     req.session.user = {
       id: user._id,
       username: user.username,
-      accountType: 'individual'
+      accountType: user.accountType
     };
     
     // Redireciona para uma página de painel do usuário (que criaremos no futuro)
@@ -145,6 +145,8 @@ const updateAddress = async (req, res) => {
     if (updatedUser) {
         console.log('[updateAddress] Usuário após a atualização:', updatedUser.toObject());
         console.log('[updateAddress] Objeto de endereço salvo:', updatedUser.toObject().address);
+        // Update the session user with the new address information
+        req.session.user.address = updatedUser.address;
     } else {
         console.log('[updateAddress] Nenhum usuário encontrado para atualizar.');
     }

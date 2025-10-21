@@ -16,4 +16,20 @@ const isAuthApi = (req, res, next) => {
   res.status(401).json({ message: 'Não autorizado. Por favor, faça o login.' });
 };
 
-module.exports = { isAuthPage, isAuthApi };
+
+const isAdminPage = (req, res, next) => {
+  if (req.session.user && req.session.user.accountType === 'admin') {
+    return next();
+  }
+  // If not authenticated or not admin, redirect to login or show an error
+  res.redirect('/login'); // Or render an unauthorized page
+};
+
+const isAdminApi = (req, res, next) => {
+  if (req.session.user && req.session.user.accountType === 'admin') {
+    return next();
+  }
+  res.status(403).json({ message: 'Acesso negado. Você não tem permissões de administrador.' });
+};
+
+module.exports = { isAuthPage, isAuthApi, isAdminPage, isAdminApi };

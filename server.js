@@ -46,6 +46,7 @@ const cartRoutes = require('./src/routes/cartRoutes');
 const checkoutRoutes = require('./src/routes/checkoutRoutes');
 const paymentRoutes = require('./src/routes/paymentRoutes');
 const reviewRoutes = require('./src/routes/reviewRoutes');
+const adminRoutes = require('./src/routes/adminRoutes');
 
 // 2. Inicialização do App
 const app = express();
@@ -104,6 +105,7 @@ app.use('/cart', cartRoutes);
 app.use('/checkout', checkoutRoutes);
 app.use('/payment', paymentRoutes);
 app.use('/', reviewRoutes);
+app.use('/admin', adminRoutes);
 
 // 6. Inicia o Servidor
 const cron = require('node-cron');
