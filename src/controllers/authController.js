@@ -37,7 +37,7 @@ const registerUser = async (req, res) => {
     }
 
     if (Object.keys(errors).length > 0) {
-      return res.render('pages/register', { errors, oldInput: req.body });
+      return res.status(400).json({ errors });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -53,12 +53,11 @@ const registerUser = async (req, res) => {
 
     await newUser.save();
 
-    res.redirect('/login?message=registration_success');
+    res.status(201).json({ success: true, message: 'Cadastro realizado com sucesso!' });
 
   } catch (error) {
     console.error("Erro no registro:", error);
-    // Para erros inesperados do servidor, podemos renderizar a página com um erro geral
-    res.render('pages/register', { errors: { general: 'Erro ao registrar usuário. Tente novamente.' }, oldInput: req.body });
+    res.status(500).json({ errors: { general: 'Erro ao registrar usuário. Tente novamente.' } });
   }
 };
 const showLoginPage = (req, res) => {

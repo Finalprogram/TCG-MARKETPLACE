@@ -362,8 +362,11 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ cardId, quantity: 1 })
     });
-    if (res.ok) location.reload();
-    else alert('Não foi possível adicionar a carta.');
+    if (res.ok) {
+      location.reload();
+    } else {
+      window.showToast('Não foi possível adicionar a carta.', 'error');
+    }
   });
   */
 })();

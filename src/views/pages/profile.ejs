@@ -75,6 +75,18 @@
             color: var(--text-muted);
             text-align: right;
         }
+
+        /* Adiciona espaçamento na tabela de anúncios do perfil */
+        .user-listings .table th {
+            padding-left: 15px;
+            padding-right: 15px;
+            text-align: center;
+        }
+        .user-listings .table tbody td {
+            padding: 12px 15px; /* 12px vertical, 15px horizontal */
+            vertical-align: middle;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -186,7 +198,15 @@
                                     <td><%= listing.card.name %></td>
                                     <td><%= listing.condition %></td>
                                     <td><%= listing.language %></td>
-                                    <td>R$ <%= listing.price.toFixed(2) %></td>
+                                    <td>
+                                        <% 
+                                            let priceStr = 'R$ ' + Number(listing.price || 0).toFixed(2).replace('.', ',');
+                                            if (priceStr.endsWith(',00')) {
+                                                priceStr = priceStr.slice(0, -3);
+                                            }
+                                        %>
+                                        <%= priceStr %>
+                                    </td>
                                     <td><%= listing.quantity %></td>
                                     <% if (user && user.id === profileUser.id.toString()) { %>
                                         <td>
