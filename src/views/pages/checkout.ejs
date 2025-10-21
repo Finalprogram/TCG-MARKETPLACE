@@ -48,18 +48,18 @@
     <!-- selections (JSON) enviados no POST -->
     <input type="hidden" name="shippingSelections" id="shippingSelections" value="[]">
 
-    <% const fixedShipping = 15; %>
-    <% const grandTotal = totals.subtotal + fixedShipping; %>
-
     <div class="totals" style="margin-top:14px; border-top:1px solid var(--border); padding-top:12px;">
       <div style="display:flex; justify-content:space-between; margin:6px 0;">
         <span>Subtotal</span><strong id="ck-subtotal"><%= formatPrice(totals.subtotal) %></strong>
       </div>
       <div style="display:flex; justify-content:space-between; margin:6px 0;">
-        <span>Frete</span><strong id="ck-shipping"><%= formatPrice(fixedShipping) %></strong>
+        <span>Frete</span><strong id="ck-shipping"><%= formatPrice(totals.shipping) %></strong>
+      </div>
+      <div style="display:flex; justify-content:space-between; margin:6px 0;">
+        <span>Taxa do Marketplace</span><strong id="ck-marketplace-fee"><%= formatPrice(totals.marketplaceFee) %></strong>
       </div>
       <div class="grand" style="display:flex; justify-content:space-between; margin:10px 0; font-size:1.1rem;">
-        <span>Total</span><strong id="ck-grand" style="color:var(--accent-primary);"><%= formatPrice(grandTotal) %></strong>
+        <span>Total</span><strong id="ck-grand" style="color:var(--accent-primary);"><%= formatPrice(totals.grand) %></strong>
       </div>
     </div>
 

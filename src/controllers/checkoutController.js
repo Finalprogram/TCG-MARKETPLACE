@@ -1,6 +1,7 @@
 // src/controllers/checkoutController.js
 
 const User = require('../models/User');
+const Setting = require('../models/Setting'); // NEW IMPORT
 // const { cotarFrete } = require('../services/correiosClient'); // Comentado para trocar para Melhor Envio
 const { cotarFreteMelhorEnvio, addItemToCart } = require('../services/melhorEnvioClient');
 const { estimatePackageDims } = require('../services/packaging');
@@ -12,6 +13,61 @@ function getCart(req) {
 }
 
 function toMoney(n) { return Number(n || 0); }
+
+// New helper function to calculate fees for cart items
+async function calculateCartFees(cartItems) {
+  let totalMarketplaceFee = 0;
+  let totalSellerNet = 0;
+  let subtotal = 0;
+  const processedItems = [];
+
+  for (const item of cartItems) {
+    const seller = await User.findById(item.vendorId);
+    if (!seller) {
+      console.warn(`Vendedor ${item.vendorId} não encontrado para o item ${item.cardId}.`);
+      item.marketplaceFee = 0;
+      item.sellerNet = item.price * item.qty;
+      processedItems.push(item);
+      totalSellerNet += item.sellerNet;
+      subtotal += item.price * item.qty;
+      continue;
+    }
+
+    let feePercentage = seller.fee_override_percentage;
+
+    if (feePercentage === null || feePercentage === undefined) {
+      const settingKey = `fee_${seller.accountType}_percentage`;
+      const defaultFeeSetting = await Setting.findOne({ key: settingKey });
+      feePercentage = defaultFeeSetting ? defaultFeeSetting.value : 0; // Fallback to 0 if setting not found
+    }
+
+    const itemTotalPrice = item.price * item.qty;
+    const itemMarketplaceFee = itemTotalPrice * (feePercentage / 100);
+    const itemSellerNet = itemTotalPrice - itemMarketplaceFee;
+
+    totalMarketplaceFee += itemMarketplaceFee;
+    totalSellerNet += itemSellerNet;
+    subtotal += itemTotalPrice;
+
+    processedItems.push({
+      ...item,
+      marketplaceFee: Number(itemMarketplaceFee.toFixed(2)),
+      sellerNet: Number(itemSellerNet.toFixed(2)),
+    });
+  }
+
+  const fixedShipping = 15; // This should ideally come from quoteDetailed or user selection
+  const grandTotal = subtotal + fixedShipping; // This is what the buyer pays
+
+  return {
+    processedItems,
+    subtotal: Number(subtotal.toFixed(2)),
+    shipping: Number(fixedShipping.toFixed(2)),
+    grand: Number(grandTotal.toFixed(2)),
+    marketplaceFee: Number(totalMarketplaceFee.toFixed(2)),
+    sellerNet: Number(totalSellerNet.toFixed(2)),
+  };
+}
 
 /** GET /checkout */
 async function showCheckout(req, res) {
@@ -25,12 +81,12 @@ async function showCheckout(req, res) {
     meta: it.meta || {}
   }));
 
-  // subtotal
-  const subtotal = items.reduce((s, i) => s + i.qty * i.price, 0);
+  // Use the new helper function to calculate fees and totals
+  const calculatedTotals = await calculateCartFees(items);
 
-  // agrupa por vendedor
+  // agrupa por vendedor (this part needs to use calculatedTotals.processedItems)
   const map = new Map();
-  for (const it of items) {
+  for (const it of calculatedTotals.processedItems) { // Use processedItems here
     const sid = it.vendorId || 'sem-vendedor';
     const group = map.get(sid) || {
       sellerId: sid,
@@ -44,6 +100,9 @@ async function showCheckout(req, res) {
       qty: it.qty,
       unit: it.price,
       line: Number((it.qty * it.price).toFixed(2)),
+      // Add fee details to item for display if needed
+      marketplaceFee: it.marketplaceFee,
+      sellerNet: it.sellerNet,
     });
     map.set(sid, group);
   }
@@ -51,11 +110,7 @@ async function showCheckout(req, res) {
 
   return res.render('pages/checkout', {
     groups, // <- usado para listar cartas por vendedor
-    totals: {
-      subtotal: Number(subtotal.toFixed(2)),
-      shipping: 0,
-      grand: Number(subtotal.toFixed(2))
-    }
+    totals: calculatedTotals // Pass the full calculated totals object
   });
 }
 
@@ -152,114 +207,68 @@ async function quoteDetailed(req, res) {
 async function confirm(req, res) {
   try {
     const cart = getCart(req);
-    const fixedShipping = 15;
-    const subtotal = cart.totalPrice || 0;
-    const grandTotal = subtotal + fixedShipping;
+    if (!cart || !cart.items || cart.items.length === 0) {
+      return res.status(400).send('Carrinho vazio.');
+    }
+
+    let totalMarketplaceFee = 0;
+    let totalSellerNet = 0;
+    const processedItems = [];
+
+    for (const item of cart.items) {
+      const seller = await User.findById(item.vendorId);
+      if (!seller) {
+        console.warn(`Vendedor ${item.vendorId} não encontrado para o item ${item.cardId}.`);
+        // Decide how to handle this: skip item, throw error, use default fee
+        // For now, we'll skip fee calculation for this item and use 0 fee.
+        item.marketplaceFee = 0;
+        item.sellerNet = item.price * item.qty;
+        processedItems.push(item);
+        totalSellerNet += item.sellerNet;
+        continue;
+      }
+
+      let feePercentage = seller.fee_override_percentage;
+
+      if (feePercentage === null || feePercentage === undefined) {
+        const settingKey = `fee_${seller.accountType}_percentage`;
+        const defaultFeeSetting = await Setting.findOne({ key: settingKey });
+        feePercentage = defaultFeeSetting ? defaultFeeSetting.value : 0; // Fallback to 0 if setting not found
+      }
+
+      const itemTotalPrice = item.price * item.qty;
+      const itemMarketplaceFee = itemTotalPrice * (feePercentage / 100);
+      const itemSellerNet = itemTotalPrice - itemMarketplaceFee;
+
+      totalMarketplaceFee += itemMarketplaceFee;
+      totalSellerNet += itemSellerNet;
+
+      processedItems.push({
+        ...item,
+        marketplaceFee: Number(itemMarketplaceFee.toFixed(2)),
+        sellerNet: Number(itemSellerNet.toFixed(2)),
+      });
+    }
+
+    // Update cart items with calculated fees
+    req.session.cart.items = processedItems;
+
+    const fixedShipping = 15; // This should ideally come from quoteDetailed or user selection
+    const subtotal = cart.totalPrice || 0; // This is the total price of items before fees
+    const grandTotal = subtotal + fixedShipping; // This is what the buyer pays
 
     req.session.totals = {
-      subtotal: subtotal,
-      shipping: fixedShipping,
-      grand: grandTotal,
+      subtotal: Number(subtotal.toFixed(2)),
+      shipping: Number(fixedShipping.toFixed(2)),
+      grand: Number(grandTotal.toFixed(2)),
+      marketplaceFee: Number(totalMarketplaceFee.toFixed(2)),
+      sellerNet: Number(totalSellerNet.toFixed(2)),
     };
 
     res.redirect('/payment');
   } catch (e) {
-    console.error(e);
-    res.status(400).send('Erro ao processar o checkout');
-  }
-}
-
-module.exports = { showCheckout, quoteDetailed, confirm };
-
-/** POST /checkout/add-to-cart */
-async function addToCart(req, res) {
-  try {
-    const { sellerId, shipping } = req.body;
-    const userId = req.session.user.id;
-
-    if (!sellerId || !shipping || !shipping.servico) {
-      return res.status(400).json({ ok: false, error: 'sellerId and shipping service are required' });
-    }
-
-    const cart = getCart(req);
-    const sellerItems = (cart.items || []).filter(item => item.vendorId === sellerId);
-
-    if (sellerItems.length === 0) {
-      return res.status(400).json({ ok: false, error: 'No items in cart for this seller' });
-    }
-
-    const seller = await User.findById(sellerId);
-    const buyer = await User.findById(userId);
-
-    if (!seller || !buyer) {
-      return res.status(404).json({ ok: false, error: 'Seller or buyer not found' });
-    }
-    
-    // Ensure seller and buyer have address information
-    if (!seller.address || !seller.address.cep || !buyer.address || !buyer.address.cep) {
-        return res.status(400).json({ ok: false, error: 'Seller or buyer is missing address information' });
-    }
-
-
-    const { comprimentoCm, larguraCm, alturaCm, pesoKg } = estimatePackageDims(sellerItems);
-    const insuranceValue = sellerItems.reduce((sum, item) => sum + (item.price * item.qty), 0);
-
-    const shipmentDetails = {
-      service: shipping.servico,
-      from: {
-        name: seller.name,
-        phone: seller.phone,
-        email: seller.email,
-        document: seller.document, // Assuming CPF/CNPJ is stored here
-        address: seller.address.street,
-        complement: seller.address.complement,
-        number: seller.address.number,
-        district: seller.address.district,
-        city: seller.address.city,
-        state_abbr: seller.address.state,
-        country_id: 'BR',
-        postal_code: seller.address.cep,
-      },
-      to: {
-        name: buyer.name,
-        phone: buyer.phone,
-        email: buyer.email,
-        document: buyer.document,
-        address: buyer.address.street,
-        complement: buyer.address.complement,
-        number: buyer.address.number,
-        district: buyer.address.district,
-        city: buyer.address.city,
-        state_abbr: buyer.address.state,
-        country_id: 'BR',
-        postal_code: buyer.address.cep,
-      },
-      products: sellerItems.map(item => ({
-        name: item.meta.cardName,
-        quantity: item.qty,
-        unitary_value: item.price,
-      })),
-      volumes: [{
-        height: alturaCm,
-        width: larguraCm,
-        length: comprimentoCm,
-        weight: pesoKg,
-      }],
-      options: {
-        insurance_value: insuranceValue,
-        receipt: false,
-        own_hand: false,
-        non_commercial: true, // Assuming non-commercial shipment
-      },
-    };
-
-    const result = await addItemToCart(shipmentDetails);
-
-    res.json({ ok: true, data: result });
-
-  } catch (e) {
-    console.error('[checkout] addToCart error:', e);
-    res.status(500).json({ ok: false, error: e.message || 'Failed to add to cart' });
+    console.error('Erro ao processar o checkout e calcular taxas:', e);
+    res.status(500).send('Erro no servidor ao processar o checkout');
   }
 }
 

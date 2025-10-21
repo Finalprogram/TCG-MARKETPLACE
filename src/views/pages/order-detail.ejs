@@ -133,6 +133,7 @@
         <div style="text-align: right; margin-top: 1.5rem;">
           <div>Subtotal: <strong><%= formatPrice(order.totals.subtotal) %></strong></div>
           <div>Frete: <strong><%= formatPrice(order.totals.shipping) %></strong></div>
+          <div>Taxa do Marketplace: <strong><%= formatPrice(order.totals.marketplaceFee) %></strong></div>
           <div style="font-size: 1.2rem; margin-top: 8px;">Total: <strong style="color: var(--accent-primary);"><%= formatPrice(order.totals.grand) %></strong></div>
         </div>
       </div>

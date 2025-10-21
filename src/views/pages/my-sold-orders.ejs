@@ -121,7 +121,10 @@
             <% order.items.forEach(item => { %>
               <div class="item-row">
                 <span><%= item.cardName %> (Qtd: <%= item.quantity %>)</span>
-                <span><%= formatPrice(item.price * item.quantity) %></span>
+                <div style="text-align: right;">
+                  <div style="font-size: 0.9em; color: var(--text-muted);">Preço Bruto: <%= formatPrice(item.price * item.quantity) %></div>
+                  <div>Líquido Vendedor: <strong><%= formatPrice(item.sellerNet) %></strong></div>
+                </div>
               </div>
             <% }) %>
           </div>

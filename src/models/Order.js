@@ -29,6 +29,8 @@ const orderItemSchema = new mongoose.Schema({
   cardName: String,
   sellerName: String,
   isReviewed: { type: Boolean, default: false },
+  marketplaceFee: { type: Number, required: true },
+  sellerNet: { type: Number, required: true },
 });
 
 const orderSchema = new mongoose.Schema({
@@ -41,7 +43,9 @@ const orderSchema = new mongoose.Schema({
   totals: {
     subtotal: { type: Number, required: true },
     shipping: { type: Number, required: true },
-    grand: { type: Number, required: true }
+    grand: { type: Number, required: true },
+    marketplaceFee: { type: Number, required: true },
+    sellerNet: { type: Number, required: true }
   },
   shippingAddress: {
     type: String, // For simplicity, storing the formatted address string

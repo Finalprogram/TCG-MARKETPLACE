@@ -33,6 +33,8 @@ async function processPayment(req, res) {
       price: item.price,
       cardName: item.meta.cardName,
       sellerName: item.meta.sellerName,
+      marketplaceFee: item.marketplaceFee,
+      sellerNet: item.sellerNet,
     }));
 
     const newOrder = new Order({

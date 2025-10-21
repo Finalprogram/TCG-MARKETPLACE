@@ -2,10 +2,25 @@
 const mongoose = require('mongoose');
 const Order = require('../models/Order');
 const Listing = require('../models/Listing');
+const User = require('../models/User');
+const Setting = require('../models/Setting'); // NEW IMPORT
 
 const showSellerDashboard = async (req, res) => {
   try {
     const sellerObjectId = new mongoose.Types.ObjectId(req.session.user.id);
+    const seller = await User.findById(sellerObjectId); // Fetch seller user object
+
+    if (!seller) {
+      return res.status(404).send('Vendedor não encontrado.');
+    }
+
+    // Calculate seller's fee percentage
+    let sellerFeePercentage = seller.fee_override_percentage;
+    if (sellerFeePercentage === null || sellerFeePercentage === undefined) {
+      const settingKey = `fee_${seller.accountType}_percentage`;
+      const defaultFeeSetting = await Setting.findOne({ key: settingKey });
+      sellerFeePercentage = defaultFeeSetting ? defaultFeeSetting.value : 0; // Fallback to 0 if setting not found
+    }
 
     // 1. Contar anúncios ativos
     const activeListingsCount = await Listing.countDocuments({ seller: sellerObjectId });
