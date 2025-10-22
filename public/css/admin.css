@@ -28,7 +28,6 @@ body {
 .admin-content {
     flex-grow: 1;
     padding: 20px;
-    background-color: #f8f9fa;
 }
 .admin-header {
     background-color: #007bff;
