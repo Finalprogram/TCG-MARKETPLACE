@@ -3,6 +3,12 @@
 const Order = require('../models/Order');
 const User = require('../models/User');
 const Listing = require('../models/Listing');
+const { MercadoPagoConfig, Preference } = require('mercadopago');
+
+// Configura as credenciais do Mercado Pago
+console.log("MERCADO_PAGO_ACCESS_TOKEN:", process.env.MERCADO_PAGO_ACCESS_TOKEN ? "Loaded" : "Not Loaded");
+const client = new MercadoPagoConfig({ accessToken: process.env.MERCADO_PAGO_ACCESS_TOKEN, options: { timeout: 5000 } });
+const preference = new Preference(client);
 
 /** GET /payment */
 function showPayment(req, res) {
@@ -82,4 +88,55 @@ async function processPayment(req, res) {
   }
 }
 
-module.exports = { showPayment, processPayment };
+async function createMercadoPagoPreference(req, res) {
+  try {
+    const { cartItems, totalAmount } = req.body;
+
+    const items = cartItems.map(item => ({
+      title: item.cardName,
+      unit_price: Number(item.price),
+      quantity: Number(item.qty),
+    }));
+
+    const preferenceBody = {
+      items,
+      external_reference: req.session.user.id, // Usar o ID do usuário como referência externa
+      back_urls: {
+        success: "http://localhost:3000/payment/mercadopago/success", // TODO: Mudar para URL real
+        pending: "http://localhost:3000/payment/mercadopago/pending", // TODO: Mudar para URL real
+        failure: "http://localhost:3000/payment/mercadopago/failure", // TODO: Mudar para URL real
+      },
+    };
+
+    const response = await preference.create({ body: preferenceBody });
+    res.json({ init_point: response.init_point });
+
+  } catch (error) {
+    console.error("Erro ao criar preferência do Mercado Pago:", error);
+    res.status(500).json({ message: "Erro ao criar preferência de pagamento." });
+  }
+}
+
+async function handleMercadoPagoSuccess(req, res) {
+  const { collection_id, collection_status, payment_id, status, external_reference, preference_id } = req.query;
+  console.log("Mercado Pago Success:", { collection_id, collection_status, payment_id, status, external_reference, preference_id });
+  // TODO: Atualizar o status do pedido no banco de dados para 'Pago'
+  // TODO: Limpar o carrinho do usuário
+  res.render('pages/checkout-success', { message: "Pagamento aprovado!", paymentStatus: status });
+}
+
+async function handleMercadoPagoPending(req, res) {
+  const { collection_id, collection_status, payment_id, status, external_reference, preference_id } = req.query;
+  console.log("Mercado Pago Pending:", { collection_id, collection_status, payment_id, status, external_reference, preference_id });
+  // TODO: Atualizar o status do pedido no banco de dados para 'Pendente'
+  res.render('pages/checkout-success', { message: "Pagamento pendente.", paymentStatus: status });
+}
+
+async function handleMercadoPagoFailure(req, res) {
+  const { collection_id, collection_status, payment_id, status, external_reference, preference_id } = req.query;
+  console.log("Mercado Pago Failure:", { collection_id, collection_status, payment_id, status, external_reference, preference_id });
+  // TODO: Atualizar o status do pedido no banco de dados para 'Falha'
+  res.render('pages/checkout-success', { message: "Pagamento falhou.", paymentStatus: status });
+}
+
+module.exports = { showPayment, processPayment, createMercadoPagoPreference, handleMercadoPagoSuccess, handleMercadoPagoPending, handleMercadoPagoFailure };

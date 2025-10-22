@@ -250,123 +250,122 @@
     }
   });
 
-  // filtros (se sua rota existir)
-  root.addEventListener('change', async (event) => {
-    if (!event.target.classList.contains('filter-select')) return;
+    // filtros (se sua rota existir)
 
-    const panel = event.target.closest('.sellers-panel');
-    const listingsContainer = panel?.querySelector('.sellers-body');
-    const cardId = panel?.closest('[data-card-id]')?.dataset.cardId;
-    if (!panel || !listingsContainer || !cardId) return;
+    root.addEventListener('change', async (event) => {
 
-    const filters = {};
-    panel.querySelectorAll('.filter-select').forEach(s => {
-      if (s.value) filters[s.dataset.filter] = s.value;
-    });
+      if (!event.target.classList.contains('filter-select')) return;
 
-    listingsContainer.innerHTML = '<div class="no-sellers">Atualizando…</div>';
+  
 
-    try {
-      const response = await fetch('/api/list/filter-sellers', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cardId, filters })
+      const panel = event.target.closest('.sellers-panel');
+
+      const listingsContainer = panel?.querySelector('.sellers-body');
+
+      const cardId = panel?.closest('[data-card-id]')?.dataset.cardId;
+
+      if (!panel || !listingsContainer || !cardId) return;
+
+  
+
+      const filters = {};
+
+      panel.querySelectorAll('.filter-select').forEach(s => {
+
+        if (s.value) filters[s.dataset.filter] = s.value;
+
       });
-      const listings = await response.json();
 
-      if (Array.isArray(listings) && listings.length) {
-        listingsContainer.innerHTML = listings.map(v => {
-          const available  = v.availableQty || v.quantity || 0;
-          const price      = Number(v.price || 0);
-          const vendorId   = v.seller?._id || v.vendorId || v._id || v.sellerId || v.seller || '';
-          const sellerName = v.seller?.username || v.sellerName || (v.seller && (v.seller.username || v.seller.name)) || v.seller || 'Vendedor';
-          const condLabel  = v.conditionLabel || v.condition || '—';
-          const langLabel  = v.languageLabel  || v.language  || '—';
-          const isShop     = v.seller && v.seller.accountType === 'shop';
+  
 
-          return `
-            <div class="seller-row vendor-row"
-                 data-cardid="${cardId}"
-                 data-vendorid="${vendorId}"
-                 data-price="${price}"
-                 data-available="${available}">
-              <span class="seller-name">${sellerName} ${isShop ? '<span class="shop-badge">LOJA</span>' : ''}</span>
-              <span>${condLabel}</span>
-              <span>${langLabel}</span>
-              <span>${available}</span>
-              <span class="right price js-price-cell">${money(price)}</span>
-              <span class="right qty-col"></span>
-              <span class="right action-cell"></span>
-            </div>`;
-        }).join('');
-        // injeta controles nas novas linhas
-        window.enhanceVendorRows?.(panel);
-      } else {
-        listingsContainer.innerHTML = '<div class="no-sellers">Nenhum anúncio encontrado com estes filtros.</div>';
+      listingsContainer.innerHTML = '<div class="no-sellers">Atualizando…</div>';
+
+  
+
+      try {
+
+        const response = await fetch('/api/list/filter-sellers', {
+
+          method: 'POST',
+
+          headers: { 'Content-Type': 'application/json' },
+
+          body: JSON.stringify({ cardId, filters })
+
+        });
+
+        const listings = await response.json();
+
+  
+
+        if (Array.isArray(listings) && listings.length) {
+
+          listingsContainer.innerHTML = listings.map(v => {
+
+            const available  = v.availableQty || v.quantity || 0;
+
+            const price      = Number(v.price || 0);
+
+            const vendorId   = v.seller?._id || v.vendorId || v._id || v.sellerId || v.seller || '';
+
+            const sellerName = v.seller?.username || v.sellerName || (v.seller && (v.seller.username || v.seller.name)) || v.seller || 'Vendedor';
+
+            const condLabel  = v.conditionLabel || v.condition || '—';
+
+            const langLabel  = v.languageLabel  || v.language  || '—';
+
+            const isShop     = v.seller && v.seller.accountType === 'shop';
+
+  
+
+            return `
+
+              <div class="seller-row vendor-row"
+
+                   data-cardid="${cardId}"
+
+                   data-vendorid="${vendorId}"
+
+                   data-price="${price}"
+
+                   data-available="${available}">
+
+                <span class="seller-name">${sellerName} ${isShop ? '<span class="shop-badge">LOJA</span>' : ''}</span>
+
+                <span>${condLabel}</span>
+
+                <span>${langLabel}</span>
+
+                <span>${available}</span>
+
+                <span class="right price js-price-cell">${money(price)}</span>
+
+                <span class="right qty-col"></span>
+
+                <span class="right action-cell"></span>
+
+              </div>`;
+
+          }).join('');
+
+          // injeta controles nas novas linhas
+
+          window.enhanceVendorRows?.(panel);
+
+        } else {
+
+          listingsContainer.innerHTML = '<div class="no-sellers">Nenhum anúncio encontrado com estes filtros.</div>';
+
+        }
+
+      } catch (error) {
+
+        console.error('Erro ao atualizar vendedores:', error);
+
+        listingsContainer.innerHTML = '<div class="no-sellers">Erro ao carregar vendedores.</div>';
+
       }
-    } catch (error) {
-      console.error('Erro ao atualizar vendedores:', error);
-      listingsContainer.innerHTML = '<div class="no-sellers">Erro ao carregar vendedores.</div>';
-    }
-  });
-})();
 
-/* ========================================================================
-   MODAL — Adicionar cartas (busca)
-========================================================================= */
-(() => {
-  const openBtn  = qs('#add-more-cards-btn');
-  const modal    = qs('#add-card-modal');
-  const closeBtn = modal?.querySelector('.modal-close-btn');
-  const input    = modal?.querySelector('#modal-search-input');
-  const results  = modal?.querySelector('#modal-search-results');
-  if (!modal) return;
-
-  function open()  { modal.classList.add('active'); input?.focus(); }
-  function close() { modal.classList.remove('active'); }
-
-  openBtn?.addEventListener('click', (e) => { e.preventDefault(); open(); });
-  closeBtn?.addEventListener('click', close);
-  modal?.addEventListener('click', (e) => { if (e.target === modal) close(); });
-
-  let timer;
-  input?.addEventListener('input', () => {
-    clearTimeout(timer);
-    const q = (input.value || '').trim();
-    timer = setTimeout(async () => {
-      if (!q) { if (results) results.innerHTML = ''; return; }
-      const res   = await fetch(`/api/cards/search-available?q=${encodeURIComponent(q)}`);
-      const cards = res.ok ? await res.json() : [];
-      if (!results) return;
-      results.innerHTML = '';
-      cards.forEach(card => {
-        const el = document.createElement('div');
-        el.className = 'search-result-item';
-        el.innerHTML = `
-          <img src="${card.image_url}" alt="${card.name}">
-          <div><h4>${card.name}</h4><p>${card.set_name || 'N/A'}</p></div>
-          <button class="btn-primary add-from-modal-btn" data-cardid="${card._id}">+ Lista</button>`;
-        results.appendChild(el);
-      });
-    }, 300);
-  });
-
-  /*
-  // Este bloco foi comentado por conter uma chamada duplicada para /api/list/add.
-  // Uma implementação mais completa com atualização de UI sem reload já existe no evento de clique do .add-to-list-btn
-  results?.addEventListener('click', async (e) => {
-    const btn = e.target.closest('.add-from-modal-btn'); if (!btn) return;
-    const cardId = btn.dataset.cardid;
-    const res = await fetch('/api/list/add', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ cardId, quantity: 1 })
     });
-    if (res.ok) {
-      location.reload();
-    } else {
-      window.showToast('Não foi possível adicionar a carta.', 'error');
-    }
-  });
-  */
-})();
+
+  })();

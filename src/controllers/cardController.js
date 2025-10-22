@@ -15,6 +15,7 @@ const showCardsPage = async (req, res) => {
     if (req.query.rarity) cardMatchQuery.rarity = req.query.rarity;
     if (req.query.color) cardMatchQuery.colors = new RegExp(req.query.color, 'i');
     if (req.query.type) cardMatchQuery.type_line = req.query.type;
+    if (req.query.q) cardMatchQuery.name = new RegExp(req.query.q, 'i');
 
     // Busca no banco de dados
     const distinctCardIds = await Listing.distinct('card');

@@ -35,6 +35,7 @@
         <!-- Campo de busca opcional -->
         <input type="search" name="q" placeholder="Buscar por nome" value="<%= filters && filters.q ? filters.q : '' %>" />
         <button type="submit" class="btn-primary">Aplicar Filtros</button>
+        <button type="button" id="resetFiltersBtn" class="btn-secondary">Resetar Filtros</button>
       </form>
     </aside>
 
@@ -95,4 +96,5 @@
 </main>
 <script src="/js/card-actions.js" defer></script>
 <script src="/js/list.js" defer></script>
+<script src="/js/cardSearch.js" defer></script>
 <%- include('../partials/footer') %>

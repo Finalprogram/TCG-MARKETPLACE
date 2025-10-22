@@ -197,6 +197,24 @@ h4 { font-size: 1.1rem; font-weight: 700; }
 /* --- 4.2. Página de Busca e Lista (/cards/magic, /lista) --- */
 .search-container { display: flex; gap: 2rem; margin-top: 2rem; }
 .filters { flex: 0 0 250px; }
+.filters input[type="search"] {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--bg-surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  margin-bottom: 1rem; /* Add some space below the search input */
+}
+.filters input[type="search"]::placeholder {
+  color: var(--text-secondary);
+}
+.filters input[type="search"]:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(129, 92, 246, 0.2);
+}
 .results { flex: 1; }
 .filter-group { margin-bottom: 1.5rem; }
 .filter-group h4 { margin-bottom: 0.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
