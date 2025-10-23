@@ -48,8 +48,15 @@ const orderSchema = new mongoose.Schema({
     sellerNet: { type: Number, required: true }
   },
   shippingAddress: {
-    type: String, // For simplicity, storing the formatted address string
-    required: true
+    street: { type: String, required: true },
+    number: { type: String, required: true },
+    complement: { type: String },
+    district: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    cep: { type: String, required: true },
+    name: { type: String, required: true },
+    phone: { type: String, required: true },
   },
   status: {
     type: String,

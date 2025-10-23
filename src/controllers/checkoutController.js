@@ -121,8 +121,8 @@ async function showCheckout(req, res) {
 /** POST /checkout/quote-detailed */
 async function quoteDetailed(req, res) {
   try {
-    const { zip } = req.body || {};
-    if (!zip) return res.json({ ok: false, error: 'zip required' });
+    const { cep } = req.body || {};
+    if (!cep) return res.json({ ok: false, error: 'cep required' });
 
     const cart = getCart(req);
     const items = cart.items || [];
@@ -162,7 +162,7 @@ async function quoteDetailed(req, res) {
       const services = '1,2,18'; // Exemplo: PAC, SEDEX, Jadlog.Package
       const options = await cotarFreteMelhorEnvio({
         fromPostalCode: cepOrigem,
-        toPostalCode: zip,
+        toPostalCode: cep,
         pkg: {
           width: larguraCm,
           height: alturaCm,
@@ -210,7 +210,7 @@ async function quoteDetailed(req, res) {
 /** POST /checkout/confirm  (ajuste ao seu fluxo de pedido) */
 async function confirm(req, res) {
   try {
-    const { shippingSelections, address } = req.body;
+    const { shippingSelections, shippingAddress } = req.body;
     const cart = getCart(req);
     if (!cart || !cart.items || cart.items.length === 0) {
       return res.status(400).send('Carrinho vazio ou inválido.');
@@ -220,6 +220,9 @@ async function confirm(req, res) {
       req.session.message = { type: 'error', text: 'Por favor, calcule e selecione uma opção de frete.' };
       return res.redirect('/checkout');
     }
+
+    // Armazenar o endereço de entrega na sessão para uso posterior no pagamento
+    req.session.shippingAddress = shippingAddress;
 
     let totalMarketplaceFee = 0;
     let totalSellerNet = 0;

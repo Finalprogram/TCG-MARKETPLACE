@@ -28,9 +28,12 @@ async function processPayment(req, res) {
       return res.status(400).send('Carrinho vazio ou inválido.');
     }
 
-    // Para o endereço, vamos usar um placeholder por enquanto, como definido no checkout
-    // Em um fluxo real, pegaríamos o endereço selecionado pelo usuário
-    const placeholderAddress = "Endereço de entrega placeholder";
+    // Obter o endereço de entrega estruturado da sessão
+    const shippingAddress = req.session.shippingAddress;
+    if (!shippingAddress) {
+      logger.error('Endereço de entrega não encontrado na sessão ao processar pagamento.');
+      return res.status(400).send('Endereço de entrega não fornecido.');
+    }
 
     const orderItems = cart.items.map(item => ({
       card: item.cardId,
@@ -99,9 +102,12 @@ async function createMercadoPagoPreference(req, res) {
       return res.status(400).json({ message: 'Carrinho vazio ou inválido.' });
     }
 
-    // Para o endereço, vamos usar um placeholder por enquanto, como definido no checkout
-    // Em um fluxo real, pegaríamos o endereço selecionado pelo usuário
-    const placeholderAddress = "Endereço de entrega placeholder"; // TODO: Obter endereço real do usuário
+    // Obter o endereço de entrega estruturado da sessão
+    const shippingAddress = req.session.shippingAddress;
+    if (!shippingAddress) {
+      logger.error('Endereço de entrega não encontrado na sessão ao criar preferência de MP.');
+      return res.status(400).json({ message: 'Endereço de entrega não fornecido.' });
+    }
 
     const orderItems = cart.items.map(item => ({
       card: item.cardId,

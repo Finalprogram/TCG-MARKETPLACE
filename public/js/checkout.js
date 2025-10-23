@@ -7,13 +7,62 @@ document.addEventListener('DOMContentLoaded', () => {
   const shippingEl = document.getElementById('ck-shipping');
   const grandTotalEl = document.getElementById('ck-grand');
 
+  // Campos de endereço para preenchimento automático
+  const streetInput = document.getElementById('shipping-street');
+  const districtInput = document.getElementById('shipping-district');
+  const cityInput = document.getElementById('shipping-city');
+  const stateInput = document.getElementById('shipping-state');
+  const numberInput = document.getElementById('shipping-number');
+
   let subtotal = parseFloat(subtotalEl.textContent.replace('R$', '').replace('.', '').replace(',', '.'));
+
+  // Função para limpar os campos de endereço
+  function clearAddressFields() {
+    streetInput.value = '';
+    districtInput.value = '';
+    cityInput.value = '';
+    stateInput.value = '';
+  }
+
+  // Event listener para preenchimento automático do CEP
+  if (zipInput) {
+    zipInput.addEventListener('blur', async () => {
+      const cep = zipInput.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+      if (cep.length !== 8) {
+        clearAddressFields();
+        return;
+      }
+
+      try {
+        const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        const data = await response.json();
+
+        if (data.erro) {
+          clearAddressFields();
+          alert('CEP não encontrado.');
+          zipInput.focus();
+        } else {
+          streetInput.value = data.logradouro;
+          districtInput.value = data.bairro;
+          cityInput.value = data.localidade;
+          stateInput.value = data.uf;
+          numberInput.focus(); // Foca no número após preencher
+        }
+      } catch (error) {
+        console.error('Erro ao buscar CEP:', error);
+        clearAddressFields();
+        alert('Erro ao buscar CEP. Tente novamente.');
+        zipInput.focus();
+      }
+    });
+  }
 
   if (calculateShippingBtn) {
     calculateShippingBtn.addEventListener('click', async () => {
-      const zip = zipInput.value;
-      if (!zip) {
-        alert('Por favor, informe o CEP.');
+      const cep = zipInput.value.replace(/\D/g, '');
+      if (!cep || cep.length !== 8) {
+        alert('Por favor, informe um CEP válido.');
         return;
       }
 
@@ -23,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ zip }),
+          body: JSON.stringify({ cep }),
         });
 
         const data = await response.json();

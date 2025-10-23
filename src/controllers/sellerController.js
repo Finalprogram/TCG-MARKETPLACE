@@ -157,10 +157,8 @@ const generateMelhorEnvioLabel = async (req, res) => {
       return res.status(400).json({ message: 'Endereço do vendedor não configurado. Por favor, complete seu perfil.' });
     }
 
-    // Buyer's address is in order.shippingAddress (string), need to parse or ensure it's structured
-    // For simplicity, assuming order.shippingAddress is a string that can be used directly or parsed.
-    // In a real app, you'd likely store structured address data for the buyer too.
-    const buyerAddress = order.shippingAddress; // This needs to be parsed into components for Melhor Envio
+    // Buyer's address is now structured in order.shippingAddress
+    const buyerAddress = order.shippingAddress;
 
     // Placeholder for package details. In a real app, this would come from product data or seller input.
     const pkg = {
@@ -184,9 +182,6 @@ const generateMelhorEnvioLabel = async (req, res) => {
     // logger.info('Cotação de frete:', freightQuote);
 
     // 2. Adicionar item ao carrinho do Melhor Envio
-    // NOTE: The Melhor Envio API expects structured address objects for 'from' and 'to'
-    // The 'order.shippingAddress' is currently a string. This needs to be properly structured.
-    // For this example, I'll make a simplified assumption or use placeholder structure.
     const shipmentDetails = {
       from: {
         name: seller.fullName || seller.username,
@@ -205,20 +200,20 @@ const generateMelhorEnvioLabel = async (req, res) => {
         postal_code: seller.address.cep,
       },
       to: {
-        name: order.user.fullName || order.user.username,
-        phone: order.user.phone || '99999999999', // Placeholder
-        email: order.user.email,
+        name: buyerAddress.name,
+        phone: buyerAddress.phone,
+        email: order.user.email, // Assuming user email is available via populate
         document: order.user.document || '00000000000', // Placeholder CPF/CNPJ
         company_document: null,
         state_register: null,
-        address: buyerAddress.split(', ')[0] || 'Rua do Comprador', // Simplified parsing
-        complement: '',
-        number: buyerAddress.split(', ')[1] || 'SN', // Simplified parsing
-        district: 'Bairro do Comprador', // Placeholder
-        city: 'Cidade do Comprador', // Placeholder
-        state: 'SP', // Placeholder
+        address: buyerAddress.street,
+        complement: buyerAddress.complement || '',
+        number: buyerAddress.number,
+        district: buyerAddress.district,
+        city: buyerAddress.city,
+        state: buyerAddress.state,
         country_id: 'BR',
-        postal_code: buyerAddress.split('-').pop() || '00000000', // Simplified parsing
+        postal_code: buyerAddress.cep,
       },
       service: serviceId,
       package: pkg,

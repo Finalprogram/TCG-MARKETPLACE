@@ -12,10 +12,43 @@
 
   <form action="/checkout/confirm" method="post" id="checkout-form" class="panel" style="background:var(--bg-surface); padding:20px; border-radius:12px; border:1px solid var(--border)">
 
-    <!-- ENDEREÇO SIMPLIFICADO -->
+    <!-- ENDEREÇO E INFORMAÇÕES DE CONTATO -->
+    <h3 style="margin: 10px 0 6px;">Informações de Entrega</h3>
     <div class="form-group">
-      <label>Endereço de Entrega</label>
-      <input class="form-control" name="address" placeholder="Rua, Número, Bairro, Cidade - Estado" required>
+      <label for="shipping-name">Nome Completo</label>
+      <input class="form-control" id="shipping-name" name="shippingAddress[name]" placeholder="Seu nome completo" required>
+    </div>
+    <div class="form-group">
+      <label for="shipping-phone">Telefone</label>
+      <input class="form-control" id="shipping-phone" name="shippingAddress[phone]" placeholder="(XX) XXXXX-XXXX" required>
+    </div>
+    <div class="form-group">
+      <label for="zip-input">CEP</label>
+      <input class="form-control" id="zip-input" name="shippingAddress[cep]" placeholder="Digite seu CEP" required>
+    </div>
+    <div class="form-group">
+      <label for="shipping-street">Rua</label>
+      <input class="form-control" id="shipping-street" name="shippingAddress[street]" placeholder="Nome da Rua" required>
+    </div>
+    <div class="form-group">
+      <label for="shipping-number">Número</label>
+      <input class="form-control" id="shipping-number" name="shippingAddress[number]" placeholder="Número" required>
+    </div>
+    <div class="form-group">
+      <label for="shipping-complement">Complemento (Opcional)</label>
+      <input class="form-control" id="shipping-complement" name="shippingAddress[complement]" placeholder="Apto, Bloco, etc.">
+    </div>
+    <div class="form-group">
+      <label for="shipping-district">Bairro</label>
+      <input class="form-control" id="shipping-district" name="shippingAddress[district]" placeholder="Bairro" required>
+    </div>
+    <div class="form-group">
+      <label for="shipping-city">Cidade</label>
+      <input class="form-control" id="shipping-city" name="shippingAddress[city]" placeholder="Cidade" required>
+    </div>
+    <div class="form-group">
+      <label for="shipping-state">Estado</label>
+      <input class="form-control" id="shipping-state" name="shippingAddress[state]" placeholder="Estado" required>
     </div>
 
     <hr style="border-color: var(--border); margin: 16px 0; opacity:.4">
@@ -23,10 +56,6 @@
     <!-- CÁLCULO DE FRETE -->
     <div class="shipping-quote-section">
       <h3 style="margin: 10px 0 6px;">Calcular Frete</h3>
-      <div class="form-group">
-        <label for="zip-input">CEP de Entrega</label>
-        <input class="form-control" id="zip-input" name="zip" placeholder="Digite seu CEP" required>
-      </div>
       <button type="button" id="calculate-shipping-btn" class="btn btn-secondary">Calcular</button>
       <div id="shipping-options-container" style="margin-top: 1rem;"></div>
     </div>
