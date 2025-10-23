@@ -19,4 +19,7 @@ router.get('/mercadopago/success', isAuthPage, paymentController.handleMercadoPa
 router.get('/mercadopago/pending', isAuthPage, paymentController.handleMercadoPagoPending);
 router.get('/mercadopago/failure', isAuthPage, paymentController.handleMercadoPagoFailure);
 
+// Rota para o webhook de notificações do Mercado Pago
+router.post('/mercadopago/webhook', paymentController.handleMercadoPagoWebhook);
+
 module.exports = router;

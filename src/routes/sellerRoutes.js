@@ -40,5 +40,7 @@ router.get('/meus-pedidos-vendidos', isAuthPage, sellerController.showSoldOrders
 // Rota para marcar um pedido como enviado
 router.post('/pedidos-vendidos/:orderId/marcar-enviado', isAuthPage, sellerController.markAsShipped);
 
+// Nova rota para gerar etiqueta do Melhor Envio
+router.post('/orders/:orderId/generate-label', isAuthPage, sellerController.generateMelhorEnvioLabel);
 
 module.exports = router;
