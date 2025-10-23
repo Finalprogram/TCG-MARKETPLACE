@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const logger = require('../config/logger');
+const crypto = require('crypto');
+const { sendVerificationEmail } = require('../services/emailService');
 
 // Função para MOSTRAR a página de registro
 const showRegisterPage = (req, res) => {
@@ -44,23 +46,61 @@ const registerUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    // Gerar token de verificação
+    const verificationToken = crypto.randomBytes(32).toString('hex');
+    const verificationTokenExpires = Date.now() + 3600000; // 1 hora
+
     // --- CRIAÇÃO DO NOVO USUÁRIO (SEMPRE PESSOA FÍSICA) ---
     const newUser = new User({
       username,
       email,
       password: hashedPassword,
       accountType: 'individual', // Definido como 'individual' diretamente
+      isVerified: false,
+      verificationToken,
+      verificationTokenExpires,
     });
 
     await newUser.save();
 
-    res.status(201).json({ success: true, message: 'Cadastro realizado com sucesso!' });
+    // Enviar email de verificação
+    await sendVerificationEmail(newUser.email, verificationToken);
+
+    res.status(201).json({ success: true, message: 'Cadastro realizado com sucesso! Por favor, verifique seu email para ativar sua conta.' });
 
   } catch (error) {
     logger.error("Erro no registro:", error);
     res.status(500).json({ errors: { general: 'Erro ao registrar usuário. Tente novamente.' } });
   }
 };
+
+async function verifyEmail(req, res) {
+  try {
+    const { token } = req.query;
+
+    const user = await User.findOne({ verificationToken: token });
+
+    if (!user) {
+      return res.status(400).send('Token de verificação inválido ou expirado.');
+    }
+
+    if (user.verificationTokenExpires < Date.now()) {
+      return res.status(400).send('Token de verificação expirado. Por favor, registre-se novamente.');
+    }
+
+    user.isVerified = true;
+    user.verificationToken = undefined;
+    user.verificationTokenExpires = undefined;
+    await user.save();
+
+    res.send('Email verificado com sucesso! Você já pode fazer login.');
+
+  } catch (error) {
+    logger.error('Erro ao verificar email:', error);
+    res.status(500).send('Erro ao verificar email.');
+  }
+}
+
 const showLoginPage = (req, res) => {
   res.render('pages/login'); // Vamos criar esta página no próximo passo
 };
@@ -89,6 +129,11 @@ const loginUser = async (req, res) => {
     }
 
     // SUCESSO! A senha corresponde.
+    // Verifica se o email do usuário foi verificado
+    if (!user.isVerified) {
+      return res.status(401).send('Por favor, verifique seu email para ativar sua conta.');
+    }
+
     // Salvamos as informações do usuário na sessão para "lembrar" que ele está logado.
     req.session.user = {
       id: user._id,
@@ -168,5 +213,6 @@ module.exports = {
   showLoginPage,
   loginUser,
   logoutUser,
-  updateAddress
+  updateAddress,
+  verifyEmail
 };

@@ -10,6 +10,9 @@ router.get('/register', authController.showRegisterPage);
 // Rota para receber os dados do formulário de registro
 router.post('/register', authController.registerUser);
 
+// Rota para verificação de email
+router.get('/verify-email', authController.verifyEmail);
+
 // --- NOVAS ROTAS DE LOGIN ---
 // Rota para exibir a página de login
 router.get('/login', authController.showLoginPage);

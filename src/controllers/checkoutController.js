@@ -108,9 +108,13 @@ async function showCheckout(req, res) {
   }
   const groups = Array.from(map.values());
 
+  const message = req.session.message;
+  delete req.session.message; // Clear the message after displaying it
+
   return res.render('pages/checkout', {
     groups, // <- usado para listar cartas por vendedor
-    totals: calculatedTotals // Pass the full calculated totals object
+    totals: calculatedTotals, // Pass the full calculated totals object
+    message, // Pass the message to the template
   });
 }
 
@@ -206,10 +210,15 @@ async function quoteDetailed(req, res) {
 /** POST /checkout/confirm  (ajuste ao seu fluxo de pedido) */
 async function confirm(req, res) {
   try {
-    const { shippingSelections } = req.body;
+    const { shippingSelections, address } = req.body;
     const cart = getCart(req);
     if (!cart || !cart.items || cart.items.length === 0) {
-      return res.status(400).send('Carrinho vazio.');
+      return res.status(400).send('Carrinho vazio ou inválido.');
+    }
+
+    if (!shippingSelections || shippingSelections === '[]') {
+      req.session.message = { type: 'error', text: 'Por favor, calcule e selecione uma opção de frete.' };
+      return res.redirect('/checkout');
     }
 
     let totalMarketplaceFee = 0;

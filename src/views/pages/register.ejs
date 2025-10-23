@@ -19,7 +19,7 @@
 
             <div class="divider">Ou</div>
 
-            <form id="register-form" action="/register" method="POST">
+            <form id="register-form" action="/auth/register" method="POST">
                 <div class="form-group">
                     <label for="username">Nome de Usuário</label>
                     <input type="text" name="username" id="username" class="form-control" placeholder="Digite seu nome de usuário" required>
@@ -61,7 +61,7 @@
                 submitButton.textContent = 'Enviando...';
 
                 try {
-                    const response = await fetch('/register', {
+                    const response = await fetch('/auth/register', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -73,7 +73,7 @@
                         const result = await response.json();
                         window.showToast(result.message, 'success');
                         setTimeout(() => {
-                            window.location.href = '/login';
+                            window.location.href = '/auth/login';
                         }, 1500); // Aguarda 1.5s para redirecionar
                     } else {
                         const errorData = await response.json();

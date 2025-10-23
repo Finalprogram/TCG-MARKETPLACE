@@ -95,7 +95,7 @@ app.use((req, res, next) => {
 });
 
 // 5. Configuração das Rotas (VÊM POR ÚLTIMO)
-app.use('/', authRoutes);
+app.use('/auth', authRoutes);
 app.use('/', pagesRoutes);
 app.use('/', cardRoutes);
 // app.use('/api', cartRoutes);

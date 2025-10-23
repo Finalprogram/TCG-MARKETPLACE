@@ -125,3 +125,72 @@
 {"level":"info","message":"[melhor-envio] Payload enviado:"}
 {"0":{"cardId":"68e6ba0216fc8fdc82ba356a","quantity":2},"level":"info","message":"Sessão da Lista atualizada:"}
 {"level":"info","message":"[melhor-envio] Payload enviado:"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"0":{"cardId":"68e6ba0216fc8fdc82ba356a","quantity":1},"level":"info","message":"Sessão da Lista atualizada:"}
+{"level":"info","message":"[melhor-envio] Payload enviado:"}
+{"level":"info","message":"[melhor-envio] Payload enviado:"}
+{"level":"info","message":"[melhor-envio] Payload enviado:"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"0":{"cardId":"68e6ba0216fc8fdc82ba356a","quantity":1},"level":"info","message":"Sessão da Lista atualizada:"}
+{"level":"info","message":"[melhor-envio] Payload enviado:"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"code":"EAUTH","command":"AUTH PLAIN","level":"error","message":"Erro ao enviar email de verificação para murilozqz21@gmail.com: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-33dff3adf7bsm4427004a91.4 - gsmtp","response":"535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-33dff3adf7bsm4427004a91.4 - gsmtp","responseCode":535,"stack":"Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-33dff3adf7bsm4427004a91.4 - gsmtp\n    at SMTPConnection._formatError (C:\\Users\\Murilo-PC\\Documents\\GitHub\\Nova pasta\\TCG-MARKETPLACE\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:809:19)\n    at SMTPConnection._actionAUTHComplete (C:\\Users\\Murilo-PC\\Documents\\GitHub\\Nova pasta\\TCG-MARKETPLACE\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:1595:34)\n    at SMTPConnection.<anonymous> (C:\\Users\\Murilo-PC\\Documents\\GitHub\\Nova pasta\\TCG-MARKETPLACE\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:556:26)\n    at SMTPConnection._processResponse (C:\\Users\\Murilo-PC\\Documents\\GitHub\\Nova pasta\\TCG-MARKETPLACE\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:993:20)\n    at SMTPConnection._onData (C:\\Users\\Murilo-PC\\Documents\\GitHub\\Nova pasta\\TCG-MARKETPLACE\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:774:14)\n    at SMTPConnection._onSocketData (C:\\Users\\Murilo-PC\\Documents\\GitHub\\Nova pasta\\TCG-MARKETPLACE\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:195:44)\n    at TLSSocket.emit (node:events:518:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"code":"EAUTH","command":"AUTH PLAIN","level":"error","message":"Erro ao enviar email de verificação para murilozqz21@gmail.com: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-33dfb1db6aasm4532991a91.0 - gsmtp","response":"535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-33dfb1db6aasm4532991a91.0 - gsmtp","responseCode":535,"stack":"Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-33dfb1db6aasm4532991a91.0 - gsmtp\n    at SMTPConnection._formatError (C:\\Users\\Murilo-PC\\Documents\\GitHub\\Nova pasta\\TCG-MARKETPLACE\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:809:19)\n    at SMTPConnection._actionAUTHComplete (C:\\Users\\Murilo-PC\\Documents\\GitHub\\Nova pasta\\TCG-MARKETPLACE\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:1595:34)\n    at SMTPConnection.<anonymous> (C:\\Users\\Murilo-PC\\Documents\\GitHub\\Nova pasta\\TCG-MARKETPLACE\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:556:26)\n    at SMTPConnection._processResponse (C:\\Users\\Murilo-PC\\Documents\\GitHub\\Nova pasta\\TCG-MARKETPLACE\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:993:20)\n    at SMTPConnection._onData (C:\\Users\\Murilo-PC\\Documents\\GitHub\\Nova pasta\\TCG-MARKETPLACE\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:774:14)\n    at SMTPConnection._onSocketData (C:\\Users\\Murilo-PC\\Documents\\GitHub\\Nova pasta\\TCG-MARKETPLACE\\node_modules\\nodemailer\\lib\\smtp-connection\\index.js:195:44)\n    at TLSSocket.emit (node:events:518:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"level":"info","message":"Email de verificação enviado para murilozqz21@gmail.com"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"level":"info","message":"Email de verificação enviado para guih.rossetty@gmail.com"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"0":{"cardId":"68e6ba0216fc8fdc82ba356a","quantity":1},"level":"info","message":"Sessão da Lista atualizada:"}
+{"level":"info","message":"[melhor-envio] Payload enviado:"}
+{"level":"error","message":"[melhor-envio] Falha ao calcular o frete: [melhor-envio] 401 Unauthorized {\"message\":\"Unauthenticated.\"}"}
+{"level":"info","message":"[melhor-envio] Payload enviado:"}
+{"level":"error","message":"[melhor-envio] Falha ao calcular o frete: [melhor-envio] 401 Unauthorized {\"message\":\"Unauthenticated.\"}"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"0":{"cardId":"68e6b97716fc8fdc82ba33ae","quantity":1},"level":"info","message":"Sessão da Lista atualizada:"}
+{"level":"info","message":"[melhor-envio] Payload enviado:"}
+{"level":"info","message":"[melhor-envio] Payload enviado:"}

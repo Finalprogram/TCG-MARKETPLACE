@@ -4,6 +4,12 @@
 
   <h1 style="margin: 24px 0 16px;">Checkout</h1>
 
+  <% if (typeof message !== 'undefined' && message) { %>
+    <div class="alert alert-<%= message.type %>" role="alert">
+      <%= message.text %>
+    </div>
+  <% } %>
+
   <form action="/checkout/confirm" method="post" id="checkout-form" class="panel" style="background:var(--bg-surface); padding:20px; border-radius:12px; border:1px solid var(--border)">
 
     <!-- ENDEREÇO SIMPLIFICADO -->
