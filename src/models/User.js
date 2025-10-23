@@ -27,6 +27,18 @@ const UserSchema = new mongoose.Schema({
     state: { type: String },
   },
 
+  defaultShippingAddress: {
+    street: { type: String },
+    number: { type: String },
+    complement: { type: String },
+    district: { type: String },
+    city: { type: String },
+    state: { type: String },
+    cep: { type: String },
+    name: { type: String },
+    phone: { type: String },
+  },
+
 
   // --- O NOVO CAMPO MÁGICO ---
   // Se este campo tiver um valor, ele SOBRESCREVE a taxa padrão.

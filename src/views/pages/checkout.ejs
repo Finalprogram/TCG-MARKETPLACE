@@ -16,39 +16,39 @@
     <h3 style="margin: 10px 0 6px;">Informações de Entrega</h3>
     <div class="form-group">
       <label for="shipping-name">Nome Completo</label>
-      <input class="form-control" id="shipping-name" name="shippingAddress[name]" placeholder="Seu nome completo" required>
+      <input class="form-control" id="shipping-name" name="shippingAddress[name]" placeholder="Seu nome completo" required value="<%= defaultShippingAddress ? defaultShippingAddress.name : '' %>">
     </div>
     <div class="form-group">
       <label for="shipping-phone">Telefone</label>
-      <input class="form-control" id="shipping-phone" name="shippingAddress[phone]" placeholder="(XX) XXXXX-XXXX" required>
+      <input class="form-control" id="shipping-phone" name="shippingAddress[phone]" placeholder="(XX) XXXXX-XXXX" required value="<%= defaultShippingAddress ? defaultShippingAddress.phone : '' %>">
     </div>
     <div class="form-group">
       <label for="zip-input">CEP</label>
-      <input class="form-control" id="zip-input" name="shippingAddress[cep]" placeholder="Digite seu CEP" required>
+      <input class="form-control" id="zip-input" name="shippingAddress[cep]" placeholder="Digite seu CEP" required value="<%= defaultShippingAddress ? defaultShippingAddress.cep : '' %>">
     </div>
     <div class="form-group">
       <label for="shipping-street">Rua</label>
-      <input class="form-control" id="shipping-street" name="shippingAddress[street]" placeholder="Nome da Rua" required>
+      <input class="form-control" id="shipping-street" name="shippingAddress[street]" placeholder="Nome da Rua" required value="<%= defaultShippingAddress ? defaultShippingAddress.street : '' %>">
     </div>
     <div class="form-group">
       <label for="shipping-number">Número</label>
-      <input class="form-control" id="shipping-number" name="shippingAddress[number]" placeholder="Número" required>
+      <input class="form-control" id="shipping-number" name="shippingAddress[number]" placeholder="Número" required value="<%= defaultShippingAddress ? defaultShippingAddress.number : '' %>">
     </div>
     <div class="form-group">
       <label for="shipping-complement">Complemento (Opcional)</label>
-      <input class="form-control" id="shipping-complement" name="shippingAddress[complement]" placeholder="Apto, Bloco, etc.">
+      <input class="form-control" id="shipping-complement" name="shippingAddress[complement]" placeholder="Apto, Bloco, etc." value="<%= defaultShippingAddress ? defaultShippingAddress.complement : '' %>">
     </div>
     <div class="form-group">
       <label for="shipping-district">Bairro</label>
-      <input class="form-control" id="shipping-district" name="shippingAddress[district]" placeholder="Bairro" required>
+      <input class="form-control" id="shipping-district" name="shippingAddress[district]" placeholder="Bairro" required value="<%= defaultShippingAddress ? defaultShippingAddress.district : '' %>">
     </div>
     <div class="form-group">
       <label for="shipping-city">Cidade</label>
-      <input class="form-control" id="shipping-city" name="shippingAddress[city]" placeholder="Cidade" required>
+      <input class="form-control" id="shipping-city" name="shippingAddress[city]" placeholder="Cidade" required value="<%= defaultShippingAddress ? defaultShippingAddress.city : '' %>">
     </div>
     <div class="form-group">
       <label for="shipping-state">Estado</label>
-      <input class="form-control" id="shipping-state" name="shippingAddress[state]" placeholder="Estado" required>
+      <input class="form-control" id="shipping-state" name="shippingAddress[state]" placeholder="Estado" required value="<%= defaultShippingAddress ? defaultShippingAddress.state : '' %>">
     </div>
 
     <hr style="border-color: var(--border); margin: 16px 0; opacity:.4">

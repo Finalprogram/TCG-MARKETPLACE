@@ -2,6 +2,7 @@
 
 const User = require('../models/User');
 const Setting = require('../models/Setting'); // NEW IMPORT
+const logger = require('../config/logger'); // Adicionar importação do logger
 // const { cotarFrete } = require('../services/correiosClient'); // Comentado para trocar para Melhor Envio
 const { cotarFreteMelhorEnvio, addItemToCart } = require('../services/melhorEnvioClient');
 const { estimatePackageDims } = require('../services/packaging');
@@ -111,10 +112,20 @@ async function showCheckout(req, res) {
   const message = req.session.message;
   delete req.session.message; // Clear the message after displaying it
 
+  // Obter o endereço de entrega padrão do usuário logado, se existir
+  let defaultShippingAddress = null;
+  if (req.session.user && req.session.user.id) {
+    const user = await User.findById(req.session.user.id);
+    if (user && user.defaultShippingAddress) {
+      defaultShippingAddress = user.defaultShippingAddress;
+    }
+  }
+
   return res.render('pages/checkout', {
     groups, // <- usado para listar cartas por vendedor
     totals: calculatedTotals, // Pass the full calculated totals object
     message, // Pass the message to the template
+    defaultShippingAddress, // Pass the default shipping address to the template
   });
 }
 
@@ -223,13 +234,16 @@ async function confirm(req, res) {
 
     // Armazenar o endereço de entrega na sessão para uso posterior no pagamento
     req.session.shippingAddress = shippingAddress;
+    logger.info('Checkout: shippingAddress salvo na sessão:', req.session.shippingAddress);
 
     let totalMarketplaceFee = 0;
     let totalSellerNet = 0;
     const processedItems = [];
 
     for (const item of cart.items) {
+      logger.info('Confirm: Processando item do carrinho:', item);
       const seller = await User.findById(item.vendorId);
+      logger.info('Confirm: Vendedor encontrado para o item:', seller);
       if (!seller) {
         console.warn(`Vendedor ${item.vendorId} não encontrado para o item ${item.cardId}.`);
         item.marketplaceFee = 0;
@@ -280,9 +294,10 @@ async function confirm(req, res) {
       sellerNet: Number(totalSellerNet.toFixed(2)),
     };
 
+    await req.session.save(); // Salvar a sessão explicitamente antes do redirecionamento
     res.redirect('/payment');
   } catch (e) {
-    console.error('Erro ao processar o checkout e calcular taxas:', e);
+    logger.error('Erro ao processar o checkout e calcular taxas:', e);
     res.status(500).send('Erro no servidor ao processar o checkout');
   }
 }

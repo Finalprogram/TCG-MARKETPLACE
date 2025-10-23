@@ -13,6 +13,7 @@ const preference = new Preference(client);
 
 /** GET /payment */
 function showPayment(req, res) {
+  logger.info('Payment: showPayment - req.session.shippingAddress:', req.session.shippingAddress);
   res.render('pages/payment');
 }
 
@@ -56,6 +57,16 @@ async function processPayment(req, res) {
     });
 
     await newOrder.save();
+
+    // Salvar o endereço de entrega como padrão para o usuário, se logado
+    if (req.session.user && req.session.user.id) {
+      const user = await User.findById(req.session.user.id);
+      if (user) {
+        user.defaultShippingAddress = shippingAddress;
+        await user.save();
+        logger.info(`Endereço de entrega padrão atualizado para o usuário ${user.username}.`);
+      }
+    }
 
     // Atualiza a quantidade do anúncio
     for (const item of orderItems) {
@@ -103,6 +114,7 @@ async function createMercadoPagoPreference(req, res) {
     }
 
     // Obter o endereço de entrega estruturado da sessão
+    logger.info('Payment: shippingAddress da sessão:', req.session.shippingAddress);
     const shippingAddress = req.session.shippingAddress;
     if (!shippingAddress) {
       logger.error('Endereço de entrega não encontrado na sessão ao criar preferência de MP.');
@@ -132,6 +144,16 @@ async function createMercadoPagoPreference(req, res) {
 
     await newOrder.save();
     logger.info(`[payment] Pedido #${newOrder._id} criado para Mercado Pago.`);
+
+    // Salvar o endereço de entrega como padrão para o usuário, se logado
+    if (req.session.user && req.session.user.id) {
+      const user = await User.findById(req.session.user.id);
+      if (user) {
+        user.defaultShippingAddress = shippingAddress;
+        await user.save();
+        logger.info(`Endereço de entrega padrão atualizado para o usuário ${user.username}.`);
+      }
+    }
 
     const items = cart.items.map(item => ({
       title: item.meta.cardName,

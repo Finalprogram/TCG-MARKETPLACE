@@ -251,3 +251,67 @@
 {"level":"info","message":"MongoDB connected"}
 {"0":{"cardId":"68e6ba0216fc8fdc82ba356a","quantity":1},"level":"info","message":"Sessão da Lista atualizada:"}
 {"level":"info","message":"[melhor-envio] Payload enviado:"}
+{"0":{"cardId":"68e6ba0216fc8fdc82ba356a","quantity":2},"level":"info","message":"Sessão da Lista atualizada:"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"0":{"cardId":"68e6ba0216fc8fdc82ba356a","quantity":1},"level":"info","message":"Sessão da Lista atualizada:"}
+{"level":"info","message":"[melhor-envio] Payload enviado:"}
+{"level":"error","message":"Endereço de entrega não encontrado na sessão ao criar preferência de MP."}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"0":{"cardId":"68e6ba0216fc8fdc82ba356a","quantity":1},"level":"info","message":"Sessão da Lista atualizada:"}
+{"level":"info","message":"[melhor-envio] Payload enviado:"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"0":{"cardId":"68e6ba0f16fc8fdc82ba359d","quantity":1},"level":"info","message":"Sessão da Lista atualizada:"}
+{"level":"info","message":"[melhor-envio] Payload enviado:"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"0":{"cardId":"68e6ba0216fc8fdc82ba356a","quantity":1},"level":"info","message":"Sessão da Lista atualizada:"}
+{"level":"info","message":"[melhor-envio] Payload enviado:"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"0":{"cardId":"68e6ba0216fc8fdc82ba356a","quantity":1},"level":"info","message":"Sessão da Lista atualizada:"}
+{"level":"info","message":"[melhor-envio] Payload enviado:"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"0":{"cardId":"68e6ba0216fc8fdc82ba356a","quantity":1},"level":"info","message":"Sessão da Lista atualizada:"}
+{"level":"info","message":"[melhor-envio] Payload enviado:"}
+{"level":"info","message":"Checkout: shippingAddress salvo na sessão:"}
+{"cardId":"68e6ba0216fc8fdc82ba356a","key":"68e6ba0216fc8fdc82ba356a:68f148877f7d1258730482b0","level":"info","message":"Confirm: Processando item do carrinho:","meta":{"available":"1","cardId":"68e6ba0216fc8fdc82ba356a","cardName":"Enies Lobby","condition":"NM","imageUrl":"https://en.onepiece-cardgame.com/images/cardlist/card/OP03-098.png","language":"EN","originZip":null,"sellerId":"68f148877f7d1258730482b0","sellerName":"Muliru"},"price":100,"qty":1,"vendorId":"68f148877f7d1258730482b0"}
+{"$__":{"activePaths":{"paths":{"__v":"init","_id":"init","accountType":"init","address.cep":"init","address.city":"init","address.complement":"init","address.number":"init","address.state":"init","address.street":"init","createdAt":"init","email":"init","fee_override_percentage":"init","isVerified":"init","password":"init","username":"init"},"states":{"default":{},"init":{"__v":true,"_id":true,"accountType":true,"address.cep":true,"address.city":true,"address.complement":true,"address.number":true,"address.state":true,"address.street":true,"createdAt":true,"email":true,"fee_override_percentage":true,"isVerified":true,"password":true,"username":true},"require":{}}},"skipId":true},"$isNew":false,"_doc":{"__v":0,"_id":"68f148877f7d1258730482b0","accountType":"admin","address":{"cep":"13.087-776","city":"campinas","complement":"Empresa","number":"50","state":"SP","street":"Rua Renato Tadeu Dona Giorgio"},"createdAt":"2025-10-16T19:33:27.087Z","defaultShippingAddress":{},"email":"murilobdf14@gmail.com","fee_override_percentage":null,"isVerified":true,"password":"$2b$10$k66A8wrQr8PBw2baPxs6bOGL3022m.GJQnEBGN9t8OkQ5/5WNVlWe","username":"Muliru"},"level":"info","message":"Confirm: Vendedor encontrado para o item:"}
+{"level":"info","message":"Payment: shippingAddress da sessão:"}
+{"level":"error","message":"Endereço de entrega não encontrado na sessão ao criar preferência de MP."}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"0":{"cardId":"68e6ba0216fc8fdc82ba356a","quantity":1},"level":"info","message":"Sessão da Lista atualizada:"}
+{"level":"info","message":"[melhor-envio] Payload enviado:"}
+{"level":"info","message":"Checkout: shippingAddress salvo na sessão:"}
+{"cardId":"68e6ba0216fc8fdc82ba356a","key":"68e6ba0216fc8fdc82ba356a:68f148877f7d1258730482b0","level":"info","message":"Confirm: Processando item do carrinho:","meta":{"available":"1","cardId":"68e6ba0216fc8fdc82ba356a","cardName":"Enies Lobby","condition":"NM","imageUrl":"https://en.onepiece-cardgame.com/images/cardlist/card/OP03-098.png","language":"EN","originZip":null,"sellerId":"68f148877f7d1258730482b0","sellerName":"Muliru"},"price":100,"qty":1,"vendorId":"68f148877f7d1258730482b0"}
+{"$__":{"activePaths":{"paths":{"__v":"init","_id":"init","accountType":"init","address.cep":"init","address.city":"init","address.complement":"init","address.number":"init","address.state":"init","address.street":"init","createdAt":"init","email":"init","fee_override_percentage":"init","isVerified":"init","password":"init","username":"init"},"states":{"default":{},"init":{"__v":true,"_id":true,"accountType":true,"address.cep":true,"address.city":true,"address.complement":true,"address.number":true,"address.state":true,"address.street":true,"createdAt":true,"email":true,"fee_override_percentage":true,"isVerified":true,"password":true,"username":true},"require":{}}},"skipId":true},"$isNew":false,"_doc":{"__v":0,"_id":"68f148877f7d1258730482b0","accountType":"admin","address":{"cep":"13.087-776","city":"campinas","complement":"Empresa","number":"50","state":"SP","street":"Rua Renato Tadeu Dona Giorgio"},"createdAt":"2025-10-16T19:33:27.087Z","defaultShippingAddress":{},"email":"murilobdf14@gmail.com","fee_override_percentage":null,"isVerified":true,"password":"$2b$10$k66A8wrQr8PBw2baPxs6bOGL3022m.GJQnEBGN9t8OkQ5/5WNVlWe","username":"Muliru"},"level":"info","message":"Confirm: Vendedor encontrado para o item:"}
+{"level":"info","message":"Payment: showPayment - req.session.shippingAddress:"}
+{"level":"info","message":"Payment: shippingAddress da sessão:"}
+{"level":"error","message":"Endereço de entrega não encontrado na sessão ao criar preferência de MP."}
+{"level":"info","message":"Payment: showPayment - req.session.shippingAddress:"}
