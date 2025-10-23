@@ -9,26 +9,12 @@
     
     <div class="payment-options" style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
       
-      <!-- Opção 1: Cartão de Crédito -->
-      <form action="/payment/process" method="post">
-        <input type="hidden" name="paymentMethod" value="credit_card">
-        <button type="submit" class="btn btn-primary btn-submit-full">Pagar com Cartão de Crédito</button>
-      </form>
-
-      <!-- Opção 2: Pix -->
-      <form action="/payment/process" method="post">
-        <input type="hidden" name="paymentMethod" value="pix">
-        <button type="submit" class="btn btn-secondary btn-submit-full">Pagar com Pix</button>
-      </form>
-
-      <!-- Opção 3: Boleto -->
-      <form action="/payment/process" method="post">
-        <input type="hidden" name="paymentMethod" value="boleto">
-        <button type="submit" class="btn btn-secondary btn-submit-full">Pagar com Boleto</button>
-      </form>
+      <!-- Opção 4: Mercado Pago -->
+      <button id="mercadopago-button" class="btn btn-primary btn-submit-full" style="margin-top: 1rem;">Pagar com Mercado Pago</button>
 
     </div>
   </div>
 
 </main>
 <%- include('../partials/footer') %>
+<script src="/js/payment.js"></script>

@@ -56,7 +56,7 @@ async function calculateCartFees(cartItems) {
     });
   }
 
-  const fixedShipping = 15; // This should ideally come from quoteDetailed or user selection
+  const fixedShipping = 0; // This should ideally come from quoteDetailed or user selection
   const grandTotal = subtotal + fixedShipping; // This is what the buyer pays
 
   return {
@@ -206,6 +206,7 @@ async function quoteDetailed(req, res) {
 /** POST /checkout/confirm  (ajuste ao seu fluxo de pedido) */
 async function confirm(req, res) {
   try {
+    const { shippingSelections } = req.body;
     const cart = getCart(req);
     if (!cart || !cart.items || cart.items.length === 0) {
       return res.status(400).send('Carrinho vazio.');
@@ -219,8 +220,6 @@ async function confirm(req, res) {
       const seller = await User.findById(item.vendorId);
       if (!seller) {
         console.warn(`Vendedor ${item.vendorId} não encontrado para o item ${item.cardId}.`);
-        // Decide how to handle this: skip item, throw error, use default fee
-        // For now, we'll skip fee calculation for this item and use 0 fee.
         item.marketplaceFee = 0;
         item.sellerNet = item.price * item.qty;
         processedItems.push(item);
@@ -233,7 +232,7 @@ async function confirm(req, res) {
       if (feePercentage === null || feePercentage === undefined) {
         const settingKey = `fee_${seller.accountType}_percentage`;
         const defaultFeeSetting = await Setting.findOne({ key: settingKey });
-        feePercentage = defaultFeeSetting ? defaultFeeSetting.value : 0; // Fallback to 0 if setting not found
+        feePercentage = defaultFeeSetting ? defaultFeeSetting.value : 0;
       }
 
       const itemTotalPrice = item.price * item.qty;
@@ -250,16 +249,20 @@ async function confirm(req, res) {
       });
     }
 
-    // Update cart items with calculated fees
     req.session.cart.items = processedItems;
 
-    const fixedShipping = 15; // This should ideally come from quoteDetailed or user selection
-    const subtotal = cart.totalPrice || 0; // This is the total price of items before fees
-    const grandTotal = subtotal + fixedShipping; // This is what the buyer pays
+    let shippingTotal = 0;
+    if (shippingSelections) {
+      const selections = JSON.parse(shippingSelections);
+      shippingTotal = selections.reduce((total, selection) => total + selection.price, 0);
+    }
+
+    const subtotal = cart.totalPrice || 0;
+    const grandTotal = subtotal + shippingTotal;
 
     req.session.totals = {
       subtotal: Number(subtotal.toFixed(2)),
-      shipping: Number(fixedShipping.toFixed(2)),
+      shipping: Number(shippingTotal.toFixed(2)),
       grand: Number(grandTotal.toFixed(2)),
       marketplaceFee: Number(totalMarketplaceFee.toFixed(2)),
       sellerNet: Number(totalSellerNet.toFixed(2)),

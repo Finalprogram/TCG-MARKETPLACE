@@ -11,7 +11,19 @@
       <label>Endereço de Entrega</label>
       <input class="form-control" name="address" placeholder="Rua, Número, Bairro, Cidade - Estado" required>
     </div>
-    <p style="font-size: .9rem; opacity: .8;">Por enquanto, qualquer endereço é válido e o frete é fixo.</p>
+
+    <hr style="border-color: var(--border); margin: 16px 0; opacity:.4">
+
+    <!-- CÁLCULO DE FRETE -->
+    <div class="shipping-quote-section">
+      <h3 style="margin: 10px 0 6px;">Calcular Frete</h3>
+      <div class="form-group">
+        <label for="zip-input">CEP de Entrega</label>
+        <input class="form-control" id="zip-input" name="zip" placeholder="Digite seu CEP" required>
+      </div>
+      <button type="button" id="calculate-shipping-btn" class="btn btn-secondary">Calcular</button>
+      <div id="shipping-options-container" style="margin-top: 1rem;"></div>
+    </div>
 
     <hr style="border-color: var(--border); margin: 16px 0; opacity:.4">
 
@@ -66,11 +78,11 @@
     <button class="btn btn-primary btn-submit-full" type="submit">Ir para Pagamento</button>
   </form>
 
-  <button id="mercadopago-button" class="btn btn-primary btn-submit-full" style="margin-top: 1rem;">Pagar com Mercado Pago</button>
+
 </main>
 
 <%- include('../partials/footer') %>
 
 <script src="/js/main.js"></script>
 <script src="/js/checkout.js"></script>
-<%# O script de cotação de frete foi removido temporariamente %>
+

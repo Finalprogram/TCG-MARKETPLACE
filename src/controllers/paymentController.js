@@ -91,10 +91,15 @@ async function processPayment(req, res) {
 
 async function createMercadoPagoPreference(req, res) {
   try {
-    const { cartItems, totalAmount } = req.body;
+    const cart = req.session.cart;
+    const totals = req.session.totals;
 
-    const items = cartItems.map(item => ({
-      title: item.cardName,
+    if (!cart || !cart.items || cart.items.length === 0) {
+      return res.status(400).json({ message: 'Carrinho vazio ou inválido.' });
+    }
+
+    const items = cart.items.map(item => ({
+      title: item.meta.cardName,
       unit_price: Number(item.price),
       quantity: Number(item.qty),
     }));
@@ -107,6 +112,7 @@ async function createMercadoPagoPreference(req, res) {
         pending: "http://localhost:3000/payment/mercadopago/pending", // TODO: Mudar para URL real
         failure: "http://localhost:3000/payment/mercadopago/failure", // TODO: Mudar para URL real
       },
+      total_amount: totals.grand,
     };
 
     const response = await preference.create({ body: preferenceBody });

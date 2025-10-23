@@ -2,7 +2,7 @@
 const fetch = (...args) => import('node-fetch').then(({default: f}) => f(...args));
 const logger = require('../config/logger');
 
-const BASE_URL = process.env.MELHOR_ENVIO_BASE_URL || 'https://sandbox.melhorenvio.com.br';
+const BASE_URL = process.env.MELHOR_ENVIO_BASE_URL || 'https://www.melhorenvio.com.br';
 const CALCULATE_PATH = '/api/v2/me/shipment/calculate';
 const TOKEN = process.env.MELHOR_ENVIO_TOKEN;
 const USER_AGENT = process.env.MELHOR_ENVIO_USER_AGENT || 'Aplicação (email para contato técnico)';
