@@ -17,7 +17,8 @@
         <% if (filterGroups && filterGroups.length > 0) { %>
           <% filterGroups.forEach(group => { %>
             <div class="filter-group">
-              <h4><%= group.name %></h4>
+              <h4 class="filter-toggle"><%= group.name %></h4>
+              <div class="filter-options" hidden>
               <% group.options.forEach(option => { 
                    const value = typeof option === 'object' ? option.value : option;
                    const label = typeof option === 'object' ? option.label : option;
@@ -28,6 +29,7 @@
                   <%= label %>
                 </label>
               <% }) %>
+              </div>
             </div>
           <% }) %>
         <% } %>
@@ -98,4 +100,5 @@
 <script src="/js/card-actions.js" defer></script>
 <script src="/js/list.js" defer></script>
 <script src="/js/cardSearch.js" defer></script>
+<script src="/js/accordion-filters.js"></script>
 <%- include('../partials/footer') %>
