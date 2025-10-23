@@ -1,11 +1,14 @@
 {
-  "name": "tcg-marketplace",
+  "name": "card-no-mi",
   "version": "1.0.0",
-  "description": "TCG Marketplace que engloba todos os TCGs",
+  "description": "Car'D No Mi - Um marketplace para todos os TCGs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "pm2 start server.js --name card-no-mi -o logs/app.log -e logs/app.log --log-date-format",
+    "stop": "pm2 stop card-no-mi",
+    "restart": "pm2 restart card-no-mi",
+    "monit": "pm2 monit",
     "dev": "npx nodemon server.js",
     "sync:cards": "node scripts/syncCards.js",
     "sync:bulk": "node scripts/bulkSync.js",
@@ -41,6 +44,7 @@
     "winston-loki": "^6.1.3"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "pm2": "^6.0.13"
   }
 }
