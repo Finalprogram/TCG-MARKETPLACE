@@ -30,13 +30,22 @@ document.addEventListener('DOMContentLoaded', () => {
       e.stopPropagation();
       userDropdown.classList.toggle('active');
     });
+
+    document.addEventListener('click', (e) => {
+      if (userDropdown.classList.contains('active') && !userDropdown.contains(e.target)) {
+        userDropdown.classList.remove('active');
+      }
+    });
   }
 
-  // Fecha dropdown quando clica fora
-  window.addEventListener('click', (e) => {
-    const dd = qs('.user-dropdown.active');
-    if (dd && !dd.contains(e.target)) dd.classList.remove('active');
-  });
+  // Test Dropdown
+  const testDropdown = qs('.test-dropdown');
+  if (testDropdown) {
+    const toggle = testDropdown.querySelector('.test-dropdown-toggle');
+    toggle?.addEventListener('click', () => {
+      testDropdown.classList.toggle('active');
+    });
+  }
 
   // + Lista (em cards) e qty +/- genéricos
   document.body.addEventListener('click', (event) => {
