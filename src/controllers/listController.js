@@ -1,5 +1,6 @@
 const Card = require('../models/Card');
 const Listing = require('../models/Listing');
+const logger = require('../config/logger');
 
 // src/controllers/listController.js
 const addToList = (req, res) => {
@@ -19,12 +20,12 @@ const addToList = (req, res) => {
     // Calcula o total de itens na lista (somando as quantidades)
     const totalItems = req.session.list.reduce((sum, item) => sum + item.quantity, 0);
 
-    console.log('Sessão da Lista atualizada:', req.session.list);
+    logger.info('Sessão da Lista atualizada:', req.session.list);
     // Envia o total de itens na resposta
     res.status(200).json({ success: true, totalItems: totalItems });
 
   } catch (error) {
-    console.error('Erro ao adicionar à lista:', error);
+    logger.error('Erro ao adicionar à lista:', error);
     res.status(500).json({ success: false, message: 'Erro no servidor' });
   }
 };
@@ -58,7 +59,7 @@ const showListPage = async (req, res) => {
 
     res.render('pages/list', { wantList });
   } catch (error) {
-    console.error('Erro ao montar a página da lista:', error);
+    logger.error('Erro ao montar a página da lista:', error);
     res.status(500).send('Erro no servidor');
   }
 };
@@ -83,7 +84,7 @@ const filterSellers = async (req, res) => {
     res.json(listings);
 
   } catch (error) {
-    console.error('Erro ao filtrar vendedores:', error);
+    logger.error('Erro ao filtrar vendedores:', error);
     res.status(500).json({ message: 'Erro no servidor' });
   }
 };

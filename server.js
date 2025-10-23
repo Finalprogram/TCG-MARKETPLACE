@@ -1,5 +1,6 @@
 // 1. Imports
 require('dotenv').config();
+const logger = require('./src/config/logger');
 
 // Validação de Variáveis de Ambiente Essenciais
 const requiredEnv = [
@@ -11,7 +12,7 @@ const requiredEnv = [
 const missingEnv = requiredEnv.filter(v => !process.env[v]);
 
 if (missingEnv.length > 0) {
-    console.error(`
+    logger.error(`
     ==================================================================
     ERRO DE CONFIGURAÇÃO: Variáveis de ambiente dos Correios ausentes.
     ==================================================================
@@ -113,10 +114,10 @@ const { recordPriceHistory } = require('./src/services/priceTracker');
 
 // Schedule to run once a day at midnight
 cron.schedule('0 0 * * *', () => {
-  console.log('Running daily price history recording...');
+  logger.info('Running daily price history recording...');
   recordPriceHistory();
 });
 
 app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`);
+  logger.info(`Servidor rodando em http://localhost:${port}`);
 });

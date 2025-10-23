@@ -1,4 +1,5 @@
 const Listing = require('../models/Listing'); // Importa o modelo de Anúncio
+const logger = require('../config/logger');
 
 // Função para criar múltiplos anúncios de uma vez
 const bulkCreateListings = async (req, res) => {
@@ -6,7 +7,7 @@ const bulkCreateListings = async (req, res) => {
     const { listings: listingsData } = req.body;
 
     // DEBUG: Inspecionar os dados recebidos
-    console.log('Dados recebidos do frontend:', JSON.stringify(listingsData, null, 2));
+    logger.info('Dados recebidos do frontend:', JSON.stringify(listingsData, null, 2));
 
     
     // Pega o ID do usuário logado a partir da sessão
@@ -38,8 +39,8 @@ const bulkCreateListings = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Erro ao criar anúncios em massa:', error.message);
-    console.error('Stack trace:', error.stack);
+    logger.error('Erro ao criar anúncios em massa:', error.message);
+    logger.error('Stack trace:', error.stack);
     res.status(500).json({ message: 'Erro no servidor ao criar anúncios.' });
   }
 };
@@ -56,7 +57,7 @@ const showEditListingPage = async (req, res) => {
     }
     res.render('pages/edit-listing', { listing });
   } catch (error) {
-    console.error('Erro ao buscar anúncio para edição:', error);
+    logger.error('Erro ao buscar anúncio para edição:', error);
     res.status(500).send('Erro no servidor');
   }
 };
@@ -84,7 +85,7 @@ const updateListing = async (req, res) => {
 
     res.redirect('/meus-anuncios');
   } catch (error) {
-    console.error('Erro ao atualizar anúncio:', error);
+    logger.error('Erro ao atualizar anúncio:', error);
     res.status(500).send('Erro no servidor');
   }
 };
@@ -106,7 +107,7 @@ const deleteListing = async (req, res) => {
 
     res.redirect('/meus-anuncios');
   } catch (error) {
-    console.error('Erro ao deletar anúncio:', error);
+    logger.error('Erro ao deletar anúncio:', error);
     res.status(500).send('Erro no servidor');
   }
 };

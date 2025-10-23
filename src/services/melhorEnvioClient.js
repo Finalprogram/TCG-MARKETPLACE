@@ -1,5 +1,6 @@
 // src/services/melhorEnvioClient.js
 const fetch = (...args) => import('node-fetch').then(({default: f}) => f(...args));
+const logger = require('../config/logger');
 
 const BASE_URL = process.env.MELHOR_ENVIO_BASE_URL || 'https://sandbox.melhorenvio.com.br';
 const CALCULATE_PATH = '/api/v2/me/shipment/calculate';
@@ -7,7 +8,7 @@ const TOKEN = process.env.MELHOR_ENVIO_TOKEN;
 const USER_AGENT = process.env.MELHOR_ENVIO_USER_AGENT || 'Aplicação (email para contato técnico)';
 
 if (!TOKEN) {
-  console.warn('[melhor-envio] MELHOR_ENVIO_TOKEN não definido. Configure seu .env');
+  logger.warn('[melhor-envio] MELHOR_ENVIO_TOKEN não definido. Configure seu .env');
 }
 
 /**
@@ -42,7 +43,7 @@ async function cotarFreteMelhorEnvio({
     services,
   };
 
-  console.log('[melhor-envio] Payload enviado:', JSON.stringify(payload, null, 2));
+  logger.info('[melhor-envio] Payload enviado:', JSON.stringify(payload, null, 2));
   try {
     const res = await fetch(url, {
       method: 'POST',
@@ -63,7 +64,7 @@ async function cotarFreteMelhorEnvio({
     return JSON.parse(text);
 
   } catch (error) {
-    console.error(`[melhor-envio] Falha ao calcular o frete: ${error.message}`);
+    logger.error(`[melhor-envio] Falha ao calcular o frete: ${error.message}`);
     throw error; // Re-lança o erro para ser tratado pelo chamador
   }
 }
@@ -78,7 +79,7 @@ const ADD_TO_CART_PATH = '/api/v2/me/cart';
 async function addItemToCart(shipmentDetails) {
   const url = new URL(ADD_TO_CART_PATH, BASE_URL).toString();
 
-  console.log('[melhor-envio] Adicionando item ao carrinho com payload:', JSON.stringify(shipmentDetails, null, 2));
+  logger.info('[melhor-envio] Adicionando item ao carrinho com payload:', JSON.stringify(shipmentDetails, null, 2));
 
   try {
     const res = await fetch(url, {
@@ -100,7 +101,7 @@ async function addItemToCart(shipmentDetails) {
     return JSON.parse(text);
 
   } catch (error) {
-    console.error(`[melhor-envio] Falha ao adicionar item ao carrinho: ${error.message}`);
+    logger.error(`[melhor-envio] Falha ao adicionar item ao carrinho: ${error.message}`);
     throw error;
   }
 }

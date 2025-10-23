@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const logger = require('../config/logger');
 
 // Função para MOSTRAR a página de registro
 const showRegisterPage = (req, res) => {
@@ -56,7 +57,7 @@ const registerUser = async (req, res) => {
     res.status(201).json({ success: true, message: 'Cadastro realizado com sucesso!' });
 
   } catch (error) {
-    console.error("Erro no registro:", error);
+    logger.error("Erro no registro:", error);
     res.status(500).json({ errors: { general: 'Erro ao registrar usuário. Tente novamente.' } });
   }
 };
@@ -99,7 +100,7 @@ const loginUser = async (req, res) => {
     res.redirect(`/perfil/${user.username}`);
 
   } catch (error) {
-    console.error("Erro no login:", error);
+    logger.error("Erro no login:", error);
     res.status(500).send('Erro no servidor.');
   }
 };
@@ -117,8 +118,8 @@ const logoutUser = (req, res) => {
 // Atualiza o endereço do usuário
 const updateAddress = async (req, res) => {
   const userId = req.session.user.id;
-  console.log(`[updateAddress] Iniciando atualização para o usuário ID: ${userId}`);
-  console.log('[updateAddress] Dados recebidos:', req.body);
+  logger.info(`[updateAddress] Iniciando atualização para o usuário ID: ${userId}`);
+  logger.info('[updateAddress] Dados recebidos:', req.body);
 
   try {
     const { cep, street, number, complement, city, state } = req.body;
@@ -143,20 +144,20 @@ const updateAddress = async (req, res) => {
     }, { new: true }); // { new: true } retorna o documento atualizado
 
     if (updatedUser) {
-        console.log('[updateAddress] Usuário após a atualização:', updatedUser.toObject());
-        console.log('[updateAddress] Objeto de endereço salvo:', updatedUser.toObject().address);
+        logger.info('[updateAddress] Usuário após a atualização:', updatedUser.toObject());
+        logger.info('[updateAddress] Objeto de endereço salvo:', updatedUser.toObject().address);
         // Update the session user with the new address information
         req.session.user.address = updatedUser.address;
     } else {
-        console.log('[updateAddress] Nenhum usuário encontrado para atualizar.');
+        logger.warn('[updateAddress] Nenhum usuário encontrado para atualizar.');
     }
 
     // Redireciona de volta para a página de perfil.
     res.redirect(`/perfil/${req.session.user.username}`);
 
   } catch (error) {
-    console.error('Erro ao atualizar endereço:', error.message);
-    console.error(error.stack);
+    logger.error('Erro ao atualizar endereço:', error.message);
+    logger.error(error.stack);
     res.status(500).send('Erro no servidor.');
   }
 };
