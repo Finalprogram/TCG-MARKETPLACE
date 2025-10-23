@@ -24,7 +24,7 @@
                    const checked = (filters && filters[group.key] === value) ? 'checked' : '';
               %>
                 <label>
-                  <input type="radio" name="<%= group.key %>" value="<%= value %>" <%= checked %> />
+                  <input type="radio" name="<%= group.key %>" value="<%= value %>" <%= checked %> onchange="this.form.submit()" />
                   <%= label %>
                 </label>
               <% }) %>
@@ -34,8 +34,8 @@
 
         <!-- Campo de busca opcional -->
         <input type="search" name="q" placeholder="Buscar por nome" value="<%= filters && filters.q ? filters.q : '' %>" />
-        <button type="submit" class="btn-primary">Aplicar Filtros</button>
-        <button type="button" id="resetFiltersBtn" class="btn-secondary">Resetar Filtros</button>
+        <button type="submit" class="btn-primary">Buscar</button>
+        <a href="/cards" class="btn-secondary">Limpar Filtros</a>
       </form>
     </aside>
 

@@ -16,6 +16,10 @@ const showCardsPage = async (req, res) => {
     if (req.query.rarity) cardMatchQuery.rarity = req.query.rarity;
     if (req.query.color) cardMatchQuery.colors = new RegExp(req.query.color, 'i');
     if (req.query.type) cardMatchQuery.type_line = req.query.type;
+    if (req.query.set) {
+      const setCode = req.query.set.replace(/OP-?/, '');
+      cardMatchQuery.set_name = new RegExp(`OP-?${setCode}`, 'i');
+    }
     if (req.query.q) cardMatchQuery.name = new RegExp(req.query.q, 'i');
 
     // Busca no banco de dados
@@ -37,11 +41,33 @@ const showCardsPage = async (req, res) => {
     const colors = await Card.distinct('colors');
     const types = await Card.distinct('type_line');
 
+    const rawSets = await Card.distinct('set_name', {
+      game: 'onepiece',
+      set_name: /OP-?\d+/
+    });
+
+    const opSetPattern = /(OP-?\d+)/;
+    const normalizedSet = new Set();
+    rawSets.forEach(rawSet => {
+      const match = rawSet.match(opSetPattern);
+      if (match) {
+        const setCode = 'OP' + match[1].replace(/OP-?/, '').padStart(2, '0');
+        normalizedSet.add(setCode);
+      }
+    });
+
+    const sortedSets = Array.from(normalizedSet).sort((a, b) => {
+      const numA = parseInt(a.match(/\d+/)[0]);
+      const numB = parseInt(b.match(/\d+/)[0]);
+      return numA - numB;
+    });
+
     // Define os filtros que serão enviados para a view
     const filterGroups = [
       { name: 'Raridade', key: 'rarity', options: rarities.sort() },
       { name: 'Cor', key: 'color', options: colors.sort() },
-      { name: 'Tipo', key: 'type', options: types.sort() }
+      { name: 'Tipo', key: 'type', options: types.sort() },
+      { name: 'Edição', key: 'set', options: sortedSets }
     ];
 
     res.render('pages/cardSearchPage', {

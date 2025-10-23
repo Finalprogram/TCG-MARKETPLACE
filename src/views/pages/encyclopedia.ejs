@@ -12,7 +12,8 @@
         <% if (filterGroups && filterGroups.length > 0) { %>
           <% filterGroups.forEach(group => { %>
             <div class="filter-group">
-              <h4><%= group.name %></h4>
+              <h4 class="filter-toggle"><%= group.name %></h4>
+              <div class="filter-options" hidden>
               <% group.options.forEach(option => { 
                    const value = typeof option === 'object' ? option.value : option;
                    const label = typeof option === 'object' ? option.label : option;
@@ -23,13 +24,13 @@
                   <%= label %>
                 </label>
               <% }) %>
+              </div>
             </div>
           <% }) %>
         <% } %>
-
-        <input type="search" name="q" placeholder="Buscar por nome..." value="<%= filters && filters.q ? filters.q : '' %>" />
-        <button type="submit" class="btn-primary">Buscar</button>
-        <a href="/encyclopedia" class="btn-secondary">Limpar Filtros</a>
+        <input type="search" name="q" placeholder="Buscar por nome..." value="<%= filters && filters.q ? filters.q : '' %>" class="form-control mb-3" />
+        <button type="submit" class="btn btn-primary w-100 mb-2">Buscar</button>
+        <a href="/encyclopedia" class="btn btn-secondary w-100">Limpar Filtros</a>
       </form>
     </aside>
 
@@ -51,3 +52,4 @@
 
 <script src="/js/main.js"></script>
 <script src="/js/encyclopedia.js"></script>
+<script src="/js/accordion-filters.js"></script>
