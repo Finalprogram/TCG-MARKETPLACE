@@ -13,6 +13,9 @@ router.get('/checkout-success', pagesController.showCheckoutSuccessPage);
 router.get('/meus-pedidos', pagesController.showMyOrdersPage);
 router.get('/meus-pedidos/:id', pagesController.showOrderDetailPage);
 
+// Rota para a Enciclopédia
+router.get('/encyclopedia', pagesController.getEncyclopediaPage);
+
 
 
 module.exports = router;

@@ -10,4 +10,7 @@ router.get('/card/:id', cardController.showCardDetailPage);
 router.get('/api/cards/search', cardController.searchCardsForSale);
 router.get('/api/cards/search-available', cardController.searchAvailableCards);
 
+// Rota para a enciclopédia de cartas
+router.get('/api/cards/all', cardController.getAllCards);
+
 module.exports = router;

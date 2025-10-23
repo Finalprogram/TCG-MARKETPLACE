@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Card = require('../models/Card');
 const Listing = require('../models/Listing');
+const onePieceService = require('../services/onepieceService');
 
 // --- FUNÇÃO ÚNICA PARA A PÁGINA DE BUSCA ---
 const showCardsPage = async (req, res) => {
@@ -146,9 +147,47 @@ const searchAvailableCards = async (req, res) => {
   }
 };
 // --- EXPORTAÇÃO CORRIGIDA ---
+
+// --- FUNÇÃO PARA A ENCICLOPÉDIA ---
+const getAllCards = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = 52; // 4 linhas de 13 cartas
+
+    // Constrói a query de filtro
+    const filterQuery = { game: 'onepiece' };
+    if (req.query.rarity) filterQuery.rarity = req.query.rarity;
+    if (req.query.color) filterQuery.colors = new RegExp(req.query.color, 'i');
+    if (req.query.type) filterQuery.type_line = req.query.type;
+    if (req.query.set) {
+      const setCode = req.query.set.replace(/OP-?/, '');
+      filterQuery.set_name = new RegExp(`OP-?${setCode}`, 'i');
+    }
+    if (req.query.q) filterQuery.name = new RegExp(req.query.q, 'i');
+
+    const cards = await Card.find(filterQuery)
+      .sort({ name: 1 })
+      .skip((page - 1) * limit)
+      .limit(limit);
+
+    const totalCards = await Card.countDocuments(filterQuery);
+
+    res.json({
+      cards,
+      hasMore: (page * limit) < totalCards,
+      currentPage: page,
+    });
+
+  } catch (error) {
+    console.error("Erro ao buscar todas as cartas de One Piece do banco de dados:", error);
+    res.status(500).json({ message: 'Erro no servidor' });
+  }
+};
+
 module.exports = {
   showCardsPage,
   showCardDetailPage,
   searchCardsForSale,
   searchAvailableCards,
+  getAllCards,
 };
