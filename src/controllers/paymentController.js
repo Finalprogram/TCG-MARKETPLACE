@@ -112,9 +112,7 @@ async function createMercadoPagoPreference(req, res) {
       return res.status(400).json({ message: 'Carrinho vazio ou inválido.' });
     }
 
-<<<<<<< HEAD
-    // Obter o endereço de entrega estruturado da sessão
-    logger.info('Payment: shippingAddress da sessão:', req.session.shippingAddress);
+    const userId = req.session.user.id;
     const shippingAddress = req.session.shippingAddress;
     if (!shippingAddress) {
       logger.error('Endereço de entrega não encontrado na sessão ao criar preferência de MP.');
@@ -123,7 +121,7 @@ async function createMercadoPagoPreference(req, res) {
 
     const orderItems = cart.items.map(item => ({
       card: item.cardId,
-      listing: item.listingId, // Assumindo que você tenha listingId no carrinho
+      listing: item.listingId,
       seller: item.vendorId,
       quantity: item.qty,
       price: item.price,
@@ -133,19 +131,17 @@ async function createMercadoPagoPreference(req, res) {
       sellerNet: item.sellerNet,
     }));
 
-    // Cria o pedido no banco de dados com status 'Processing' (ou 'PendingPayment')
     const newOrder = new Order({
       user: userId,
       items: orderItems,
       totals: totals,
-      shippingAddress: placeholderAddress,
-      status: 'Processing', // Ou 'PendingPayment' se preferir um status mais específico
+      shippingAddress: shippingAddress, // Use the address from the session
+      status: 'PendingPayment', // Status indicating that payment is pending
     });
 
     await newOrder.save();
     logger.info(`[payment] Pedido #${newOrder._id} criado para Mercado Pago.`);
 
-    // Salvar o endereço de entrega como padrão para o usuário, se logado
     if (req.session.user && req.session.user.id) {
       const user = await User.findById(req.session.user.id);
       if (user) {
@@ -155,8 +151,6 @@ async function createMercadoPagoPreference(req, res) {
       }
     }
 
-=======
->>>>>>> parent of b76e967 (weebhook mercadopago)
     const items = cart.items.map(item => ({
       title: item.meta.cardName,
       unit_price: Number(item.price),
@@ -165,12 +159,13 @@ async function createMercadoPagoPreference(req, res) {
 
     const preferenceBody = {
       items,
-      external_reference: req.session.user.id, // Usar o ID do usuário como referência externa
+      external_reference: newOrder._id.toString(), // Use the new order ID as the external reference
       back_urls: {
-        success: "http://localhost:3000/payment/mercadopago/success", // TODO: Mudar para URL real
-        pending: "http://localhost:3000/payment/mercadopago/pending", // TODO: Mudar para URL real
-        failure: "http://localhost:3000/payment/mercadopago/failure", // TODO: Mudar para URL real
+        success: "http://localhost:3000/payment/mercadopago/success",
+        pending: "http://localhost:3000/payment/mercadopago/pending",
+        failure: "http://localhost:3000/payment/mercadopago/failure",
       },
+      notification_url: `http://localhost:3000/payment/mercadopago/webhook?source_news=webhooks`,
       total_amount: totals.grand,
     };
 

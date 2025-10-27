@@ -322,3 +322,1237 @@
 {"0":{"cardId":"68e6ba0216fc8fdc82ba356a","quantity":1},"level":"info","message":"Sessão da Lista atualizada:"}
 =======
 >>>>>>> parent of b76e967 (weebhook mercadopago)
+2025-10-27 12:33 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+2025-10-27 12:33 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
+2025-10-27 12:33 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:33 -03:00: <<<<<<< HEAD
+2025-10-27 12:33 -03:00: ^^
+2025-10-27 12:33 -03:00: 
+2025-10-27 12:33 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:33 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:33 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:33 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:33 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:33 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:33 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:33 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:33 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:33 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:33 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:33 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
+2025-10-27 12:33 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔑 add access controls to secrets: https://dotenvx.com/ops
+2025-10-27 12:33 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:33 -03:00: <<<<<<< HEAD
+2025-10-27 12:33 -03:00: ^^
+2025-10-27 12:33 -03:00: 
+2025-10-27 12:33 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:33 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:33 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:33 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:33 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:33 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:33 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:33 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:33 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:33 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:33 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:33 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ✅ audit secrets and track compliance: https://dotenvx.com/ops
+2025-10-27 12:33 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+2025-10-27 12:33 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:33 -03:00: <<<<<<< HEAD
+2025-10-27 12:33 -03:00: ^^
+2025-10-27 12:33 -03:00: 
+2025-10-27 12:33 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:33 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:33 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:33 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:33 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:33 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:33 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:33 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:33 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:33 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:33 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:33 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔑 add access controls to secrets: https://dotenvx.com/ops
+2025-10-27 12:33 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🗂️ backup and recover secrets: https://dotenvx.com/ops
+2025-10-27 12:33 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:33 -03:00: <<<<<<< HEAD
+2025-10-27 12:33 -03:00: ^^
+2025-10-27 12:33 -03:00: 
+2025-10-27 12:33 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:33 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:33 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:33 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:33 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:33 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:33 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:33 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:33 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:33 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:33 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:33 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
+2025-10-27 12:33 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+2025-10-27 12:33 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:33 -03:00: <<<<<<< HEAD
+2025-10-27 12:33 -03:00: ^^
+2025-10-27 12:33 -03:00: 
+2025-10-27 12:33 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:33 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:33 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:33 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:33 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:33 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:33 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:33 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:33 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:33 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:33 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:33 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+2025-10-27 12:33 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ✅ audit secrets and track compliance: https://dotenvx.com/ops
+2025-10-27 12:33 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:33 -03:00: <<<<<<< HEAD
+2025-10-27 12:33 -03:00: ^^
+2025-10-27 12:33 -03:00: 
+2025-10-27 12:33 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:33 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:33 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:33 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:33 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:33 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:33 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:33 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:33 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:33 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:33 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:33 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ✅ audit secrets and track compliance: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ✅ audit secrets and track compliance: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ✅ audit secrets and track compliance: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 👥 sync secrets across teammates & machines: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ✅ audit secrets and track compliance: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ✅ audit secrets and track compliance: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🗂️ backup and recover secrets: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  override existing env vars with { override: true }
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  override existing env vars with { override: true }
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🗂️ backup and recover secrets: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  override existing env vars with { override: true }
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🗂️ backup and recover secrets: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🗂️ backup and recover secrets: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 👥 sync secrets across teammates & machines: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔑 add access controls to secrets: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🗂️ backup and recover secrets: https://dotenvx.com/ops
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+2025-10-27 12:34 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:34 -03:00: <<<<<<< HEAD
+2025-10-27 12:34 -03:00: ^^
+2025-10-27 12:34 -03:00: 
+2025-10-27 12:34 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:34 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:34 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:34 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:34 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:34 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:34 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:34 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:34 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:34 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:34 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:34 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  override existing env vars with { override: true }
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  override existing env vars with { override: true }
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  override existing env vars with { override: true }
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ✅ audit secrets and track compliance: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  override existing env vars with { override: true }
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 👥 sync secrets across teammates & machines: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ✅ audit secrets and track compliance: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 👥 sync secrets across teammates & machines: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔑 add access controls to secrets: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ✅ audit secrets and track compliance: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  override existing env vars with { override: true }
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🗂️ backup and recover secrets: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 👥 sync secrets across teammates & machines: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔑 add access controls to secrets: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 👥 sync secrets across teammates & machines: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 👥 sync secrets across teammates & machines: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+2025-10-27 12:35 -03:00: C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\src\controllers\paymentController.js:115
+2025-10-27 12:35 -03:00: <<<<<<< HEAD
+2025-10-27 12:35 -03:00: ^^
+2025-10-27 12:35 -03:00: 
+2025-10-27 12:35 -03:00: SyntaxError: Unexpected token '<<'
+2025-10-27 12:35 -03:00:     at wrapSafe (node:internal/modules/cjs/loader:1469:18)
+2025-10-27 12:35 -03:00:     at Module._compile (node:internal/modules/cjs/loader:1491:20)
+2025-10-27 12:35 -03:00:     at Object..js (node:internal/modules/cjs/loader:1689:10)
+2025-10-27 12:35 -03:00:     at Module.load (node:internal/modules/cjs/loader:1318:32)
+2025-10-27 12:35 -03:00:     at Function._load (node:internal/modules/cjs/loader:1128:12)
+2025-10-27 12:35 -03:00:     at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+2025-10-27 12:35 -03:00:     at wrapModuleLoad (node:internal/modules/cjs/loader:218:24)
+2025-10-27 12:35 -03:00:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
+2025-10-27 12:35 -03:00:     at Hook._require.Module.require (C:\Users\Murilo-PC\Documents\GitHub\Nova pasta\TCG-MARKETPLACE\node_modules\require-in-the-middle\index.js:101:39)
+2025-10-27 12:35 -03:00:     at require (node:internal/modules/helpers:141:16)
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+2025-10-27 12:35 -03:00: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+2025-10-27 12:35 -03:00: info: MERCADO_PAGO_ACCESS_TOKEN:
+2025-10-27 12:35 -03:00: (node:16440) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2025-10-27 12:35 -03:00: (Use `node --trace-deprecation ...` to show where the warning was created)
+2025-10-27 12:35 -03:00: (node:16440) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+2025-10-27 12:35 -03:00: (node:16440) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+2025-10-27 12:35 -03:00: info: Servidor rodando em http://localhost:3000
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+2025-10-27 12:35 -03:00: info: MongoDB connected
+{"level":"info","message":"MongoDB connected"}
+2025-10-27 12:35 -03:00: AggregateError [ECONNREFUSED]: 
+2025-10-27 12:35 -03:00:     at internalConnectMultiple (node:net:1121:18)
+2025-10-27 12:35 -03:00:     at afterConnectMultiple (node:net:1688:7) {
+2025-10-27 12:35 -03:00:   code: 'ECONNREFUSED',
+2025-10-27 12:35 -03:00:   [errors]: [
+2025-10-27 12:35 -03:00:     Error: connect ECONNREFUSED ::1:3100
+2025-10-27 12:35 -03:00:         at createConnectionError (node:net:1651:14)
+2025-10-27 12:35 -03:00:         at afterConnectMultiple (node:net:1681:16) {
+2025-10-27 12:35 -03:00:       errno: -4078,
+2025-10-27 12:35 -03:00:       code: 'ECONNREFUSED',
+2025-10-27 12:35 -03:00:       syscall: 'connect',
+2025-10-27 12:35 -03:00:       address: '::1',
+2025-10-27 12:35 -03:00:       port: 3100
+2025-10-27 12:35 -03:00:     },
+2025-10-27 12:35 -03:00:     Error: connect ECONNREFUSED 127.0.0.1:3100
+2025-10-27 12:35 -03:00:         at createConnectionError (node:net:1651:14)
+2025-10-27 12:35 -03:00:         at afterConnectMultiple (node:net:1681:16) {
+2025-10-27 12:35 -03:00:       errno: -4078,
+2025-10-27 12:35 -03:00:       code: 'ECONNREFUSED',
+2025-10-27 12:35 -03:00:       syscall: 'connect',
+2025-10-27 12:35 -03:00:       address: '127.0.0.1',
+2025-10-27 12:35 -03:00:       port: 3100
+2025-10-27 12:35 -03:00:     }
+2025-10-27 12:35 -03:00:   ]
+2025-10-27 12:35 -03:00: }
+{"level":"info","message":"MERCADO_PAGO_ACCESS_TOKEN:"}
+{"level":"info","message":"Servidor rodando em http://localhost:3000"}
+{"level":"info","message":"MongoDB connected"}
+{"0":{"cardId":"68e6ba0216fc8fdc82ba356a","quantity":1},"level":"info","message":"Sessão da Lista atualizada:"}

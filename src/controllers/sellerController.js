@@ -4,6 +4,9 @@ const Order = require('../models/Order');
 const Listing = require('../models/Listing');
 const User = require('../models/User');
 const Setting = require('../models/Setting'); // NEW IMPORT
+const melhorEnvioClient = require('../services/melhorEnvioClient');
+const emailService = require('../services/emailService');
+const logger = require('../config/logger');
 
 const showSellerDashboard = async (req, res) => {
   try {
@@ -132,7 +135,6 @@ const markAsShipped = async (req, res) => {
   }
 };
 
-<<<<<<< HEAD
 const generateMelhorEnvioLabel = async (req, res) => {
   try {
     const { orderId } = req.params;
@@ -246,7 +248,7 @@ const generateMelhorEnvioLabel = async (req, res) => {
     const sellerEmailSubject = `Etiqueta de Envio Gerada para o Pedido #${order._id}`;
     const sellerEmailHtml = `
       <p>Olá ${seller.fullName || seller.username},</p>
-      <p>A etiqueta de envio para o seu pedido <strong>#${order._id}</strong> foi gerada com sucesso.</p>
+      <p>A etiqueta de envio para o seu pedido <strong>#${order._id}</strong> foi gerada com sucesso.</p>p>
       <p>Você pode baixar a etiqueta aqui: <a href="${labelUrl}">Baixar Etiqueta</a></p>
       <p>Por favor, imprima a etiqueta e prepare o pacote para envio.</p>
       <p>Obrigado!</p>
@@ -261,10 +263,9 @@ const generateMelhorEnvioLabel = async (req, res) => {
   }
 };
 
-=======
->>>>>>> parent of b76e967 (weebhook mercadopago)
 module.exports = {
   showSellerDashboard,
   showSoldOrders,
   markAsShipped,
+  generateMelhorEnvioLabel,
 };
