@@ -66,19 +66,7 @@ const orderSchema = new mongoose.Schema({
   },
   trackingCode: {
     type: String,
-  },
-  melhorEnvioShipmentId: {
-    type: String,
-  },
-  melhorEnvioLabelUrl: {
-    type: String,
-  },
-  melhorEnvioTrackingUrl: {
-    type: String,
-  },
-  melhorEnvioService: {
-    type: String,
-  },
+  }
 }, { timestamps: true });
 
 const Order = mongoose.model('Order', orderSchema);

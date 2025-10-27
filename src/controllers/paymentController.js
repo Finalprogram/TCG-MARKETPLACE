@@ -107,12 +107,12 @@ async function createMercadoPagoPreference(req, res) {
   try {
     const cart = req.session.cart;
     const totals = req.session.totals;
-    const userId = req.session.user.id;
 
     if (!cart || !cart.items || cart.items.length === 0) {
       return res.status(400).json({ message: 'Carrinho vazio ou inválido.' });
     }
 
+<<<<<<< HEAD
     // Obter o endereço de entrega estruturado da sessão
     logger.info('Payment: shippingAddress da sessão:', req.session.shippingAddress);
     const shippingAddress = req.session.shippingAddress;
@@ -155,6 +155,8 @@ async function createMercadoPagoPreference(req, res) {
       }
     }
 
+=======
+>>>>>>> parent of b76e967 (weebhook mercadopago)
     const items = cart.items.map(item => ({
       title: item.meta.cardName,
       unit_price: Number(item.price),
@@ -163,22 +165,17 @@ async function createMercadoPagoPreference(req, res) {
 
     const preferenceBody = {
       items,
-      external_reference: newOrder._id.toString(), // Usar o ID do pedido como referência externa
+      external_reference: req.session.user.id, // Usar o ID do usuário como referência externa
       back_urls: {
-        success: `${process.env.BASE_URL}/payment/mercadopago/success`, // Usar BASE_URL
-        pending: `${process.env.BASE_URL}/payment/mercadopago/pending`, // Usar BASE_URL
-        failure: `${process.env.BASE_URL}/payment/mercadopago/failure`, // Usar BASE_URL
+        success: "http://localhost:3000/payment/mercadopago/success", // TODO: Mudar para URL real
+        pending: "http://localhost:3000/payment/mercadopago/pending", // TODO: Mudar para URL real
+        failure: "http://localhost:3000/payment/mercadopago/failure", // TODO: Mudar para URL real
       },
-      notification_url: `${process.env.BASE_URL}/payment/mercadopago/webhook`, // Adicionar URL de notificação
       total_amount: totals.grand,
     };
 
     const response = await preference.create({ body: preferenceBody });
-
-    // Limpa o carrinho da sessão após a criação da preferência
-    req.session.cart = { items: [], totalQty: 0, totalPrice: 0 };
-
-    res.json({ init_point: response.init_point, orderId: newOrder._id });
+    res.json({ init_point: response.init_point });
 
   } catch (error) {
     logger.error("Erro ao criar preferência do Mercado Pago:", error);
@@ -189,136 +186,23 @@ async function createMercadoPagoPreference(req, res) {
 async function handleMercadoPagoSuccess(req, res) {
   const { collection_id, collection_status, payment_id, status, external_reference, preference_id } = req.query;
   logger.info("Mercado Pago Success:", { collection_id, collection_status, payment_id, status, external_reference, preference_id });
-
-  try {
-    if (external_reference) {
-      const order = await Order.findById(external_reference);
-      if (order && order.status !== 'Processing') { // Evita atualizar se já foi processado pelo webhook
-        order.status = 'Processing'; // Ou 'Paid'
-        await order.save();
-        logger.info(`Pedido #${order._id} atualizado para status 'Processing' via retorno de sucesso MP.`);
-      }
-    }
-    // Limpar o carrinho do usuário, pois o pedido foi criado e pago
-    req.session.cart = { items: [], totalQty: 0, totalPrice: 0 };
-    res.render('pages/checkout-success', { message: "Pagamento aprovado!", paymentStatus: status });
-  } catch (error) {
-    logger.error('Erro ao processar retorno de sucesso do Mercado Pago:', error);
-    res.render('pages/checkout-success', { message: "Erro ao processar seu pagamento.", paymentStatus: status });
-  }
+  // TODO: Atualizar o status do pedido no banco de dados para 'Pago'
+  // TODO: Limpar o carrinho do usuário
+  res.render('pages/checkout-success', { message: "Pagamento aprovado!", paymentStatus: status });
 }
 
 async function handleMercadoPagoPending(req, res) {
   const { collection_id, collection_status, payment_id, status, external_reference, preference_id } = req.query;
   logger.info("Mercado Pago Pending:", { collection_id, collection_status, payment_id, status, external_reference, preference_id });
-
-  try {
-    if (external_reference) {
-      const order = await Order.findById(external_reference);
-      if (order && order.status !== 'Processing') { // Evita atualizar se já foi processado pelo webhook
-        order.status = 'Processing'; // Ou 'PendingPayment'
-        await order.save();
-        logger.info(`Pedido #${order._id} atualizado para status 'Processing' via retorno pendente MP.`);
-      }
-    }
-    // Não limpar o carrinho aqui, pois o pagamento ainda está pendente
-    res.render('pages/checkout-success', { message: "Pagamento pendente.", paymentStatus: status });
-  } catch (error) {
-    logger.error('Erro ao processar retorno pendente do Mercado Pago:', error);
-    res.render('pages/checkout-success', { message: "Erro ao processar seu pagamento.", paymentStatus: status });
-  }
+  // TODO: Atualizar o status do pedido no banco de dados para 'Pendente'
+  res.render('pages/checkout-success', { message: "Pagamento pendente.", paymentStatus: status });
 }
 
 async function handleMercadoPagoFailure(req, res) {
   const { collection_id, collection_status, payment_id, status, external_reference, preference_id } = req.query;
   logger.info("Mercado Pago Failure:", { collection_id, collection_status, payment_id, status, external_reference, preference_id });
-
-  try {
-    if (external_reference) {
-      const order = await Order.findById(external_reference);
-      if (order && order.status !== 'Cancelled') { // Evita atualizar se já foi cancelado pelo webhook
-        order.status = 'Cancelled';
-        await order.save();
-        logger.info(`Pedido #${order._id} atualizado para status 'Cancelled' via retorno de falha MP.`);
-      }
-    }
-    // Não limpar o carrinho aqui, pois o pagamento falhou e o usuário pode tentar novamente
-    res.render('pages/checkout-success', { message: "Pagamento falhou.", paymentStatus: status });
-  } catch (error) {
-    logger.error('Erro ao processar retorno de falha do Mercado Pago:', error);
-    res.render('pages/checkout-success', { message: "Erro ao processar seu pagamento.", paymentStatus: status });
-  }
-}
-async function handleMercadoPagoWebhook(req, res) {
-  logger.info('Webhook Mercado Pago recebido:', req.query, req.body);
-
-  const { topic, id } = req.query; // 'id' aqui é o ID da notificação, não do pagamento
-
-  if (!topic || !id) {
-    logger.warn('Webhook Mercado Pago: Tópico ou ID ausente.', req.query);
-    return res.status(400).send('Tópico ou ID ausente.');
-  }
-
-  try {
-    let paymentId;
-    if (topic === 'payment') {
-      paymentId = id; // Para o tópico 'payment', o ID é o ID do pagamento
-    } else if (topic === 'merchant_order') {
-      // Se for merchant_order, precisamos buscar os pagamentos associados
-      // Para simplificar, vamos focar no tópico 'payment' por enquanto.
-      logger.info(`Webhook Mercado Pago: Tópico ${topic} recebido, ignorando por enquanto.`);
-      return res.status(200).send('OK');
-    } else {
-      logger.info(`Webhook Mercado Pago: Tópico ${topic} desconhecido, ignorando.`);
-      return res.status(200).send('OK');
-    }
-
-    if (!paymentId) {
-      logger.warn('Webhook Mercado Pago: ID do pagamento não determinado.');
-      return res.status(400).send('ID do pagamento não determinado.');
-    }
-
-    // 1. Buscar detalhes do pagamento na API do Mercado Pago
-    const payment = await client.payments.get({ id: Number(paymentId) });
-    logger.info('Detalhes do pagamento do Mercado Pago:', payment);
-
-    const { status, external_reference } = payment;
-
-    if (!external_reference) {
-      logger.error('Webhook Mercado Pago: external_reference ausente no pagamento.', payment);
-      return res.status(400).send('external_reference ausente.');
-    }
-
-    // 2. Encontrar o pedido no seu banco de dados
-    const order = await Order.findById(external_reference);
-
-    if (!order) {
-      logger.error(`Webhook Mercado Pago: Pedido com ID ${external_reference} não encontrado.`);
-      return res.status(404).send('Pedido não encontrado.');
-    }
-
-    // 3. Atualizar o status do pedido
-    let newOrderStatus = order.status;
-    if (status === 'approved') {
-      newOrderStatus = 'Processing'; // Ou 'Paid', dependendo do seu fluxo
-    } else if (status === 'pending') {
-      newOrderStatus = 'Processing'; // Ou 'PendingPayment'
-    } else if (status === 'rejected' || status === 'cancelled') {
-      newOrderStatus = 'Cancelled';
-    }
-
-    if (order.status !== newOrderStatus) {
-      order.status = newOrderStatus;
-      await order.save();
-      logger.info(`Pedido #${order._id} atualizado para o status: ${newOrderStatus} via webhook MP.`);
-    }
-
-    res.status(200).send('OK');
-
-  } catch (error) {
-    logger.error('Erro no webhook do Mercado Pago:', error);
-    res.status(500).send('Erro interno do servidor.');
-  }
+  // TODO: Atualizar o status do pedido no banco de dados para 'Falha'
+  res.render('pages/checkout-success', { message: "Pagamento falhou.", paymentStatus: status });
 }
 
-module.exports = { showPayment, processPayment, createMercadoPagoPreference, handleMercadoPagoSuccess, handleMercadoPagoPending, handleMercadoPagoFailure, handleMercadoPagoWebhook };
+module.exports = { showPayment, processPayment, createMercadoPagoPreference, handleMercadoPagoSuccess, handleMercadoPagoPending, handleMercadoPagoFailure };

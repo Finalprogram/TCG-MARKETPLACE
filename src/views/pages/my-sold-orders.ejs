@@ -110,12 +110,6 @@
               <div class="order-status">
                 <% if (order.status === 'Processing') { %>
                   <button class="btn btn-sm btn-primary mark-as-shipped-btn" data-order-id="<%= order._id %>">Marcar como Enviado</button>
-                  <% if (!order.melhorEnvioLabelUrl) { %>
-                    <button class="btn btn-sm btn-success generate-label-btn" data-order-id="<%= order._id %>" style="margin-left: 10px;">Gerar Etiqueta ME</button>
-                  <% } %>
-                <% } else if (order.status === 'Shipped' && order.melhorEnvioLabelUrl) { %>
-                  <span class="value">Enviado</span>
-                  <a href="<%= order.melhorEnvioLabelUrl %>" target="_blank" class="btn btn-sm btn-info" style="margin-left: 10px;">Ver Etiqueta</a>
                 <% } else { %>
                   <span class="value"><%= order.status %></span>
                 <% } %>
@@ -134,16 +128,6 @@
               </div>
             <% }) %>
           </div>
-          <% if (order.melhorEnvioLabelUrl) { %>
-            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
-              <span class="label">Etiqueta Melhor Envio:</span>
-              <a href="<%= order.melhorEnvioLabelUrl %>" target="_blank" class="value">Baixar Etiqueta</a>
-              <% if (order.melhorEnvioTrackingUrl) { %>
-                <span class="label" style="margin-left: 20px;">Rastreamento:</span>
-                <a href="<%= order.melhorEnvioTrackingUrl %>" target="_blank" class="value"><%= order.trackingCode || 'Ver Rastreamento' %></a>
-              <% } %>
-            </div>
-          <% } %>
         </div>
       <% }) %>
     <% } else { %>
@@ -211,36 +195,5 @@ shippingForm.addEventListener('submit', async (event) => {
     console.error('Erro ao marcar como enviado:', error);
     alert('Erro ao marcar como enviado.');
   }
-});
-
-document.querySelectorAll('.generate-label-btn').forEach(button => {
-  button.addEventListener('click', async (event) => {
-    const orderId = event.target.dataset.orderId;
-    event.target.disabled = true; // Disable button to prevent multiple clicks
-    event.target.textContent = 'Gerando...';
-
-    try {
-      const response = await fetch(`/seller/orders/${orderId}/generate-label`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        alert(data.message);
-        location.reload(); // Reload to show the new label link
-      } else {
-        const errorData = await response.json();
-        alert(`Erro ao gerar etiqueta: ${errorData.message}`);
-        event.target.disabled = false;
-        event.target.textContent = 'Gerar Etiqueta ME';
-      }
-    } catch (error) {
-      console.error('Erro ao gerar etiqueta:', error);
-      alert('Erro ao gerar etiqueta.');
-      event.target.disabled = false;
-      event.target.textContent = 'Gerar Etiqueta ME';
-    }
-  });
 });
 </script>

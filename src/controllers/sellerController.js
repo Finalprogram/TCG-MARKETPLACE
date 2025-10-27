@@ -3,9 +3,7 @@ const mongoose = require('mongoose');
 const Order = require('../models/Order');
 const Listing = require('../models/Listing');
 const User = require('../models/User');
-const Setting = require('../models/Setting');
-const melhorEnvioClient = require('../services/melhorEnvioClient'); // Importar o cliente do Melhor Envio
-const emailService = require('../services/emailService'); // Importar o serviço de e-mail
+const Setting = require('../models/Setting'); // NEW IMPORT
 
 const showSellerDashboard = async (req, res) => {
   try {
@@ -134,6 +132,7 @@ const markAsShipped = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
 const generateMelhorEnvioLabel = async (req, res) => {
   try {
     const { orderId } = req.params;
@@ -262,9 +261,10 @@ const generateMelhorEnvioLabel = async (req, res) => {
   }
 };
 
+=======
+>>>>>>> parent of b76e967 (weebhook mercadopago)
 module.exports = {
   showSellerDashboard,
   showSoldOrders,
   markAsShipped,
-  generateMelhorEnvioLabel,
 };
