@@ -1,0 +1,4 @@
+# .ebignore
+node_modules/
+.git/
+.vscode/
